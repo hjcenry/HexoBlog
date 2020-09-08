@@ -1,0 +1,808 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocos2d-js,cvp,2048," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言2048是之前火过一段时间的休闲数字消除类游戏，它的玩法很简单，上手很容易，可是想到要得到高分却很难，看似简单的游戏却有着很多得分的技巧，想当初这个游戏也曾是陪伴我大学课堂的游戏之一。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-JS实现的2048">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/06/19/Cocos2d-JS实现的2048/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="前言2048是之前火过一段时间的休闲数字消除类游戏，它的玩法很简单，上手很容易，可是想到要得到高分却很难，看似简单的游戏却有着很多得分的技巧，想当初这个游戏也曾是陪伴我大学课堂的游戏之一。">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/2048.gif">
+<meta property="og:updated_time" content="2016-06-19T14:58:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-JS实现的2048">
+<meta name="twitter:description" content="前言2048是之前火过一段时间的休闲数字消除类游戏，它的玩法很简单，上手很容易，可是想到要得到高分却很难，看似简单的游戏却有着很多得分的技巧，想当初这个游戏也曾是陪伴我大学课堂的游戏之一。">
+<meta name="twitter:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/2048.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Cocos2d-JS实现的2048 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos2d-JS实现的2048
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-19T22:29:00+08:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
+                    <span itemprop="name">cocos2d-js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/19/Cocos2d-JS实现的2048/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/19/Cocos2d-JS实现的2048/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>2048是之前火过一段时间的休闲数字消除类游戏，它的玩法很简单，上手很容易，可是想到要得到高分却很难，看似简单的游戏却有着很多得分的技巧，想当初这个游戏也曾是陪伴我大学课堂的游戏之一。<a id="more"></a>虽然在得分上有着很多的技巧，但对于开发来说，这其实是一件相当容易的事情，仔细分析之后就可能大概理清楚这种消除游戏的逻辑。</p>
+<h3 id="游戏分析"><a href="#游戏分析" class="headerlink" title="游戏分析"></a>游戏分析</h3><p>这款游戏仔细想想就差不多清楚它的大致的思路，游戏中只有方块这一个我们操作的对象，这个对象包含了所在行，所在列，以及方块显示的数字三个属性，这三个属性足以表达游戏中的所有效果。除了方块，其他的就是游戏中必不可少的背景图层，开始及结束场景等。由于游戏中需要将4x4的方块们整齐排列，因此还需要一个四行四列的表格，来呈现我们的游戏效果。</p>
+<h3 id="滑动逻辑"><a href="#滑动逻辑" class="headerlink" title="滑动逻辑"></a>滑动逻辑</h3><p>游戏中最主要的操作就是通过手指触摸屏幕进行滑屏操作，带动场景中的方块整体移动，并且遇到相同数字的方块进行合并。滑动的逻辑就是遍历场景中所有的方块，每一个方块在滑动方向进行移动，如果前方没有方块，方块就一直滑动，如果前方有方块，判断自己的数字与这个方块的数字是否相同，相同进行合并操作，不相同则停在当前位置。</p>
+<h3 id="游戏实现"><a href="#游戏实现" class="headerlink" title="游戏实现"></a>游戏实现</h3><p>在对游戏逻辑进行了分析之后，就可以用代码进行实现了，编码，其实就是一个将游戏逻辑转换为机器语言的过程而已。</p>
+<h4 id="方块类"><a href="#方块类" class="headerlink" title="方块类"></a>方块类</h4><p>首先，我们需要一个类来存储方块的长度和宽度，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存方块长度方块</span></span><br><span class="line"><span class="keyword">var</span> tile = &#123;</span><br><span class="line">    width: <span class="number">0</span>,</span><br><span class="line">    height: <span class="number">0</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>方块类是对场景中可操的方块的封装，包括所在行，所在列，显示数字三个属性，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Tiled = cc.Node.extend(&#123;</span><br><span class="line">    num: <span class="number">0</span>,</span><br><span class="line">    col: <span class="number">0</span>,</span><br><span class="line">    row: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然仅仅有以上三个属性是不够的，我们还需要在方块的构造函数中绘制方块的背景、绘制方块显示的数字、以及随机设定方块的行列坐标。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Tiled = cc.Node.extend(&#123;</span><br><span class="line">    num: <span class="number">0</span>,</span><br><span class="line">    col: <span class="number">0</span>,</span><br><span class="line">    row: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">        <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">this</span>.row = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">4</span>);</span><br><span class="line">            <span class="keyword">this</span>.col = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">4</span>);</span><br><span class="line">            <span class="keyword">if</span> (tiles[<span class="keyword">this</span>.row][<span class="keyword">this</span>.col] == <span class="literal">null</span>) &#123;</span><br><span class="line">                tiles[<span class="keyword">this</span>.row][<span class="keyword">this</span>.col] = <span class="keyword">this</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (count &gt;= <span class="number">16</span>) &#123;<span class="comment">// 格子满了</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 绘制背景</span></span><br><span class="line">        <span class="keyword">var</span> bg = <span class="keyword">new</span> cc.DrawNode();</span><br><span class="line">        bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">255</span>, <span class="number">209</span>, <span class="number">145</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">255</span>, <span class="number">209</span>, <span class="number">145</span>, <span class="number">255</span>));</span><br><span class="line">        <span class="keyword">this</span>.addChild(bg);</span><br><span class="line">        bg.setTag(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">// 绘制数字</span></span><br><span class="line">        <span class="keyword">var</span> labelNum = <span class="keyword">new</span> cc.LabelTTF();</span><br><span class="line">        labelNum.setString(<span class="string">""</span> + <span class="keyword">this</span>.num);</span><br><span class="line">        labelNum.setFontSize(<span class="number">60</span>);</span><br><span class="line">        <span class="comment">// 字体描边效果</span></span><br><span class="line">        <span class="comment">// labelNum.enableStroke(cc.color.BLACK, 0);</span></span><br><span class="line">        <span class="keyword">this</span>.addChild(labelNum);</span><br><span class="line">        labelNum.setTag(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 设定字体和坐标</span></span><br><span class="line">        labelNum.setPosition(tile.width / <span class="number">2</span>, tile.height / <span class="number">2</span>);</span><br><span class="line">        <span class="comment">// 移动块</span></span><br><span class="line">        <span class="keyword">this</span>.newTile(<span class="keyword">this</span>.row, <span class="keyword">this</span>.col);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>除此之外，每个方块应该还要包含一个newTile方法、moveTo方法和updateNum方法，分别封装随机创建方块、移动方块和更新方块数字三个功能。<br>在updateNum方法中，我们主要做两件事，更新方块显示数字和更新方块背景颜色（在方块的背景色上，我还专门上网搜了几种颜色搭配，恩，感觉很有艺术美，哈哈），代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">updateNum: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.getChildByTag(<span class="number">1</span>).setString(<span class="string">""</span> + <span class="keyword">this</span>.num);</span><br><span class="line">    <span class="keyword">var</span> bg = <span class="keyword">this</span>.getChildByTag(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">this</span>.num) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">235</span>, <span class="number">245</span>, <span class="number">223</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">235</span>, <span class="number">245</span>, <span class="number">223</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">186</span>, <span class="number">212</span>, <span class="number">170</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">186</span>, <span class="number">212</span>, <span class="number">170</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">212</span>, <span class="number">212</span>, <span class="number">170</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">212</span>, <span class="number">212</span>, <span class="number">170</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">16</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">193</span>, <span class="number">160</span>, <span class="number">117</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">193</span>, <span class="number">160</span>, <span class="number">117</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">32</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">124</span>, <span class="number">99</span>, <span class="number">84</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">124</span>, <span class="number">99</span>, <span class="number">84</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">64</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">218</span>, <span class="number">227</span>, <span class="number">224</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">218</span>, <span class="number">227</span>, <span class="number">224</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">128</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">64</span>, <span class="number">125</span>, <span class="number">148</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">64</span>, <span class="number">125</span>, <span class="number">148</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">256</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">123</span>, <span class="number">118</span>, <span class="number">135</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">123</span>, <span class="number">118</span>, <span class="number">135</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">512</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">172</span>, <span class="number">173</span>, <span class="number">172</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">172</span>, <span class="number">173</span>, <span class="number">172</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1024</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">204</span>, <span class="number">196</span>, <span class="number">194</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">204</span>, <span class="number">196</span>, <span class="number">194</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2048</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">199</span>, <span class="number">225</span>, <span class="number">240</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">199</span>, <span class="number">225</span>, <span class="number">240</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4096</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">150</span>, <span class="number">196</span>, <span class="number">230</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">150</span>, <span class="number">196</span>, <span class="number">230</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">8192</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">25</span>, <span class="number">77</span>, <span class="number">91</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">25</span>, <span class="number">77</span>, <span class="number">91</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">16384</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">229</span>, <span class="number">96</span>, <span class="number">205</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">229</span>, <span class="number">96</span>, <span class="number">205</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">32768</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">250</span>, <span class="number">174</span>, <span class="number">78</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">250</span>, <span class="number">174</span>, <span class="number">78</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">65536</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">255</span>, <span class="number">241</span>, <span class="number">222</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">255</span>, <span class="number">241</span>, <span class="number">222</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            bg.drawRect(cc.p(<span class="number">5</span>, <span class="number">5</span>), cc.p(tile.width - <span class="number">5</span>, tile.height - <span class="number">5</span>), cc.color(<span class="number">255</span>, <span class="number">209</span>, <span class="number">145</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">255</span>, <span class="number">209</span>, <span class="number">145</span>, <span class="number">255</span>));</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方块的移动方法和创建方法，我在这里先写成一样，因为还没有对方块的创建和移动做区别，如果要做优化，可以在移动时加入移动的动画，在创建加入创建的动画，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">moveTo: <span class="function"><span class="keyword">function</span> (<span class="params">row, col</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.row = row;</span><br><span class="line">    <span class="keyword">this</span>.col = col;</span><br><span class="line">    <span class="keyword">this</span>.setPositionX((cc.winSize.width - tile.width * <span class="number">4</span>) / <span class="number">2</span> + tile.width * <span class="keyword">this</span>.col);</span><br><span class="line">    <span class="keyword">this</span>.setPositionY((cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span> + tile.height * <span class="keyword">this</span>.row);</span><br><span class="line">&#125;,</span><br><span class="line">newTile: <span class="function"><span class="keyword">function</span> (<span class="params">row, col</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.row = row;</span><br><span class="line">    <span class="keyword">this</span>.col = col;</span><br><span class="line">    <span class="keyword">this</span>.setPositionX((cc.winSize.width - tile.width * <span class="number">4</span>) / <span class="number">2</span> + tile.width * <span class="keyword">this</span>.col);</span><br><span class="line">    <span class="keyword">this</span>.setPositionY((cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span> + tile.height * <span class="keyword">this</span>.row);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="游戏场景类"><a href="#游戏场景类" class="headerlink" title="游戏场景类"></a>游戏场景类</h4><p>所有的游戏操作及操作反馈都在游戏场景类中进行，游戏场景类将封装好的方块类放到游戏逻辑中，通过玩家操作给予一定的操作反馈。游戏场景类中主要接受玩家的滑动操作，并在接收到滑动操作后将所有的方块类进行移动或合并。<br>游戏场景类中需要isMove，startX，startY，以及tiles四个属性：第一个是控制玩家触摸操作的标识变量，避免重复调用移动方法；中间两个为记录玩家手指滑动的距离，当距离查过一定的长度之后，才判断玩家进行了滑动操作；最后一个变量是一个数组，用于存储在4x4的表格中的方块的信息。<br>有了以上四个属性之后，就可以在构造函数中进行初始化了，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tiles = <span class="literal">null</span>;<span class="comment">// 存储方块信息</span></span><br><span class="line"><span class="keyword">var</span> GameLayer = cc.Layer.extend(&#123;</span><br><span class="line">    isMove: <span class="literal">false</span>,</span><br><span class="line">    startX: <span class="number">0</span>,</span><br><span class="line">    startY: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">this</span>.isMove = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">this</span>.startX = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.startY = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//设置块的宽高</span></span><br><span class="line">        <span class="keyword">if</span> (cc.winSize.width &lt; cc.winSize.height) &#123;</span><br><span class="line">            <span class="comment">// 竖屏</span></span><br><span class="line">            tile.width = cc.winSize.width / <span class="number">5</span>;</span><br><span class="line">            tile.height = cc.winSize.width / <span class="number">5</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 横屏</span></span><br><span class="line">            tile.width = cc.winSize.height / <span class="number">5</span>;</span><br><span class="line">            tile.height = cc.winSize.height / <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化数组</span></span><br><span class="line">        tiles = [</span><br><span class="line">            [<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>],</span><br><span class="line">            [<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>],</span><br><span class="line">            [<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>],</span><br><span class="line">            [<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>]</span><br><span class="line">        ];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在初始化完之后，我们就可以在场景的onEnter方法中绘制场景了，绘制的内容包括游戏背景以及随机初始化两个方块，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._super();</span><br><span class="line">    <span class="comment">// 绘制背景</span></span><br><span class="line">    <span class="keyword">this</span>.drawBg();</span><br><span class="line">    <span class="comment">// 绘制块</span></span><br><span class="line">    <span class="keyword">var</span> tile1 = <span class="keyword">new</span> Tiled(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> tile2 = <span class="keyword">new</span> Tiled(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.addChild(tile1);</span><br><span class="line">    <span class="keyword">this</span>.addChild(tile2);</span><br><span class="line">    <span class="comment">//处理事件</span></span><br><span class="line">    cc.eventManager.addListener(&#123;</span><br><span class="line">        event: cc.EventListener.TOUCH_ONE_BY_ONE,</span><br><span class="line">        swallowTouches: <span class="literal">true</span>,</span><br><span class="line">        onTouchBegan: <span class="keyword">this</span>.touchbegan,</span><br><span class="line">        onTouchMoved: <span class="keyword">this</span>.touchmoved</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中drawBg方法中，绘制了五条垂直直线以及五条水平直线，来作为方块所在的4x4的表格，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">drawBg: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//绘制背景</span></span><br><span class="line">    <span class="keyword">var</span> bgRect = <span class="keyword">new</span> cc.DrawNode();</span><br><span class="line">    bgRect.drawRect(cc.p(<span class="number">0</span>, <span class="number">0</span>), cc.p(cc.winSize.width, cc.winSize.height), cc.color(<span class="number">173</span>, <span class="number">140</span>, <span class="number">61</span>, <span class="number">255</span>), <span class="number">1</span>, cc.color(<span class="number">173</span>, <span class="number">140</span>, <span class="number">61</span>, <span class="number">255</span>));</span><br><span class="line">    <span class="keyword">this</span>.addChild(bgRect);</span><br><span class="line">    <span class="keyword">var</span> bg = <span class="keyword">new</span> cc.DrawNode();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; <span class="number">5</span>; n++) &#123;</span><br><span class="line">        bg.drawSegment(cc.p((cc.winSize.width - tile.width * <span class="number">4</span>) / <span class="number">2</span>, (cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span> + n * tile.width), cc.p(cc.winSize.width / <span class="number">2</span> + tile.width * <span class="number">2</span>, (cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span> + n * tile.width), <span class="number">5</span>,</span><br><span class="line">            cc.color(<span class="number">55</span>, <span class="number">62</span>, <span class="number">64</span>, <span class="number">255</span>));</span><br><span class="line">        bg.drawSegment(cc.p((cc.winSize.width - tile.width * <span class="number">4</span>) / <span class="number">2</span> + n * tile.width, (cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span>), cc.p((cc.winSize.width - tile.width * <span class="number">4</span>) / <span class="number">2</span> + n * tile.width, (cc.winSize.height - tile.height * <span class="number">4</span>) / <span class="number">2</span> + tile.width * <span class="number">4</span>), <span class="number">5</span>,</span><br><span class="line">            cc.color(<span class="number">55</span>, <span class="number">62</span>, <span class="number">64</span>, <span class="number">255</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.addChild(bg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，在onEnter中，注册了触摸事件，这个触摸事件就用于接受玩家的操作，在TouchBegan事件中记录触摸开始时的点，在TouchMoved中记录当前移动到的点，当触摸距离超过一定长度时，判定玩家进行了滑动操作，并通过触摸点来判断玩家滑动的举例，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">touchbegan: <span class="function"><span class="keyword">function</span> (<span class="params">touch, event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.isMove = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">this</span>.startX = touch.getLocationX();</span><br><span class="line">    <span class="keyword">this</span>.startY = touch.getLocationY();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;,</span><br><span class="line">touchmoved: <span class="function"><span class="keyword">function</span> (<span class="params">touch, event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.isMove) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> endX = touch.getLocation().x;</span><br><span class="line">    <span class="keyword">var</span> endY = touch.getLocation().y;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(endX - <span class="keyword">this</span>.startX) &gt; <span class="number">20</span> ||</span><br><span class="line">        <span class="built_in">Math</span>.abs(endY - <span class="keyword">this</span>.startY) &gt; <span class="number">20</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> dir = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(endX - <span class="keyword">this</span>.startX) &gt; <span class="built_in">Math</span>.abs(endY - <span class="keyword">this</span>.startY)) &#123;<span class="comment">//左右</span></span><br><span class="line">            <span class="keyword">if</span> (endX &gt; <span class="keyword">this</span>.startX) &#123;</span><br><span class="line">                dir = <span class="string">"right"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dir = <span class="string">"left"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//上下</span></span><br><span class="line">            <span class="keyword">if</span> (endY &gt; <span class="keyword">this</span>.startY) &#123;</span><br><span class="line">                dir = <span class="string">"up"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dir = <span class="string">"down"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.isMove = <span class="literal">false</span>;</span><br><span class="line">        event.getCurrentTarget().moveAllTiled(dir);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;,</span><br><span class="line">moveAllTiled: <span class="function"><span class="keyword">function</span> (<span class="params">dir</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isMoved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">switch</span> (dir) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"up"</span>:</span><br><span class="line">            isMoved = <span class="keyword">this</span>.moveUp();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"down"</span>:</span><br><span class="line">            isMoved = <span class="keyword">this</span>.moveDown();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"left"</span>:</span><br><span class="line">            isMoved = <span class="keyword">this</span>.moveLeft();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"right"</span>:</span><br><span class="line">            isMoved = <span class="keyword">this</span>.moveRight();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isMoved) &#123;</span><br><span class="line">        <span class="comment">//每次移动产生一个新块</span></span><br><span class="line">        <span class="keyword">this</span>.newTiled();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>触动滑动操作后，开始执行滑动逻辑，每次滑动之后，会随机创建一个新的方块，在newTiled方法中，除了创建新方块之外，还需要判断游戏是否结束，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">newTiled: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tile = <span class="keyword">new</span> Tiled(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.addChild(tile);</span><br><span class="line">    <span class="comment">// 判断游戏是否结束</span></span><br><span class="line">    <span class="keyword">var</span> isOver = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// 判断是否有空余位置</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">4</span>; row++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">4</span>; col++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tiles[row][col] == <span class="literal">null</span>) &#123;</span><br><span class="line">                isOver = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isOver) &#123;</span><br><span class="line">        <span class="comment">// 判断四周是否有数字相同方块</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">4</span>; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">4</span>; col++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (row &lt; <span class="number">3</span> &amp;&amp; tiles[row + <span class="number">1</span>][col].num == tiles[row][col].num) &#123;</span><br><span class="line">                    isOver = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (row &gt; <span class="number">0</span> &amp;&amp; tiles[row - <span class="number">1</span>][col].num == tiles[row][col].num) &#123;</span><br><span class="line">                    isOver = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (col &lt; <span class="number">3</span> &amp;&amp; tiles[row][col + <span class="number">1</span>].num == tiles[row][col].num) &#123;</span><br><span class="line">                    isOver = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (col &gt; <span class="number">0</span> &amp;&amp; tiles[row][col - <span class="number">1</span>].num == tiles[row][col].num) &#123;</span><br><span class="line">                    isOver = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isOver) &#123;</span><br><span class="line">        cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> OverScene()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方块的滑动，就是2048这款游戏最主要的逻辑了，我们在滑动的时候，需要遍历tiles数组所有不是null的元素，并将这个元素按照滑动方向进行移动，一直遍历到数组的最大长度，也就是将滑动到表格的边缘，如果中途遇到了方块，并且数字与自己相同，就进行合并，合并是将自己删除，将遇到的方块数字乘以2，如果中途遇到的方块的数字与自己不同，此方块的滑动就停止，使其停在当前的位置，滑动分为上下左右四个逻辑，代码分别如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">moveUp: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isMoved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">4</span>; col++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">3</span>; row &gt;= <span class="number">0</span>; row--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tiles[row][col] != <span class="literal">null</span>) &#123;<span class="comment">// 有方块</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> row1 = row; row1 &lt; <span class="number">3</span>; row1++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (tiles[row1 + <span class="number">1</span>][col] == <span class="literal">null</span>)<span class="comment">//如果没有向上移动</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        tiles[row1 + <span class="number">1</span>][col] = tiles[row1][col];</span><br><span class="line">                        tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                        tiles[row1 + <span class="number">1</span>][col].moveTo(row1 + <span class="number">1</span>, col);</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tiles[row1 + <span class="number">1</span>][col].num == tiles[row1][col].num) &#123;<span class="comment">// 合并</span></span><br><span class="line">                        tiles[row1 + <span class="number">1</span>][col].num = <span class="built_in">parseInt</span>(tiles[row1][col].num) * <span class="number">2</span>;</span><br><span class="line">                        tiles[row1 + <span class="number">1</span>][col].updateNum();</span><br><span class="line">                        tiles[row1][col].removeFromParent();</span><br><span class="line">                        tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMoved;</span><br><span class="line">&#125;,</span><br><span class="line">moveDown: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isMoved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">4</span>; col++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">4</span>; row++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tiles[row][col] != <span class="literal">null</span>) &#123;<span class="comment">// 有方块</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> row1 = row; row1 &gt; <span class="number">0</span>; row1--) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (tiles[row1 - <span class="number">1</span>][col] == <span class="literal">null</span>)<span class="comment">//如果没有向下移动</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        tiles[row1 - <span class="number">1</span>][col] = tiles[row1][col];</span><br><span class="line">                        tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                        tiles[row1 - <span class="number">1</span>][col].moveTo(row1 - <span class="number">1</span>, col);</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tiles[row1 - <span class="number">1</span>][col].num == tiles[row1][col].num) &#123;<span class="comment">// 合并</span></span><br><span class="line">                        tiles[row1 - <span class="number">1</span>][col].num = <span class="built_in">parseInt</span>(tiles[row1][col].num) * <span class="number">2</span>;</span><br><span class="line">                        tiles[row1 - <span class="number">1</span>][col].updateNum();</span><br><span class="line">                        tiles[row1][col].removeFromParent();</span><br><span class="line">                        tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMoved;</span><br><span class="line">&#125;,</span><br><span class="line">moveLeft: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isMoved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">4</span>; row++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">4</span>; col++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tiles[row][col] != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> col1 = col; col1 &gt; <span class="number">0</span>; col1--) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (tiles[row][col1 - <span class="number">1</span>] == <span class="literal">null</span>) &#123;</span><br><span class="line">                        tiles[row][col1 - <span class="number">1</span>] = tiles[row][col1];</span><br><span class="line">                        tiles[row][col1] = <span class="literal">null</span>;</span><br><span class="line">                        tiles[row][col1 - <span class="number">1</span>].moveTo(row, col1 - <span class="number">1</span>);</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tiles[row][col1 - <span class="number">1</span>].num == tiles[row][col1].num) &#123;<span class="comment">// 合并</span></span><br><span class="line">                        tiles[row][col1 - <span class="number">1</span>].num = <span class="built_in">parseInt</span>(tiles[row][col1].num) * <span class="number">2</span>;</span><br><span class="line">                        tiles[row][col1 - <span class="number">1</span>].updateNum();</span><br><span class="line">                        tiles[row][col1].removeFromParent();</span><br><span class="line">                        tiles[row][col1] = <span class="literal">null</span>;</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMoved;</span><br><span class="line">&#125;,</span><br><span class="line">moveRight: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isMoved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">4</span>; row++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">3</span>; col &gt;= <span class="number">0</span>; col--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tiles[row][col] != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> col1 = col; col1 &lt; <span class="number">3</span>; col1++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (tiles[row][col1 + <span class="number">1</span>] == <span class="literal">null</span>) &#123;</span><br><span class="line">                        tiles[row][col1 + <span class="number">1</span>] = tiles[row][col1];</span><br><span class="line">                        tiles[row][col1] = <span class="literal">null</span>;</span><br><span class="line">                        tiles[row][col1 + <span class="number">1</span>].moveTo(row, col1 + <span class="number">1</span>);</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tiles[row][col1 + <span class="number">1</span>].num == tiles[row][col1].num) &#123;<span class="comment">// 合并</span></span><br><span class="line">                        tiles[row][col1 + <span class="number">1</span>].num = <span class="built_in">parseInt</span>(tiles[row][col1].num) * <span class="number">2</span>;</span><br><span class="line">                        tiles[row][col1 + <span class="number">1</span>].updateNum();</span><br><span class="line">                        tiles[row][col1].removeFromParent();</span><br><span class="line">                        tiles[row][col1] = <span class="literal">null</span>;</span><br><span class="line">                        isMoved = <span class="literal">true</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMoved;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>至此，我们就基本实现了2048游戏的主要逻辑。</p>
+<h4 id="开始-结束场景类"><a href="#开始-结束场景类" class="headerlink" title="开始/结束场景类"></a>开始/结束场景类</h4><p>为了游戏框架的完整，我们还是创建一个开始场景类和结束场景类，代码分别如下：<br>开始场景类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> HelloWorldLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite:<span class="literal">null</span>,</span><br><span class="line">    ctor:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//////////////////////////////</span></span><br><span class="line">        <span class="comment">// 1. super init first</span></span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/////////////////////////////</span></span><br><span class="line">        <span class="comment">// 2. add a menu item with "X" image, which is clicked to quit the program</span></span><br><span class="line">        <span class="comment">//    you may modify it.</span></span><br><span class="line">        <span class="comment">// ask the window size</span></span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/////////////////////////////</span></span><br><span class="line">        <span class="comment">// 3. add your codes below...</span></span><br><span class="line">        <span class="comment">// add a label shows "Hello World"</span></span><br><span class="line">        <span class="comment">// create and initialize a label</span></span><br><span class="line">        <span class="keyword">var</span> helloLabel = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"2048"</span>, <span class="string">"Arial"</span>, <span class="number">38</span>);</span><br><span class="line">        <span class="comment">// position the label on the center of the screen</span></span><br><span class="line">        helloLabel.x = size.width / <span class="number">2</span>;</span><br><span class="line">        helloLabel.y = size.height / <span class="number">2</span> + <span class="number">200</span>;</span><br><span class="line">        <span class="comment">// add the label as a child to this layer</span></span><br><span class="line">        <span class="keyword">this</span>.addChild(helloLabel, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// add "HelloWorld" splash screen"</span></span><br><span class="line">        <span class="comment">// this.sprite = new cc.Sprite(res.HelloWorld_png);</span></span><br><span class="line">        <span class="comment">// this.sprite.attr(&#123;</span></span><br><span class="line">        <span class="comment">//     x: size.width / 2,</span></span><br><span class="line">        <span class="comment">//     y: size.height / 2</span></span><br><span class="line">        <span class="comment">// &#125;);</span></span><br><span class="line">        <span class="comment">// this.addChild(this.sprite, 0);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">"开始游戏"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>,<span class="keyword">new</span> GameScene()));</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(start);</span><br><span class="line">        <span class="keyword">this</span>.addChild(menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HelloWorldScene = cc.Scene.extend(&#123;</span><br><span class="line">    onEnter:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> HelloWorldLayer();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>结束场景类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by Henry on 16/6/19.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">var</span> OverLayer = cc.Layer.extend(&#123;</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> overText = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"Game Over"</span>, <span class="string">""</span>, <span class="number">50</span>);</span><br><span class="line">        overText.setPosition(cc.winSize.width / <span class="number">2</span>, cc.winSize.height / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">var</span> back = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">"再来一次"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> HelloWorldScene()));</span><br><span class="line">        &#125;, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(back);</span><br><span class="line">        <span class="keyword">this</span>.addChild(menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> OverScene = cc.Scene.extend(&#123;</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> OverLayer();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>最后的运行效果如下<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/2048.gif" alt="2048效果图"><br>通过CVP平台的项目托管可看到实际运行效果，地址如下：<br><a href="http://www.cocoscvp.com/usercode/ea72822aeed0546b537b4226954a11be87a7f152/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/ea72822aeed0546b537b4226954a11be87a7f152/</a></p>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><p>所有源代码均上传到github，欢迎交流学习，地址：<br><a href="https://github.com/hjcenry/2048" target="_blank" rel="external">https://github.com/hjcenry/2048</a></p>
+<ul>
+<li>原文博客：<a href="http://hjcenry.github.io" target="_blank" rel="external">http://hjcenry.github.io</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
+          
+            <a href="/tags/cvp/" rel="tag">#cvp</a>
+          
+            <a href="/tags/2048/" rel="tag">#2048</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/02/CVP认证学习笔记--(何小成)027--纹理缓存的管理/" rel="next" title="CVP认证学习笔记--(何小成)027--纹理缓存的管理">
+                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)027--纹理缓存的管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/02/Cocos Creator实现的《点我+1》/" rel="prev" title="Cocos Creator实现的《点我+1》">
+                Cocos Creator实现的《点我+1》 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/19/Cocos2d-JS实现的2048/"
+     data-title="Cocos2d-JS实现的2048"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/06/19/Cocos2d-JS实现的2048/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/19/Cocos2d-JS实现的2048/"
+           data-title="Cocos2d-JS实现的2048" data-url="http://hjcenry.coding.me/2016/06/19/Cocos2d-JS实现的2048/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏分析"><span class="nav-number">2.</span> <span class="nav-text">游戏分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动逻辑"><span class="nav-number">3.</span> <span class="nav-text">滑动逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏实现"><span class="nav-number">4.</span> <span class="nav-text">游戏实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方块类"><span class="nav-number">4.1.</span> <span class="nav-text">方块类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#游戏场景类"><span class="nav-number">4.2.</span> <span class="nav-text">游戏场景类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始-结束场景类"><span class="nav-number">4.3.</span> <span class="nav-text">开始/结束场景类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">5.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码"><span class="nav-number">6.</span> <span class="nav-text">源代码</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

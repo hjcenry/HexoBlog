@@ -1,0 +1,796 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocos2d-js,cvp," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这节课的内容讲的是如何在cocos中添加自定义场景，一个看似很简单的内容，包含了很多cocos的运行机制原理。以前我们都直接在app.js中写代码，然后运行查看效果，这节课详细讲解了cocos从启动到运行的一个流程，分为以下几步：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CVP认证学习笔记--(何小成)004--实现自定义场景">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="这节课的内容讲的是如何在cocos中添加自定义场景，一个看似很简单的内容，包含了很多cocos的运行机制原理。以前我们都直接在app.js中写代码，然后运行查看效果，这节课详细讲解了cocos从启动到运行的一个流程，分为以下几步：">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/relation.png">
+<meta property="og:updated_time" content="2016-05-06T17:02:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CVP认证学习笔记--(何小成)004--实现自定义场景">
+<meta name="twitter:description" content="这节课的内容讲的是如何在cocos中添加自定义场景，一个看似很简单的内容，包含了很多cocos的运行机制原理。以前我们都直接在app.js中写代码，然后运行查看效果，这节课详细讲解了cocos从启动到运行的一个流程，分为以下几步：">
+<meta name="twitter:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/relation.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CVP认证学习笔记--(何小成)004--实现自定义场景 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CVP认证学习笔记--(何小成)004--实现自定义场景
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-13T07:29:00+08:00" content="2016-04-13">
+              2016-04-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
+                    <span itemprop="name">cocos2d-js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这节课的内容讲的是如何在cocos中添加自定义场景，一个看似很简单的内容，包含了很多cocos的运行机制原理。<br>以前我们都直接在app.js中写代码，然后运行查看效果，这节课详细讲解了cocos从启动到运行的一个流程，分为以下几步：<br><a id="more"></a></p>
+<h3 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h3><p>由于cocosjs基于h5进行开发，因此启动还是从html页面为入口，在index.html中，有一下几句代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas id=<span class="string">"gameCanvas"</span> width=<span class="string">"480"</span> height=<span class="string">"720"</span>&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，整个cocos的游戏是基于canvas进行绘制的，第一句就定义了一个gameCanvas；<br>然后加载了CCBoot.js，记载一些cocos</p>
+<h3 id="cocos开发库及资源配置加载"><a href="#cocos开发库及资源配置加载" class="headerlink" title="cocos开发库及资源配置加载"></a>cocos开发库及资源配置加载</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src=<span class="string">"frameworks/cocos2d-html5/CCBoot.js"</span></span><br></pre></td></tr></table></figure>
+<p>cocos通过CCBoot.js加载cocos的启动文件，可以点开CCBoot.js查看cocos启动时都加载些什么内容，其中就能看到project.json也是在这个过程中加载的，project.json中，定义了cocos游戏的一些配置参数，其中包括加载的js文件，使用的引擎，使用的模块等信息。</p>
+<h3 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cocos src=<span class="string">"main.js"</span></span><br></pre></td></tr></table></figure>
+<p>当CCBoot.js启动完之后，才轮到man.js出场，按照以往的惯例，main函数一般都是程序的入口，main.js中的关键函数如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cc.game.onStart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="comment">//判断当前项目是native game还是h5(我们写的这些代码可以直接打包app)</span></span><br><span class="line"><span class="comment">//如果是 h5则删掉loading的DOM节点</span></span><br><span class="line"><span class="keyword">if</span>(!cc.sys.isNative %<span class="number">26</span>%<span class="number">26</span> <span class="built_in">document</span>.getElementById(<span class="string">"cocosLoading"</span>)) <span class="comment">//If referenced loading.js, please remove it</span></span><br><span class="line"><span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">"cocosLoading"</span>));</span><br><span class="line"><span class="comment">// Pass true to enable retina display, on Android disabled by default to improve performance</span></span><br><span class="line">cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? <span class="literal">true</span> : <span class="literal">false</span>);</span><br><span class="line"><span class="comment">// Adjust viewport meta</span></span><br><span class="line">cc.view.adjustViewPort(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// Setup the resolution policy and design resolution size</span></span><br><span class="line">cc.view.setDesignResolutionSize(<span class="number">800</span>, <span class="number">450</span>, cc.ResolutionPolicy.SHOW_ALL);</span><br><span class="line"><span class="comment">// Instead of set design resolution, you can also set the real pixel resolution size</span></span><br><span class="line"><span class="comment">// Uncomment the following line and delete the previous line.</span></span><br><span class="line"><span class="comment">// cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);</span></span><br><span class="line"><span class="comment">// The game will be resized when browser size change</span></span><br><span class="line">cc.view.resizeWithBrowserSize(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//以上4行主要来设置屏幕的适配和窗口,SHOW_ALL表示适配全屏幕</span></span><br><span class="line"><span class="comment">//load resources</span></span><br><span class="line"><span class="comment">// 预加载所有纹理图片资源，加载完成之后回调function,g_resources在哪定义的？一会揭晓</span></span><br><span class="line">cc.LoaderScene.preload(g_resources, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//当资源加载完成，调用导演类来实现第一个场景的加载HelloWorldScene,src/app.js定义的</span></span><br><span class="line"><span class="comment">//cc.director.runScene(new HelloWorldScene());</span></span><br><span class="line"><span class="comment">//现在我们要定义一个新的场景类，然后加载</span></span><br><span class="line">cc.director.runScene(<span class="keyword">new</span> myScene());<span class="comment">//先保存这个文件，然后编辑src/myscene.js</span></span><br><span class="line">&#125;, <span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line">cc.game.run();</span><br></pre></td></tr></table></figure></p>
+<p>可以看到main.js加载了cocos的一些核心类，其中最重要的就是加载了游戏的第一个运行的场景，这里我已经改成了我自己的场景myScene，通过main.js启动第一个场景之后，整个游戏才真正的跑起来了。</p>
+<p>以上三个步骤就是cocos项目的启动的一个大概过程，其中讲到了一个场景的概念，我个人认为cocos的这些设计理念特别符合我们人类的主观认识，把游戏和电影中的一些内容对应。cocos中有导演、场景、图层和精灵的概念。一般来说，一场电影中只会有一个导演，cocos游戏中，一般会有一个导演类；一场电影会有多个镜头，对应cocos中就是多个场景，而同一时刻，只会同时运行一个场景，就像电影中不可能同时出现多个镜头；电影场景中的房屋，天空，大地，就对应cocos中的图层；而房屋中的桌椅板凳、天空中的云、地面上的人，就对应cocos中的精灵。通过电影的这么一个过程，我们比较能够容易的理解cocos的一个机制原理。</p>
+<p><img src="http://7xnnwn.com1.z0.glb.clouddn.com/relation.png" alt="cocos中关系图"></p>
+<p>以上基本就是课程的全部内容，然后作业呢，也跟课程一样，要完成很简单，但背后内容，还真的是很多的，我自定义的场景内容如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myLayer = cc.Layer.extend(&#123;</span><br><span class="line">    ctor:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">var</span> txt1 = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"这里是游戏场景"</span>,<span class="string">""</span>,<span class="number">50</span>);</span><br><span class="line">        txt1.setPosition(size.width/<span class="number">2</span>,size.height-txt1.height);</span><br><span class="line">        <span class="keyword">var</span> txt2 = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"我的名字是何金成"</span>,<span class="string">""</span>,<span class="number">50</span>);</span><br><span class="line">        txt2.setPosition(size.width/<span class="number">2</span>,txt1.height-txt1.height/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">this</span>.addChild(txt1);</span><br><span class="line">        <span class="keyword">this</span>.addChild(txt2);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myScene = cc.Scene.extend(&#123;</span><br><span class="line">    ctor:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer1 = <span class="keyword">new</span> myLayer();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="最后运行效果"><a href="#最后运行效果" class="headerlink" title="最后运行效果"></a>最后运行效果</h3><p><a href="http://www.cocoscvp.com/usercode/2016_04_09/8ab000a365413ab9ebdb5a3533571828bbdd552f/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/2016_04_09/8ab000a365413ab9ebdb5a3533571828bbdd552f/</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
+          
+            <a href="/tags/cvp/" rel="tag">#cvp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/08/CVP认证学习笔记--(何小成)003--实现文本菜单层/" rel="next" title="CVP认证学习笔记--(何小成)003--实现文本菜单层">
+                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)003--实现文本菜单层
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/14/CVP认证学习笔记--(何小成)005--实现多场景切换/" rel="prev" title="CVP认证学习笔记--(何小成)005--实现多场景切换">
+                CVP认证学习笔记--(何小成)005--实现多场景切换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/"
+     data-title="CVP认证学习笔记--(何小成)004--实现自定义场景"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/"
+           data-title="CVP认证学习笔记--(何小成)004--实现自定义场景" data-url="http://hjcenry.coding.me/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#index-html"><span class="nav-number">1.</span> <span class="nav-text">index.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cocos开发库及资源配置加载"><span class="nav-number">2.</span> <span class="nav-text">cocos开发库及资源配置加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-js"><span class="nav-number">3.</span> <span class="nav-text">main.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后运行效果"><span class="nav-number">4.</span> <span class="nav-text">最后运行效果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

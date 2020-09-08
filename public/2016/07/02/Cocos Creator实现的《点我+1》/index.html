@@ -1,0 +1,818 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocos2d-js,cvp,点我+1," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言在学习Cocos中，需要一些东西来练手，于是前段时间就开发仿照一款公司之前的产品《点我+1》来做，仿照过程中，所有的算法逻辑都是自己研究的，并没有参考公司代码，也没有使用公司的美术资源，所以也就不存在公司机密的内容啦，完全只是学习练习而已。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos Creator实现的《点我+1》">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/07/02/Cocos Creator实现的《点我+1》/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="前言在学习Cocos中，需要一些东西来练手，于是前段时间就开发仿照一款公司之前的产品《点我+1》来做，仿照过程中，所有的算法逻辑都是自己研究的，并没有参考公司代码，也没有使用公司的美术资源，所以也就不存在公司机密的内容啦，完全只是学习练习而已。">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/projstruct.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/tile.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/startScene.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/overScene.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/gameScene.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/addone.gif">
+<meta property="og:updated_time" content="2016-07-02T17:12:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos Creator实现的《点我+1》">
+<meta name="twitter:description" content="前言在学习Cocos中，需要一些东西来练手，于是前段时间就开发仿照一款公司之前的产品《点我+1》来做，仿照过程中，所有的算法逻辑都是自己研究的，并没有参考公司代码，也没有使用公司的美术资源，所以也就不存在公司机密的内容啦，完全只是学习练习而已。">
+<meta name="twitter:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/projstruct.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Cocos Creator实现的《点我+1》 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos Creator实现的《点我+1》
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-02T17:14:00+08:00" content="2016-07-02">
+              2016-07-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
+                    <span itemprop="name">cocos2d-js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/02/Cocos Creator实现的《点我+1》/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/02/Cocos Creator实现的《点我+1》/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在学习Cocos中，需要一些东西来练手，于是前段时间就开发仿照一款公司之前的产品《点我+1》来做，仿照过程中，所有的算法逻辑都是自己研究的，并没有参考公司代码，也没有使用公司的美术资源，所以也就不存在公司机密的内容啦，完全只是学习练习而已。<a id="more"></a><br>这是一款消除类游戏，规则和大多数三消类游戏差不多，在一个5x5的格子中，有25个方块，每个方块有一个数字，用户的操作就是点击方块，使方块的数字+1，当至少每3个相同数字的时候，这些数字相同的方块合成为一个，并且数字+1，在玩家的表现就是：除了点击的方块之外，其他的相同数字的方块全部消失，然后点击的方块再+1。这款游戏看似很简单，但实际也是蕴含很多细节以及算法，我也是用了一周时间断断续续才做出来。<br>并且在这次练习中，我也是第一次尝试使用Cocos Creator来做，使用中也是遇到了不少问题，它与Cocos2d-JS的原生API还是有一定的差别的，Cocos Creator在我看来就是Cocos在向Unity靠近的一个产物，想要像Unity那样实现一整套的工作流，将游戏中的所有元素都组件化，游戏场景可以通过拖动就能搭建，游戏逻辑的实现只需要对组件添加相应的脚本即可，让游戏开发更加的方便，更加直观可视化。</p>
+<h3 id="Cocos-Creator"><a href="#Cocos-Creator" class="headerlink" title="Cocos Creator"></a>Cocos Creator</h3><p>Cocos Creator是Cocos家族又一个划时代意义的产物，前面已经提到，我个人认为这是Cocos向Unity靠近的产物，或许也可以说，游戏开发的脚本化、组件化、以及高效工作流、高度可扩展，已经成为任何一款游戏引擎的发展方向，这样的高效快速的开发的工具，才是开发者的首选工具。了解Cocos家族历史的人应该都知道，Cocos从各种语言版本，到2dx跨平台版本，到Cocos Stuio、Cocos IDE、Cocos Builder，再到Cocos Creator，这一切都是在使开发者越来越方便，使得游戏开发的门槛越来越低，任何人，只要你有心，有游戏梦，你都可以通过自身的努力来造梦，而Cocos Creator，就是我们造梦的工具。<br>不过说实话，Cocos Creator目前是1.1版本，在使用仍然还有许多bug，比如我打包Web版本之后，直接在本地无法运行，查看控制台输出应该是跨域的问题，而发布到服务器就能正常运行，再比如游戏的开发者，开发者还是需要考虑很多各种型号手机屏幕兼容的问题，希望Cocos Creator还能有一套成熟的兼容适配的方案，还有一些我个人的问题或许只是我还不熟悉Cocos的组件化开发而已，需要等到我真正熟悉这款工具，才能用好它，所谓工欲善其事必先利其器，工具用好了，你的造梦之路才会更加顺畅！<br>Cocos Creator的用户手册：<a href="http://www.cocos.com/docs/creator/index.html" target="_blank" rel="external">http://www.cocos.com/docs/creator/index.html</a><br>Cocos Creator的API：<a href="http://www.cocos.com/docs/creator/api/index.html" target="_blank" rel="external">http://www.cocos.com/docs/creator/api/index.html</a></p>
+<h3 id="游戏分析"><a href="#游戏分析" class="headerlink" title="游戏分析"></a>游戏分析</h3><p>这款游戏是比较常见的三消类游戏，不过它也有着自己的特色，将数字类游戏玩法与消除类游戏玩法相结合，游戏过程也比较具有挑战性，让人产生挑战的欲望，游戏的玩法在上文已有描述，没有玩过这款消除类游戏的朋友可以通过以下地址进行下载：<br>安卓版地址：<a href="http://app.mi.com/detail/231892?ref=search" target="_blank" rel="external">http://app.mi.com/detail/231892?ref=search</a><br>iOS版地址：<a href="https://itunes.apple.com/cn/app/dian-wo+1/id1012314214?mt=8" target="_blank" rel="external">https://itunes.apple.com/cn/app/dian-wo+1/id1012314214?mt=8</a><br>没玩过的朋友可以通过以上地址下载下来玩一下，体验下游戏玩法，然后仔细分析其中的游戏逻辑运算过程。<br>通过游戏玩法的分析我们至少可以分析出以下几点：<br>1.点击游戏方块，方块数字+1<br>2.在至少3个相同数字的方块彼此相邻时，可以合成一个+1的数<br>3.生成5x5的地图时，最多只能有两个相同数字方块相邻<br>4.每完成一次方块合成之后，所有方块向下填补空缺的位置<br>5.在填补完空缺位置之后，再生成新的方块<br>在Cocos Creator中，我们要熟悉组件化开发，因此我们需要开始场景、游戏场景、结束场景、以及方块预制资源、能量条预制资源，以及各种脚本和音效等。分别用scene、script和voice三个文件夹来存放场景组件，脚本组件和音效组件，另外将预制资源放在根目录下，如下图资源目录：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/projstruct.png" alt="资源结构图"></p>
+<h3 id="游戏实现"><a href="#游戏实现" class="headerlink" title="游戏实现"></a>游戏实现</h3><p>如之前一篇文章对2048游戏的分析一样，我们首先需要一个数组来存放所有的方块，并将方块单独提出来为一个对象，在这里，我们将方块做成预制资源，在需要的时候直接创建方块预制资源，同样，能量条也可以做成预制资源。另外我们需要开始场景、游戏场景和结束场景三个场景，并对这三个场景组件编写脚本。<br>在开发写代码之前，我们经过如上的分析，知道了我们大致要实现的几个核心算法：<br>1.扫描某一个位置的上下左右四个方向所有相邻的相同数字的点，并得到这些点的个数<br>2.所有方块向下移动，填补所有的空缺<br>核心的就这两个算法，其他的都是一些简单的逻辑，下面先对这两个算法进行分析</p>
+<h4 id="扫描算法"><a href="#扫描算法" class="headerlink" title="扫描算法"></a>扫描算法</h4><p>扫描算法实质上就是对指定的点得四周进行扫描，扫描是否有数字相同的点，如果有数字相同的点，那么还需要进一步对这个数字相同的点再进行扫描，直到扫描的点四周都没有数字相同的点，才能确认最终相邻点的个数，实际上就是对指定的点向四周扩散扫描。<br>我的实现方式是这样的，写一个函数，传入两个数组，一个用来记录扫描到的数字相同的点，一个用来记录扫描过得点，以便于下次扫描不再扫描已经扫描过的点，除此之外，还需要传入行，列，上次扫描的行，上次扫描的列（在下次扫描时，不用再对上次的那个方向进行扫描），以及扫描要比对的数字。通过指定的点，我向上、下、左、右四个方向进行扫描，如果数字相同，我就将这个点加入到记录数字相同的点得数组中，并对这个点再递归调用这个函数，在四个方向全都递归扫描完毕后，我得到的这个扫描过的点的数组，就是所有与指定点的数字相同且彼此相邻的点的集合。可能我描述不是太清楚，我直接将代码贴出来，我的算法基础不是太好，可能这不是最优的算法，希望有朋友能为我提供更好更快的算法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * 核心扫描逻辑</span><br><span class="line"> * @param row 指定行</span><br><span class="line"> * @param col 指定列</span><br><span class="line"> * @param lastRow 上次扫描的行</span><br><span class="line"> * @param lastCol 上次扫描的列</span><br><span class="line"> * @param num 扫描要比对的数字</span><br><span class="line"> * @param arr 记录数字相同且彼此相邻的数组</span><br><span class="line"> * @param scanArr 记录扫描过的点的数组</span><br><span class="line"> */</span></span><br><span class="line">scanAround:<span class="function"><span class="keyword">function</span>(<span class="params">row,col,lastRow,lastCol,num,arr,scanArr</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// cc.log("row:",row,",col:",col,",lastRow:",lastRow,",lastCol:",lastCol,",num:",num,",arr:",arr,",scanArr:",scanArr);</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.tiles[row][col]==<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> isClear = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(scanArr==<span class="literal">undefined</span>)&#123;</span><br><span class="line">        scanArr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 扫描过的节点不再扫描</span></span><br><span class="line">    <span class="keyword">if</span>(scanArr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">        scanArr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 扫描上</span></span><br><span class="line">    <span class="keyword">if</span>(row&lt;<span class="number">4</span>&amp;&amp;(lastRow!=(row+<span class="number">1</span>)||lastCol!=col)&amp;&amp;<span class="keyword">this</span>.tiles[row+<span class="number">1</span>][col]!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> nextNum = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row+<span class="number">1</span>][col].getComponent(<span class="string">"Tile"</span>).numLabel.string);</span><br><span class="line">        <span class="keyword">if</span>(nextNum==num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">                arr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.scanAround(row+<span class="number">1</span>,col,row,col,num,arr,scanArr);</span><br><span class="line">            isClear = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 扫描下</span></span><br><span class="line">    <span class="keyword">if</span>(row&gt;<span class="number">0</span>&amp;&amp;(lastRow!=(row<span class="number">-1</span>)||lastCol!=col)&amp;&amp;<span class="keyword">this</span>.tiles[row<span class="number">-1</span>][col]!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> nextNum = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row<span class="number">-1</span>][col].getComponent(<span class="string">"Tile"</span>).numLabel.string);</span><br><span class="line">        <span class="keyword">if</span>(nextNum==num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">                arr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.scanAround(row<span class="number">-1</span>,col,row,col,num,arr,scanArr);</span><br><span class="line">            isClear = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 扫描左</span></span><br><span class="line">    <span class="keyword">if</span>(col&gt;<span class="number">0</span>&amp;&amp;(lastRow!=row||lastCol!=(col<span class="number">-1</span>))&amp;&amp;<span class="keyword">this</span>.tiles[row][col<span class="number">-1</span>]!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> nextNum = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row][col<span class="number">-1</span>].getComponent(<span class="string">"Tile"</span>).numLabel.string);</span><br><span class="line">        <span class="keyword">if</span>(nextNum==num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">                arr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.scanAround(row,col<span class="number">-1</span>,row,col,num,arr,scanArr);</span><br><span class="line">            isClear = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 扫描右</span></span><br><span class="line">    <span class="keyword">if</span>(col&lt;<span class="number">4</span>&amp;&amp;(lastRow!=row||lastCol!=(col+<span class="number">1</span>))&amp;&amp;<span class="keyword">this</span>.tiles[row][col+<span class="number">1</span>]!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> nextNum = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row][col+<span class="number">1</span>].getComponent(<span class="string">"Tile"</span>).numLabel.string);</span><br><span class="line">        <span class="keyword">if</span>(nextNum==num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">                arr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.scanAround(row,col+<span class="number">1</span>,row,col,num,arr,scanArr);</span><br><span class="line">            isClear = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 四周都不通，但不是出发遍历点，并且数字相同，也加入到数组</span></span><br><span class="line">    <span class="keyword">if</span>(!isClear&amp;&amp;(lastRow!=<span class="number">-1</span>&amp;&amp;lastCol!=<span class="number">-1</span>))&#123;</span><br><span class="line">        <span class="keyword">var</span> curNum = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row][col].getComponent(<span class="string">"Tile"</span>).numLabel.string)</span><br><span class="line">        <span class="keyword">if</span>(curNum==num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr.indexOf(row+<span class="string">"#"</span>+col)==<span class="number">-1</span>)&#123;</span><br><span class="line">                arr.push(row+<span class="string">"#"</span>+col);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="移动算法"><a href="#移动算法" class="headerlink" title="移动算法"></a>移动算法</h4><p>移动算法相对就比较简单了，我只需要对每一列从下往上遍历，当遍历中发现方块不为null时（即这个点有方块），我们就以这个方块为起点，对这一列往下遍历，在子循环中，如果下方为null时（即下方没有方块），这个方块就向下移动一个单位，一直循环到下方见底，或者下方遇到方块，才会停止。这个算法相对简单，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">5</span>; col++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">5</span>; row++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.tiles[row][col] != <span class="literal">null</span>) &#123;<span class="comment">// 有方块</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> row1 = row; row1 &gt; <span class="number">0</span>; row1--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col] == <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//如果没有向下移动</span></span><br><span class="line">                    <span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col] = <span class="keyword">this</span>.tiles[row1][col];</span><br><span class="line">                    <span class="keyword">this</span>.tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                    <span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col].getComponent(<span class="string">"Tile"</span>).moveTo(row1 - <span class="number">1</span>, col);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="方块类"><a href="#方块类" class="headerlink" title="方块类"></a>方块类</h4><p>方块类我们通过Creator的预制资源来制作，如下图所示：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/tile.png" alt="tile图"><br>在Tile预制资源中，我们只需要一个背景层，和一个显示数字的Label即可，其背景层的颜色和数字显示都通过脚本来控制，方块需要包含以下几个方法：<br>1.产生新方块的初始化及特效<br>2.移动到指定点的逻辑及特效<br>3.方块销毁的逻辑及特效<br>4.设置方块数字以及动态改变其背景色<br>5.在方块的初始化onLoad函数中，需要对方块添加TOUCH_START事件，事件中绑定上面提到的4方法，方块类的具体实现代码如下：<br>1.方块初始化函数<br>添加触摸点击事件，绑定设置数字函数，清空combo次数（combo次数记录放在全局组件Global中）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">this</span>.node.on(cc.Node.EventType.TOUCH_START,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!self.game.isCal)&#123;</span><br><span class="line">            cc.audioEngine.playEffect(self.clickEffect);</span><br><span class="line">            self.game.isCal = <span class="literal">true</span>;</span><br><span class="line">            <span class="comment">// 连击次数归零</span></span><br><span class="line">            Global.combo = <span class="number">0</span>;</span><br><span class="line">            cc.audioEngine.playEffect(<span class="keyword">this</span>.addCoin);</span><br><span class="line">            self.setNum(<span class="built_in">parseInt</span>(self.numLabel.string)+<span class="number">1</span>,<span class="literal">true</span>,<span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="keyword">this</span>.node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.产生新方块<br>执行从小变大的动画，设置数组中的行列到属性中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">newTile:<span class="function"><span class="keyword">function</span>(<span class="params">row,col</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.node.setPosition(<span class="number">5</span>+(<span class="number">5</span>+<span class="keyword">this</span>.node.width)*col+<span class="keyword">this</span>.node.width/<span class="number">2</span>,<span class="number">5</span>+(<span class="number">5</span>+<span class="keyword">this</span>.node.height)*row+<span class="keyword">this</span>.node.height/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.node.setScale(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">this</span>.node.runAction(cc.scaleTo(<span class="number">0.1</span>,<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">this</span>.setArrPosition(row,col);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.移动到指定点<br>执行移动动画，设置数组中行列到属性中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">moveTo:<span class="function"><span class="keyword">function</span>(<span class="params">row,col</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.row = row;</span><br><span class="line">    <span class="keyword">this</span>.col = col;</span><br><span class="line">    <span class="keyword">this</span>.node.stopActionByTag(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> action = cc.moveTo(<span class="number">0.2</span>,cc.p(<span class="number">5</span>+(<span class="number">5</span>+<span class="keyword">this</span>.node.width)*col+<span class="keyword">this</span>.node.width/<span class="number">2</span>,<span class="number">5</span>+(<span class="number">5</span>+<span class="keyword">this</span>.node.height)*row+<span class="keyword">this</span>.node.height/<span class="number">2</span>));</span><br><span class="line">    <span class="keyword">this</span>.node.runAction(action);</span><br><span class="line">    action.setTag(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.方块销毁<br>执行从大变小的动画，执行完动画之后调用destory方法销毁方块<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">destoryTile:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> action = cc.sequence(cc.scaleTo(<span class="number">0.1</span>,<span class="number">0</span>),cc.callFunc(<span class="function"><span class="keyword">function</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">        node.destroy();</span><br><span class="line">    &#125;,<span class="keyword">this</span>.node,<span class="keyword">this</span>.node));</span><br><span class="line">    <span class="keyword">this</span>.node.runAction(action);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5.设置方块数字<br>设置方块的显示数字，并动态改变相应数字对应的颜色，颜色存在全局组件变量Colors中，通过参数exeLogic判断是否需要执行游戏的消除逻辑，通过playEffect判断是否需要播放音效<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">setNum:<span class="function"><span class="keyword">function</span>(<span class="params">num,exeLogic,playEffect</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.game.maxNum = num&gt;<span class="keyword">this</span>.game.maxNum?num:<span class="keyword">this</span>.game.maxNum;</span><br><span class="line">    <span class="keyword">this</span>.numLabel.string = num;</span><br><span class="line">    <span class="keyword">switch</span>(num)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num2;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num3;</span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num4;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num5;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num6;</span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">        <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num7;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num8;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num9;</span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">        <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num10;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num11;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num12;</span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">        <span class="keyword">case</span> <span class="number">13</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num13;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">14</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num14;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">15</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num15;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">16</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num16;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">17</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num17;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">18</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num18;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">19</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num19;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">20</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.num20;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">this</span>.node.color = Colors.nums;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 播放特效</span></span><br><span class="line">    <span class="keyword">if</span>(playEffect)&#123;</span><br><span class="line">        <span class="keyword">this</span>.node.runAction(cc.sequence(cc.scaleTo(<span class="number">0.15</span>,<span class="number">1.5</span>),cc.scaleTo(<span class="number">0.15</span>,<span class="number">1</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 消除逻辑</span></span><br><span class="line">    <span class="keyword">if</span>(exeLogic)&#123;</span><br><span class="line">        <span class="comment">// 执行逻辑</span></span><br><span class="line">        <span class="keyword">var</span> isMove = <span class="keyword">this</span>.game.operateLogic(<span class="keyword">this</span>.row,<span class="keyword">this</span>.col,<span class="built_in">parseInt</span>(<span class="keyword">this</span>.numLabel.string),<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">var</span> powers = <span class="keyword">this</span>.game.powers;</span><br><span class="line">        <span class="comment">// 能量条-1</span></span><br><span class="line">        <span class="keyword">if</span>(!isMove)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = powers.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="keyword">if</span>(powers[i]!=<span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">var</span> costBarAction = cc.sequence(cc.scaleTo(<span class="number">0.1</span>,<span class="number">0</span>),cc.callFunc(<span class="function"><span class="keyword">function</span>(<span class="params">power</span>)</span>&#123;</span><br><span class="line">                        power.destroy();</span><br><span class="line">                    &#125;,<span class="literal">null</span>,powers[i]));</span><br><span class="line">                    powers[i].runAction(costBarAction);</span><br><span class="line">                    powers[i] = <span class="literal">null</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">// 游戏结束逻辑判断：能量条为空</span></span><br><span class="line">            <span class="keyword">if</span>(powers[<span class="number">0</span>]==<span class="literal">null</span>)&#123;</span><br><span class="line">                Global.score = <span class="keyword">this</span>.game.scoreNum.string;</span><br><span class="line">                <span class="comment">// Game Over</span></span><br><span class="line">                cc.director.loadScene(<span class="string">"overScene"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="能量类"><a href="#能量类" class="headerlink" title="能量类"></a>能量类</h4><p>同方块类，我们将游戏场景中的能量条也做成预制资源，其中只需要添加一个背景层就可以，背景层也是通过代码动态控制颜色，能量条不需要任何脚本文件。</p>
+<h4 id="开始场景"><a href="#开始场景" class="headerlink" title="开始场景"></a>开始场景</h4><p>做好了预制资源之后，我们就可以先做开始场景了，效果图如下：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/startScene.png" alt="startScene图"><br>开始场景中有三个元素，游戏文字，开始按钮，和背景层，其中游戏文字呈现一个变大变小循环播放的动画，点击开始游戏按钮即可转入游戏场景。具体代码如下：<br>1.onLoad加载<br>动态设置元素的位置及宽高，以适配各种型号手机屏幕<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 背景铺平</span></span><br><span class="line">    <span class="keyword">this</span>.bg.width = cc.winSize.width;</span><br><span class="line">    <span class="keyword">this</span>.bg.height = cc.winSize.height;</span><br><span class="line">    <span class="keyword">this</span>.bg.setPosition(<span class="keyword">this</span>.bg.width/<span class="number">2</span>,<span class="keyword">this</span>.bg.height/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.bg.color = Colors.startBg;</span><br><span class="line">    <span class="comment">// 设置文字</span></span><br><span class="line">    <span class="keyword">var</span> action = cc.repeatForever(cc.sequence(cc.scaleTo(<span class="number">1</span>, <span class="number">1.5</span>),cc.scaleTo(<span class="number">1</span>,<span class="number">1</span>)));</span><br><span class="line">    <span class="keyword">this</span>.gameName.runAction(action);</span><br><span class="line">    <span class="keyword">this</span>.gameName.setPosition(cc.winSize.width/<span class="number">2</span>,cc.winSize.height/<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 设置按钮</span></span><br><span class="line">    <span class="keyword">this</span>.startBtn.setPosition(<span class="keyword">this</span>.gameName.getPositionX(),<span class="keyword">this</span>.gameName.getPositionY()<span class="number">-210</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.开始游戏按钮回调<br>点击进入游戏场景<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">startGame:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    cc.audioEngine.playEffect(<span class="keyword">this</span>.btnEffect);</span><br><span class="line">    cc.director.loadScene(<span class="string">"gameScene"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="结束场景"><a href="#结束场景" class="headerlink" title="结束场景"></a>结束场景</h4><p>结束场景与开始场景差不多，相比之下，结束场景主要是提供游戏分数特效呈现的功能，效果图如下：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/overScene.png" alt="overScene图"><br>结束场景也是几个Label，一个背景层和一个Button按钮组成，其中最重要的是分数特效，通过从0一直往上加，加到实际分数的特效，来使玩家获得成就感，具体代码如下：<br>1.加载函数<br>动态设置场景中元素的宽高及位置，播放分数计算特效，绑定TOUCH_START事件，使特效立即播放完成<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 背景层</span></span><br><span class="line">    <span class="keyword">this</span>.bg.width = cc.winSize.width;</span><br><span class="line">    <span class="keyword">this</span>.bg.height = cc.winSize.height;</span><br><span class="line">    <span class="keyword">this</span>.bg.setPosition(<span class="keyword">this</span>.bg.width/<span class="number">2</span>,<span class="keyword">this</span>.bg.height/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.bg.color = Colors.overBg;</span><br><span class="line">    <span class="comment">// 文字层</span></span><br><span class="line">    <span class="keyword">this</span>.gameText.setPosition(cc.winSize.width/<span class="number">2</span>,cc.winSize.height/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> action = cc.repeatForever(cc.sequence(cc.scaleTo(<span class="number">1</span>, <span class="number">1.5</span>),cc.scaleTo(<span class="number">1</span>,<span class="number">1</span>)));</span><br><span class="line">    <span class="keyword">this</span>.gameText.runAction(action);</span><br><span class="line">    <span class="comment">// 播放结束音效</span></span><br><span class="line">    cc.audioEngine.playEffect(<span class="keyword">this</span>.overEffect);</span><br><span class="line">    <span class="comment">// 分数</span></span><br><span class="line">    <span class="keyword">this</span>.scoreText.setPosition(<span class="keyword">this</span>.gameText.getPositionX(),<span class="keyword">this</span>.gameText.getPositionY()+<span class="number">200</span>);</span><br><span class="line">    <span class="keyword">this</span>.score = Global.score;</span><br><span class="line">    <span class="keyword">this</span>.schedule(<span class="keyword">this</span>.updateScore,<span class="number">0.1</span>,cc.REPEAT_FOREVER,<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 点击分数立即加到最高分数</span></span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">this</span>.bg.on(cc.Node.EventType.TOUCH_START,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        cc.log(<span class="string">"score text touch"</span>);</span><br><span class="line">        cc.audioEngine.playEffect(self.addCoin);</span><br><span class="line">        self.changeScore = self.score;</span><br><span class="line">        self.scoreLabel.string = <span class="string">"最终分数："</span>+self.changeScore;</span><br><span class="line">    &#125;, <span class="keyword">this</span>.bg);</span><br><span class="line">    <span class="comment">// 返回按钮</span></span><br><span class="line">    <span class="keyword">this</span>.backBtn.setPosition(<span class="keyword">this</span>.gameText.getPositionX(),<span class="keyword">this</span>.gameText.getPositionY()<span class="number">-200</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.更新分数回调<br>每一次更新分数回调，将特效分数增加20，直到加满到游戏得分，并将这一过程显示在场景的Label中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">updateScore()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.score&lt;=<span class="keyword">this</span>.changeScore)&#123;</span><br><span class="line">        <span class="keyword">this</span>.unschedule(<span class="keyword">this</span>.updateScore);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.changeScore += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">this</span>.changeScore = <span class="keyword">this</span>.changeScore&gt;<span class="keyword">this</span>.score?<span class="keyword">this</span>.score:<span class="keyword">this</span>.changeScore;</span><br><span class="line">    <span class="comment">// 添加音效</span></span><br><span class="line">    cc.audioEngine.playEffect(<span class="keyword">this</span>.addCoin);</span><br><span class="line">    <span class="keyword">this</span>.scoreLabel.string = <span class="string">"最终分数："</span>+<span class="keyword">this</span>.changeScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.返回按钮回调<br>游戏分数的全局变量归零，切换加载开始游戏的场景<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">back:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Global.score = <span class="number">0</span>;</span><br><span class="line">    cc.audioEngine.playEffect(<span class="keyword">this</span>.btnEffect);</span><br><span class="line">    cc.director.loadScene(<span class="string">"startScene"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="游戏场景"><a href="#游戏场景" class="headerlink" title="游戏场景"></a>游戏场景</h4><p>最主要的还是游戏场景，在游戏场景中，我们进行所有的游戏逻辑的运算，包括前面提到的两个核心算法，游戏场景的效果图如下：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/gameScene.png" alt="gameScene图"><br>在游戏主场景中，我们主要需要在onLoad加载时，初始化25个方块，并放在地图中，使他们之间相邻个数小于3个，然后我们需要提供一个主要逻辑判断函数，这个函数中判断游戏中方块的消除逻辑，再前面的Tile的setNum函数中进行调用，代码如下：<br>1.场景加载<br>在场景加载中，我们需要初始化25个互相相邻小于3个的方块，与5个能量条，并且动态设置所有元素的宽高与位置。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 播放背景音乐</span></span><br><span class="line">    cc.audioEngine.playMusic(<span class="keyword">this</span>.bgMusic,<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// 初始化方块数组</span></span><br><span class="line">    <span class="keyword">this</span>.tiles = [</span><br><span class="line">        [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>],</span><br><span class="line">        [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>],</span><br><span class="line">        [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>],</span><br><span class="line">        [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>],</span><br><span class="line">        [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>]</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">this</span>.powers = [<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>];</span><br><span class="line">    <span class="comment">// 背景层</span></span><br><span class="line">    <span class="keyword">this</span>.bg.width = cc.winSize.width;</span><br><span class="line">    <span class="keyword">this</span>.bg.height = cc.winSize.height;</span><br><span class="line">    <span class="keyword">this</span>.bg.setPosition(-cc.winSize.width/<span class="number">2</span>,-cc.winSize.height/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.bg.color = Colors.gameBg;</span><br><span class="line">    <span class="comment">// 顶部背景层</span></span><br><span class="line">    <span class="keyword">this</span>.topBg.width = cc.winSize.width<span class="number">-30</span>;</span><br><span class="line">    <span class="keyword">this</span>.topBg.height = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">this</span>.topBg.setPosition(-cc.winSize.width/<span class="number">2</span>+<span class="number">15</span>,(cc.winSize.width<span class="number">-30</span>)/<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 能量条背景层</span></span><br><span class="line">    <span class="keyword">this</span>.powerBarBg.width = cc.winSize.width<span class="number">-30</span>;</span><br><span class="line">    <span class="keyword">this</span>.powerBarBg.height = <span class="keyword">this</span>.powerBarBg.width/<span class="number">5</span>/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">this</span>.powerBarBg.setPosition(<span class="number">15</span>-cc.winSize.width/<span class="number">2</span>,<span class="keyword">this</span>.topBg.getPositionY()<span class="number">-200</span>);</span><br><span class="line">    <span class="keyword">this</span>.powerBarBg.color = Colors.powerBarBg;</span><br><span class="line">    <span class="comment">// 方块背景层</span></span><br><span class="line">    <span class="keyword">this</span>.tileBg.width = cc.winSize.width<span class="number">-30</span>;</span><br><span class="line">    <span class="keyword">this</span>.tileBg.height = <span class="keyword">this</span>.tileBg.width;</span><br><span class="line">    <span class="keyword">this</span>.tileBg.setPosition(<span class="number">15</span>-cc.winSize.width/<span class="number">2</span>,<span class="keyword">this</span>.powerBarBg.getPositionY()<span class="number">-10</span>-<span class="keyword">this</span>.tileBg.height);</span><br><span class="line">    <span class="keyword">this</span>.tileBg.color = Colors.tileBg;</span><br><span class="line">    <span class="comment">// 生成能量条</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> power = cc.instantiate(<span class="keyword">this</span>.powerPre);</span><br><span class="line">        power.width = (<span class="keyword">this</span>.powerBarBg.width<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">        power.height = <span class="keyword">this</span>.powerBarBg.height<span class="number">-10</span>;</span><br><span class="line">        <span class="keyword">this</span>.powerBarBg.addChild(power);</span><br><span class="line">        power.setPosition(<span class="number">5</span>+(<span class="number">5</span>+power.width)*i+power.width/<span class="number">2</span>,<span class="number">5</span>+power.height/<span class="number">2</span>);</span><br><span class="line">        power.color = Colors.power;</span><br><span class="line">        <span class="keyword">this</span>.powers[i] = power;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 生成初始方块</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> row=<span class="number">0</span>;row&lt;<span class="number">5</span>;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> col = <span class="number">0</span>;col&lt;<span class="number">5</span>;col++)&#123;</span><br><span class="line">            <span class="keyword">var</span> tile = cc.instantiate(<span class="keyword">this</span>.tilePre);</span><br><span class="line">            tile.getComponent(<span class="string">"Tile"</span>).game = <span class="keyword">this</span>;</span><br><span class="line">            tile.width = (<span class="keyword">this</span>.tileBg.width<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">            tile.height = (<span class="keyword">this</span>.tileBg.height<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">            <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">var</span> maxRandom = <span class="number">5</span>;</span><br><span class="line">            <span class="keyword">var</span> randomNum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">                <span class="keyword">var</span> scanArr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">                <span class="keyword">if</span>(count&gt;<span class="number">10</span>)&#123;</span><br><span class="line">                    maxRandom++;</span><br><span class="line">                &#125;</span><br><span class="line">                randomNum = <span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random()*maxRandom);</span><br><span class="line">                tile.getComponent(<span class="string">"Tile"</span>).setNum(randomNum,<span class="literal">false</span>,<span class="literal">false</span>);</span><br><span class="line">                tile.setPosition(<span class="number">5</span>+(<span class="number">5</span>+tile.width)*col+tile.width/<span class="number">2</span>,<span class="number">5</span>+(<span class="number">5</span>+tile.height)*row+tile.height/<span class="number">2</span>);</span><br><span class="line">                <span class="keyword">this</span>.tiles[row][col] = tile;</span><br><span class="line">                <span class="keyword">this</span>.scanAround(row,col,<span class="number">-1</span>,<span class="number">-1</span>,randomNum,arr,scanArr);</span><br><span class="line">                <span class="keyword">if</span>(arr.length&lt;<span class="number">3</span>)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            tile.getComponent(<span class="string">"Tile"</span>).setArrPosition(row,col);</span><br><span class="line">            <span class="keyword">this</span>.tileBg.addChild(tile);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.扫描逻辑<br>前面已经讲过<br>3.主要操作逻辑<br>在这个函数中，我们需要对指定的点进行扫描，如果相邻数超过三个，则进行合成动作，然后更新分数，将所有的方块向下移动填补，并补充一条能量条，增加连击次数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">operateLogic:<span class="function"><span class="keyword">function</span>(<span class="params">touchRow,touchCol,curNum,isFirstCall</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">var</span> scanArr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">this</span>.scanAround(touchRow,touchCol,<span class="number">-1</span>,<span class="number">-1</span>,curNum,arr,scanArr);</span><br><span class="line">    <span class="keyword">if</span>(arr.length&gt;=<span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> addScore = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> index <span class="keyword">in</span> arr)&#123;</span><br><span class="line">            <span class="keyword">var</span> row = arr[index].split(<span class="string">"#"</span>)[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">var</span> col = arr[index].split(<span class="string">"#"</span>)[<span class="number">1</span>];</span><br><span class="line">            addScore += <span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row][col].getComponent(<span class="string">"Tile"</span>).numLabel.string*<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">if</span>(row!=touchRow||col!=touchCol)&#123;</span><br><span class="line">                <span class="comment">// 执行销毁动作                    </span></span><br><span class="line">                <span class="keyword">this</span>.tiles[row][col].getComponent(<span class="string">"Tile"</span>).destoryTile();</span><br><span class="line">                <span class="keyword">this</span>.tiles[row][col] = <span class="literal">null</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.tiles[row][col].getComponent(<span class="string">"Tile"</span>).setNum(curNum+<span class="number">1</span>,<span class="literal">false</span>,<span class="literal">true</span>);</span><br><span class="line">                <span class="keyword">this</span>.maxNum = curNum+<span class="number">1</span>&gt;<span class="keyword">this</span>.maxNum?curNum+<span class="number">1</span>:<span class="keyword">this</span>.maxNum;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 更新分数</span></span><br><span class="line">        <span class="keyword">this</span>.scoreNum.string = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.scoreNum.string)+addScore;</span><br><span class="line">        <span class="keyword">this</span>.scheduleOnce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 0.1s后所有方块向下移动</span></span><br><span class="line">            <span class="keyword">this</span>.moveAllTileDown();</span><br><span class="line">        &#125;,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">if</span>(!isFirstCall)&#123;</span><br><span class="line">            <span class="comment">// 能量条补充一格</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.powers[i]==<span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">var</span> power = cc.instantiate(<span class="keyword">this</span>.powerPre);</span><br><span class="line">                    power.width = (<span class="keyword">this</span>.powerBarBg.width<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">                    power.height = <span class="keyword">this</span>.powerBarBg.height<span class="number">-10</span>;</span><br><span class="line">                    <span class="keyword">this</span>.powerBarBg.addChild(power);</span><br><span class="line">                    power.setPosition(<span class="number">5</span>+(<span class="number">5</span>+power.width)*i+power.width/<span class="number">2</span>,<span class="number">5</span>+power.height/<span class="number">2</span>);</span><br><span class="line">                    power.color = Colors.power;</span><br><span class="line">                    power.setScale(<span class="number">0</span>);</span><br><span class="line">                    power.runAction(cc.scaleTo(<span class="number">0.1</span>,<span class="number">1</span>));</span><br><span class="line">                    <span class="keyword">this</span>.powers[i] = power;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 连击次数+1</span></span><br><span class="line">        Global.combo++;</span><br><span class="line">        <span class="comment">// cc.log("连击次数："+Global.combo);</span></span><br><span class="line">        <span class="comment">// 播放音效</span></span><br><span class="line">        <span class="keyword">switch</span>(Global.combo)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star1);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star3);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star4);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star5);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star6);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star7);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                cc.audioEngine.playEffect(<span class="keyword">this</span>.star7);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isCal = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.所有方块向下移动<br>除了上文提到所有方块的移动算法之外，在移动完成之后，还需要进行新产生一批方块，并再次判断消除逻辑的操作<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">moveAllTileDown:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">5</span>; col++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">5</span>; row++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.tiles[row][col] != <span class="literal">null</span>) &#123;<span class="comment">// 有方块</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> row1 = row; row1 &gt; <span class="number">0</span>; row1--) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col] == <span class="literal">null</span>)&#123;</span><br><span class="line">                        <span class="comment">//如果没有向下移动</span></span><br><span class="line">                        <span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col] = <span class="keyword">this</span>.tiles[row1][col];</span><br><span class="line">                        <span class="keyword">this</span>.tiles[row1][col] = <span class="literal">null</span>;</span><br><span class="line">                        <span class="keyword">this</span>.tiles[row1 - <span class="number">1</span>][col].getComponent(<span class="string">"Tile"</span>).moveTo(row1 - <span class="number">1</span>, col);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.scheduleOnce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 0.3s后生成新方块</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">5</span>; col++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">5</span>; row++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.tiles[row][col]==<span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">var</span> tile = cc.instantiate(<span class="keyword">this</span>.tilePre);</span><br><span class="line">                    tile.getComponent(<span class="string">"Tile"</span>).game = <span class="keyword">this</span>;</span><br><span class="line">                    tile.width = (<span class="keyword">this</span>.tileBg.width<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">                    tile.height = (<span class="keyword">this</span>.tileBg.height<span class="number">-30</span>)/<span class="number">5</span>;</span><br><span class="line">                    <span class="keyword">var</span> maxRandom = <span class="keyword">this</span>.maxNum;</span><br><span class="line">                    <span class="keyword">var</span> randomNum = <span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random()*maxRandom);</span><br><span class="line">                    tile.getComponent(<span class="string">"Tile"</span>).setNum(randomNum,<span class="literal">false</span>,<span class="literal">false</span>);</span><br><span class="line">                    tile.getComponent(<span class="string">"Tile"</span>).newTile(row,col);</span><br><span class="line">                    <span class="keyword">this</span>.tiles[row][col] = tile;</span><br><span class="line">                    <span class="keyword">this</span>.tileBg.addChild(tile);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 0.5s后遍历执行逻辑</span></span><br><span class="line">        <span class="keyword">this</span>.scheduleOnce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> isSearch = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> col = <span class="number">0</span>; col &lt; <span class="number">5</span>; col++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> row = <span class="number">0</span>; row &lt; <span class="number">5</span>; row++) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(!isSearch)&#123;</span><br><span class="line">                        isSearch = <span class="keyword">this</span>.tiles[row][col]!=<span class="literal">null</span>&amp;&amp;<span class="keyword">this</span>.operateLogic(row,col,<span class="built_in">parseInt</span>(<span class="keyword">this</span>.tiles[row][col].getComponent(<span class="string">"Tile"</span>).numLabel.string),<span class="literal">false</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">0.5</span>);        </span><br><span class="line">     &#125;, <span class="number">0.3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>最后的运行效果如下<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/addone.gif" alt="点我+1效果图"><br>通过CVP平台的项目托管可看到实际运行效果，地址如下：</p>
+<ul>
+<li>由于个人对Cocos Creator的适配还不大了解，在pc上运行时，需要使用chrome的手机调试预览（或者将chrome窗口调至手机屏幕大小），但是如果直接用手机打开，loadScene似乎又有不兼容的问题，至今无法理解，还请大神指点，而我无论是开发时的预览，还是通过xcode打包到我的iPhone6s Plus手机运行，都是完全没有问题。不知道是不是Creator的h5兼容还没有做好，又或者我哪里的技术没有掌握全面。<br><a href="http://www.cocoscvp.com/usercode/946fc5fd5d2c77331cc344ea1e4bfdd04630cf85/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/946fc5fd5d2c77331cc344ea1e4bfdd04630cf85/</a></li>
+</ul>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><p>所有源代码均上传到github，欢迎交流学习，地址：<br><a href="https://github.com/hjcenry/addone" target="_blank" rel="external">https://github.com/hjcenry/addone</a></p>
+<ul>
+<li>原文博客：<a href="http://hjcenry.github.io" target="_blank" rel="external">http://hjcenry.github.io</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
+          
+            <a href="/tags/cvp/" rel="tag">#cvp</a>
+          
+            <a href="/tags/点我-1/" rel="tag">#点我+1</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/19/Cocos2d-JS实现的2048/" rel="next" title="Cocos2d-JS实现的2048">
+                <i class="fa fa-chevron-left"></i> Cocos2d-JS实现的2048
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/Cocos2d-JS实现的打飞机/" rel="prev" title="Cocos2d-JS实现的打飞机">
+                Cocos2d-JS实现的打飞机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/02/Cocos Creator实现的《点我+1》/"
+     data-title="Cocos Creator实现的《点我+1》"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/07/02/Cocos Creator实现的《点我+1》/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/02/Cocos Creator实现的《点我+1》/"
+           data-title="Cocos Creator实现的《点我+1》" data-url="http://hjcenry.coding.me/2016/07/02/Cocos Creator实现的《点我+1》/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos-Creator"><span class="nav-number">2.</span> <span class="nav-text">Cocos Creator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏分析"><span class="nav-number">3.</span> <span class="nav-text">游戏分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏实现"><span class="nav-number">4.</span> <span class="nav-text">游戏实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#扫描算法"><span class="nav-number">4.1.</span> <span class="nav-text">扫描算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动算法"><span class="nav-number">4.2.</span> <span class="nav-text">移动算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方块类"><span class="nav-number">4.3.</span> <span class="nav-text">方块类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#能量类"><span class="nav-number">4.4.</span> <span class="nav-text">能量类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始场景"><span class="nav-number">4.5.</span> <span class="nav-text">开始场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结束场景"><span class="nav-number">4.6.</span> <span class="nav-text">结束场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#游戏场景"><span class="nav-number">4.7.</span> <span class="nav-text">游戏场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">5.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码"><span class="nav-number">6.</span> <span class="nav-text">源代码</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

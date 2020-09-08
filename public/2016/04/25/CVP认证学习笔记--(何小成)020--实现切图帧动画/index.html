@@ -1,0 +1,788 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocos2d-js,cvp," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概念本节内容是掌握cocos中的动画缓存，通过cc.animationCache.addAnimation，可以将预先写好的一组动画放入动画缓存，当一些事件触发时，如触摸点击屏幕精灵时，便可以通过cc.animationCache.getAnimation获取到先前缓存的动画。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CVP认证学习笔记--(何小成)020--实现切图帧动画">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="概念本节内容是掌握cocos中的动画缓存，通过cc.animationCache.addAnimation，可以将预先写好的一组动画放入动画缓存，当一些事件触发时，如触摸点击屏幕精灵时，便可以通过cc.animationCache.getAnimation获取到先前缓存的动画。">
+<meta property="og:updated_time" content="2016-04-30T07:46:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CVP认证学习笔记--(何小成)020--实现切图帧动画">
+<meta name="twitter:description" content="概念本节内容是掌握cocos中的动画缓存，通过cc.animationCache.addAnimation，可以将预先写好的一组动画放入动画缓存，当一些事件触发时，如触摸点击屏幕精灵时，便可以通过cc.animationCache.getAnimation获取到先前缓存的动画。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CVP认证学习笔记--(何小成)020--实现切图帧动画 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CVP认证学习笔记--(何小成)020--实现切图帧动画
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-25T23:30:00+08:00" content="2016-04-25">
+              2016-04-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
+                    <span itemprop="name">cocos2d-js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>本节内容是掌握cocos中的动画缓存，通过cc.animationCache.addAnimation，可以将预先写好的一组动画放入动画缓存，当一些事件触发时，如触摸点击屏幕精灵时，便可以通过cc.animationCache.getAnimation获取到先前缓存的动画。<a id="more"></a></p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="添加帧序列"><a href="#添加帧序列" class="headerlink" title="添加帧序列"></a>添加帧序列</h4><p>事先准备好的帧序列图片放在一张大图中，通过截取矩形区域来获得所需要的帧序列图片<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> n=<span class="number">0</span>;n&lt;<span class="number">4</span>;n++) &#123;</span><br><span class="line">    <span class="keyword">var</span> sp1Nowframedown=<span class="keyword">new</span> cc.SpriteFrame(sp1Texture,cc.rect(<span class="number">32</span>*n,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建动画"><a href="#创建动画" class="headerlink" title="创建动画"></a>创建动画</h4><p>使用帧序列创建一个动画，动画播放0.1s<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sp1AnimationDown=<span class="keyword">new</span> cc.Animation(sp1FrameDown,<span class="number">0.1</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="添加精灵到缓存"><a href="#添加精灵到缓存" class="headerlink" title="添加精灵到缓存"></a>添加精灵到缓存</h4><p>把精灵帧动画添加到动画缓存中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.animationCache.addAnimation(sp1AnimationDown,<span class="string">"sp1down"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="获取并运行动画"><a href="#获取并运行动画" class="headerlink" title="获取并运行动画"></a>获取并运行动画</h4><p>以上步骤完成后，就可以在事件中使用动画<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1down"</span>)).repeatForever();</span><br></pre></td></tr></table></figure></p>
+<h3 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h3><p>作业内容是点击屏幕，英雄移动到该位置并且播放动画，跟上节课作业差不多，只不过这节课的动画通过动画缓存来获得，而上节课使用的是固定的动画。我在作业中实现了点击按钮可以切换精灵，在行走方向的判断上，我把屏幕在以人物为中心的坐标轴上，画两条对角线，根据分为四个区域，分别判断这四个区域为上下左右。点击相应区域实现人物相应的动画播放。由于是作业，所以代码也就不是那么规范了，看起来是有点乱的，在正式项目中，应该对这些方法进行良好的封装。作业代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> HelloWorldLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite:<span class="literal">null</span>,</span><br><span class="line">    chooseRole:<span class="number">0</span>,</span><br><span class="line">    ctor:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//////////////////////////////</span></span><br><span class="line">        <span class="comment">// 1. super init first</span></span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="comment">//添加背景</span></span><br><span class="line">        <span class="keyword">var</span> bg=<span class="keyword">new</span> cc.Sprite(res.bg_jpg);</span><br><span class="line">        <span class="keyword">this</span>.addChild(bg);</span><br><span class="line">        bg.setPosition(cc.winSize.width/<span class="number">2</span>,cc.winSize.height/<span class="number">2</span>);</span><br><span class="line">        sp1Texture=cc.textureCache.addImage(<span class="string">"res/1.png"</span>);</span><br><span class="line">        sp2Texture=cc.textureCache.addImage(<span class="string">"res/2.png"</span>);</span><br><span class="line">        <span class="comment">// 精灵1</span></span><br><span class="line">        <span class="keyword">var</span> sp1FrameUp=[];</span><br><span class="line">        <span class="keyword">var</span> sp1FrameDown=[];</span><br><span class="line">        <span class="keyword">var</span> sp1FrameLeft=[];</span><br><span class="line">        <span class="keyword">var</span> sp1FrameRight=[];</span><br><span class="line">        <span class="comment">// 精灵2</span></span><br><span class="line">        <span class="keyword">var</span> sp2FrameUp=[];</span><br><span class="line">        <span class="keyword">var</span> sp2FrameDown=[];</span><br><span class="line">        <span class="keyword">var</span> sp2FrameLeft=[];</span><br><span class="line">        <span class="keyword">var</span> sp2FrameRight=[];</span><br><span class="line">         <span class="comment">//添加帧序列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> n=<span class="number">0</span>;n&lt;<span class="number">4</span>;n++) &#123;</span><br><span class="line">            <span class="comment">// 精灵1</span></span><br><span class="line">          <span class="keyword">var</span> sp1Nowframedown=<span class="keyword">new</span> cc.SpriteFrame(sp1Texture,cc.rect(<span class="number">32</span>*n,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp1Nowframeleft=<span class="keyword">new</span> cc.SpriteFrame(sp1Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp1Nowframeright=<span class="keyword">new</span> cc.SpriteFrame(sp1Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>*<span class="number">2</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp1Nowframeup=<span class="keyword">new</span> cc.SpriteFrame(sp1Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>*<span class="number">3</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          sp1FrameDown.push(sp1Nowframedown);</span><br><span class="line">          sp1FrameLeft.push(sp1Nowframeleft);</span><br><span class="line">          sp1FrameRight.push(sp1Nowframeright);</span><br><span class="line">          sp1FrameUp.push(sp1Nowframeup);</span><br><span class="line">          <span class="comment">// 精灵2</span></span><br><span class="line">          <span class="keyword">var</span> sp2Nowframedown=<span class="keyword">new</span> cc.SpriteFrame(sp2Texture,cc.rect(<span class="number">32</span>*n,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp2Nowframeleft=<span class="keyword">new</span> cc.SpriteFrame(sp2Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>*<span class="number">1</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp2Nowframeright=<span class="keyword">new</span> cc.SpriteFrame(sp2Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>*<span class="number">2</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          <span class="keyword">var</span> sp2Nowframeup=<span class="keyword">new</span> cc.SpriteFrame(sp2Texture,cc.rect(<span class="number">32</span>*n,<span class="number">48</span>*<span class="number">3</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">          sp2FrameUp.push(sp2Nowframeup); </span><br><span class="line">          sp2FrameDown.push(sp2Nowframedown);</span><br><span class="line">          sp2FrameLeft.push(sp2Nowframeleft);</span><br><span class="line">          sp2FrameRight.push(sp2Nowframeright);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//创建动画</span></span><br><span class="line">        <span class="comment">// 精灵1</span></span><br><span class="line">        <span class="keyword">var</span> sp1AnimationUp=<span class="keyword">new</span> cc.Animation(sp1FrameUp,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp1AnimationDown=<span class="keyword">new</span> cc.Animation(sp1FrameDown,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp1AnimationLeft=<span class="keyword">new</span> cc.Animation(sp1FrameLeft,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp1AnimationRight=<span class="keyword">new</span> cc.Animation(sp1FrameRight,<span class="number">0.1</span>);</span><br><span class="line">         <span class="comment">// 精灵2</span></span><br><span class="line">        <span class="keyword">var</span> sp2AnimationUp=<span class="keyword">new</span> cc.Animation(sp2FrameUp,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp2AnimationDown=<span class="keyword">new</span> cc.Animation(sp2FrameDown,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp2AnimationLeft=<span class="keyword">new</span> cc.Animation(sp2FrameLeft,<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">var</span> sp2AnimationRight=<span class="keyword">new</span> cc.Animation(sp2FrameRight,<span class="number">0.1</span>);</span><br><span class="line">        <span class="comment">//添加到缓存里</span></span><br><span class="line">        <span class="comment">// 精灵1</span></span><br><span class="line">        cc.animationCache.addAnimation(sp1AnimationUp,<span class="string">"sp1up"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp1AnimationDown,<span class="string">"sp1down"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp1AnimationLeft,<span class="string">"sp1left"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp1AnimationRight,<span class="string">"sp1right"</span>);</span><br><span class="line">        <span class="comment">// 精灵2</span></span><br><span class="line">        cc.animationCache.addAnimation(sp2AnimationUp,<span class="string">"sp2up"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp2AnimationDown,<span class="string">"sp2down"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp2AnimationLeft,<span class="string">"sp2left"</span>);</span><br><span class="line">        cc.animationCache.addAnimation(sp2AnimationRight,<span class="string">"sp2right"</span>);</span><br><span class="line">        <span class="comment">//创建animate并运行</span></span><br><span class="line">        <span class="keyword">this</span>.sprite=<span class="keyword">new</span> cc.Sprite(sp1Texture,cc.rect(<span class="number">32</span>,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">        <span class="keyword">this</span>.chooseRole=<span class="number">1</span>;<span class="comment">// 默认选择鸣人</span></span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">this</span>.sprite);</span><br><span class="line">        <span class="keyword">this</span>.sprite.setTag(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">this</span>.sprite.setScale(<span class="number">4</span>);</span><br><span class="line">        <span class="keyword">this</span>.sprite.setPosition(<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">        <span class="comment">//添加按钮改变精灵</span></span><br><span class="line">        <span class="keyword">var</span> sp1=<span class="keyword">new</span> cc.MenuItemFont(<span class="string">"选鸣人"</span>,<span class="keyword">this</span>.callback,<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> sp2=<span class="keyword">new</span> cc.MenuItemFont(<span class="string">"选小樱"</span>,<span class="keyword">this</span>.callback,<span class="keyword">this</span>);</span><br><span class="line">        sp1.setTag(<span class="number">11</span>);</span><br><span class="line">        sp2.setTag(<span class="number">12</span>);</span><br><span class="line">        sp1.setPositionY(<span class="number">50</span>);</span><br><span class="line">        <span class="keyword">var</span> menu=<span class="keyword">new</span> cc.Menu(sp1,sp2);</span><br><span class="line">        <span class="keyword">this</span>.addChild(menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    getRole:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.chooseRole;</span><br><span class="line">    &#125;,</span><br><span class="line">    callback:<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(obj.tag)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">11</span>:<span class="comment">//鸣人</span></span><br><span class="line">                <span class="keyword">this</span>.sprite.stopAllActions();</span><br><span class="line">                <span class="keyword">this</span>.sprite.setTexture(cc.textureCache.addImage(<span class="string">"res/1.png"</span>),cc.rect(<span class="number">32</span>,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">                <span class="keyword">this</span>.chooseRole=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">12</span>:<span class="comment">//小樱</span></span><br><span class="line">                <span class="keyword">this</span>.sprite.stopAllActions();</span><br><span class="line">                <span class="keyword">this</span>.sprite.setTexture(cc.textureCache.addImage(<span class="string">"res/2.png"</span>),cc.rect(<span class="number">32</span>,<span class="number">0</span>,<span class="number">32</span>,<span class="number">48</span>));</span><br><span class="line">                <span class="keyword">this</span>.chooseRole=<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    onEnter:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="comment">//添加触屏事件</span></span><br><span class="line">        cc.eventManager.addListener(&#123;</span><br><span class="line">           event:cc.EventListener.TOUCH_ONE_BY_ONE,</span><br><span class="line">           swallowTouches:<span class="literal">true</span>,<span class="comment">//吞噬事件 不再传递</span></span><br><span class="line">           onTouchBegan:<span class="keyword">this</span>.touchbegan,</span><br><span class="line">           onTouchMoved:<span class="keyword">this</span>.touchmoved,</span><br><span class="line">           onTouchEnded:<span class="keyword">this</span>.touchended</span><br><span class="line">       &#125;,<span class="keyword">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    touchbegan:<span class="function"><span class="keyword">function</span>(<span class="params">touch,event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> x = touch.getLocation().x;</span><br><span class="line">        <span class="keyword">var</span> y = touch.getLocation().y;</span><br><span class="line">        <span class="keyword">var</span> bn = event.getCurrentTarget().getChildByTag(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 走路时间</span></span><br><span class="line">        <span class="keyword">var</span> time = <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(x-bn.getPositionX(),<span class="number">2</span>)+<span class="built_in">Math</span>.pow(y-bn.getPositionY(),<span class="number">2</span>)))/<span class="number">100</span>;</span><br><span class="line">        bn.stopAllActions();</span><br><span class="line">        <span class="keyword">if</span>(x&lt;bn.getPositionX())&#123;<span class="comment">// 点击人物左侧</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(x-bn.getPositionX())/<span class="built_in">Math</span>.abs(y-bn.getPositionY())&lt;<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(y&lt;bn.getPositionY())&#123;</span><br><span class="line">                    <span class="comment">//  向下走</span></span><br><span class="line">                    <span class="keyword">var</span> role = <span class="built_in">Number</span>(event.getCurrentTarget().getRole());</span><br><span class="line">                    <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1down"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2down"</span>)).repeatForever();</span><br><span class="line">                    bn.runAction(act);</span><br><span class="line">                    bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                                <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                    sprite.stopAllActions();</span><br><span class="line">                                &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">// 向上走</span></span><br><span class="line">                     <span class="keyword">var</span> role = event.getCurrentTarget().getRole();</span><br><span class="line">                    <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1up"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2up"</span>)).repeatForever();</span><br><span class="line">                    bn.runAction(act);</span><br><span class="line">                    bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                                <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                    sprite.stopAllActions();</span><br><span class="line">                                &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(x-bn.getPositionX())/<span class="built_in">Math</span>.abs(y-bn.getPositionY())&gt;=<span class="number">1</span>)&#123;<span class="comment">// 向左走</span></span><br><span class="line">                <span class="keyword">var</span> role = event.getCurrentTarget().getRole();</span><br><span class="line">                <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1left"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2left"</span>)).repeatForever();</span><br><span class="line">                bn.runAction(act);</span><br><span class="line">                bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                            <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                sprite.stopAllActions();</span><br><span class="line">                            &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(x&gt;bn.getPositionX())&#123;</span><br><span class="line">           <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(x-bn.getPositionX())/<span class="built_in">Math</span>.abs(y-bn.getPositionY())&lt;<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(y&lt;bn.getPositionY())&#123;</span><br><span class="line">                    <span class="comment">//  向下走</span></span><br><span class="line">                    <span class="keyword">var</span> role = event.getCurrentTarget().getRole();</span><br><span class="line">                    <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1down"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2down"</span>)).repeatForever();</span><br><span class="line">                    bn.runAction(act);</span><br><span class="line">                    bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                                <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                    sprite.stopAllActions();</span><br><span class="line">                                &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">// 向上走</span></span><br><span class="line">                    <span class="keyword">var</span> role = event.getCurrentTarget().getRole();</span><br><span class="line">                    <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1up"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2up"</span>)).repeatForever();</span><br><span class="line">                    bn.runAction(act);</span><br><span class="line">                    bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                                <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                    sprite.stopAllActions();</span><br><span class="line">                                &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(x-bn.getPositionX())/<span class="built_in">Math</span>.abs(y-bn.getPositionY())&gt;=<span class="number">1</span>)&#123;<span class="comment">// 向右走</span></span><br><span class="line">                <span class="keyword">var</span> role = event.getCurrentTarget().getRole();</span><br><span class="line">                <span class="keyword">var</span> act=role==<span class="number">1</span>?cc.animate(cc.animationCache.getAnimation(<span class="string">"sp1right"</span>)).repeatForever():cc.animate(cc.animationCache.getAnimation(<span class="string">"sp2right"</span>)).repeatForever();</span><br><span class="line">                bn.runAction(act);</span><br><span class="line">                bn.runAction(cc.sequence(cc.moveTo(time,cc.p(x,y)),cc.callFunc(</span><br><span class="line">                            <span class="function"><span class="keyword">function</span>(<span class="params">sprite</span>)</span>&#123;</span><br><span class="line">                                sprite.stopAllActions();</span><br><span class="line">                            &#125;,event.getCurrentTarget().sprite)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    touchmoved:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    touchended:<span class="function"><span class="keyword">function</span>(<span class="params">touch,event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HelloWorldScene = cc.Scene.extend(&#123;</span><br><span class="line">    onEnter:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> HelloWorldLayer();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><a href="http://www.cocoscvp.com/usercode/2016_04_24/3faf3ea09347be95a5fd15287ff32724995d4f09/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/2016_04_24/3faf3ea09347be95a5fd15287ff32724995d4f09/</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
+          
+            <a href="/tags/cvp/" rel="tag">#cvp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/24/CVP认证学习笔记--(何小成)019--实现帧动画处理/" rel="next" title="CVP认证学习笔记--(何小成)019--实现帧动画处理">
+                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)019--实现帧动画处理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/26/微博开源框架Motan初体验/" rel="prev" title="微博开源框架Motan初体验">
+                微博开源框架Motan初体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/"
+     data-title="CVP认证学习笔记--(何小成)020--实现切图帧动画"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/"
+           data-title="CVP认证学习笔记--(何小成)020--实现切图帧动画" data-url="http://hjcenry.coding.me/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加帧序列"><span class="nav-number">2.1.</span> <span class="nav-text">添加帧序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建动画"><span class="nav-number">2.2.</span> <span class="nav-text">创建动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加精灵到缓存"><span class="nav-number">2.3.</span> <span class="nav-text">添加精灵到缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取并运行动画"><span class="nav-number">2.4.</span> <span class="nav-text">获取并运行动画</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业"><span class="nav-number">3.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果"><span class="nav-number">4.</span> <span class="nav-text">最终效果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

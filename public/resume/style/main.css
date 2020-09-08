@@ -1,0 +1,76 @@
+
+
+
+body {
+    background: #e5e5e5;
+}
+
+h1 {
+    color: #252525;
+    font-size: 3rem;
+    font-family: Helvetica, Tahoma,CTjxiyuan468609, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+p,.text {
+    color: #8f8f8f;
+    font: "微软雅黑";
+    font-family: Helvetica, Tahoma,CTjxiyuan468609, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.fullheight {
+    height: 100%;
+}
+
+
+.section{
+    background-size: cover;
+}
+.slide{
+    background-size: cover;
+}
+
+/* Defining each section background and styles
+* --------------------------------------- */
+#indexSection{
+    background-image: url(../images/bg.png);
+    /*padding: 30% 0 0 0;*/
+}
+
+
+
+#indexSection .ui.padded.grid {
+    min-height: 100%;
+}
+
+#indexSection .ui.padded.grid .bottom-align {
+    padding-top: 18%;
+}
+
+#indexSection .ui.padded.grid img {
+    margin-top: 30px;
+    padding: 0;
+}
+
+#footer .equal.width.grid {
+    padding-top: 35px;
+}
+
+#footer .doubling.row .grey.icon {
+    font-size: 1.2em;
+}
+
+#footer .black.row {
+    padding-bottom: 35px;
+}
+
+#footer .black.row img {
+    margin: 22px 0 14px 0;
+    margin-left: auto;
+    margin-right: auto;
+    right: auto;
+}
+
+#footer .black.row span {
+    font-style: italic;
+    color: #909090;
+}

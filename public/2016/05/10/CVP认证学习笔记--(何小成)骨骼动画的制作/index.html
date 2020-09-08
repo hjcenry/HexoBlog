@@ -1,0 +1,797 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocos2d-js,cvp," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文主要复习下骨骼动画的制作过程，上一篇文章简单介绍了cocos中对于骨骼动画的使用，本文主要从骨骼动画制作的角度来讲解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CVP认证学习笔记--(何小成)骨骼动画的制作">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="本文主要复习下骨骼动画的制作过程，上一篇文章简单介绍了cocos中对于骨骼动画的使用，本文主要从骨骼动画制作的角度来讲解。">
+<meta property="og:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_1a202fb1ffd1025.png">
+<meta property="og:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_55529c9535d5bb4.png">
+<meta property="og:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_3ad23acff07741b.png">
+<meta property="og:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_a02834c9d8347ca.png">
+<meta property="og:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_40c0db20e072450.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/daochu.png">
+<meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/1111.gif">
+<meta property="og:updated_time" content="2016-05-10T15:20:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CVP认证学习笔记--(何小成)骨骼动画的制作">
+<meta name="twitter:description" content="本文主要复习下骨骼动画的制作过程，上一篇文章简单介绍了cocos中对于骨骼动画的使用，本文主要从骨骼动画制作的角度来讲解。">
+<meta name="twitter:image" content="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_1a202fb1ffd1025.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CVP认证学习笔记--(何小成)骨骼动画的制作 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CVP认证学习笔记--(何小成)骨骼动画的制作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-10T22:44:00+08:00" content="2016-05-10">
+              2016-05-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
+                    <span itemprop="name">cocos2d-js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要复习下骨骼动画的制作过程，<a href="http://hjcenry.github.io/2016/05/06/CVP%E8%AE%A4%E8%AF%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--(%E4%BD%95%E5%B0%8F%E6%88%90)023--%E5%8A%A0%E8%BD%BD%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB/" target="_blank" rel="external">上一篇文章</a>简单介绍了cocos中对于骨骼动画的使用，本文主要从骨骼动画制作的角度来讲解。<a id="more"></a></p>
+<h3 id="导入资源"><a href="#导入资源" class="headerlink" title="导入资源"></a>导入资源</h3><p>制作之前准备好所需要的图片资源，然后倒入到cocos studio中，如下图：<br><img src="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_1a202fb1ffd1025.png" alt="导入资源"></p>
+<h3 id="添加皮肤"><a href="#添加皮肤" class="headerlink" title="添加皮肤"></a>添加皮肤</h3><p>资源中的皮肤一个一个拖放到场景中，使小图片大致能拼出来一个完整的图片，如下图：<br><img src="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_55529c9535d5bb4.png" alt="添加皮肤"></p>
+<h3 id="添加骨骼"><a href="#添加骨骼" class="headerlink" title="添加骨骼"></a>添加骨骼</h3><p>根据人物的骨骼特征，为皮肤添加骨骼，如下图：<br><img src="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_3ad23acff07741b.png" alt="添加骨骼"></p>
+<h3 id="绑定父关系"><a href="#绑定父关系" class="headerlink" title="绑定父关系"></a>绑定父关系</h3><p>把具有相互关系的骨骼绑定起来，使骨骼之间能够作为整体进行动画，如头部应该绑定身体为父关系，而手腕应该绑定手臂为父关系，如下图：<br><img src="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_a02834c9d8347ca.png" alt="绑定父关系"></p>
+<h3 id="制作动画"><a href="#制作动画" class="headerlink" title="制作动画"></a>制作动画</h3><p>骨骼绑定之后，就可以编辑动画，动画编辑即选择选择动画模式，然后选择相应的图层，在下面时间轴上的关键帧上进行改变，中间的补间动画cocos studio会自动创建，如下图：<br><img src="http://cdn.cocimg.com/bbs/attachment/Fid_72/72_319828_40c0db20e072450.png" alt="制作动画"></p>
+<h3 id="导出资源"><a href="#导出资源" class="headerlink" title="导出资源"></a>导出资源</h3><p>确定制作完成，并经过了精细的调整之后，就可以导出动画了，导出的操作很简单，即选择文件，然后选择导出项目，如下图：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/daochu.png" alt="导出资源"><br>导出之后可以看到相应的文件夹下有png，plist和json三个文件，即上一篇文章中说到的cocos中需要使用到的骨骼动画资源，至此，骨骼动画制作完成！ 整个过程感觉是一个挺细心的活，作为一个程序来说，做了一个骨骼动画之后，我真心佩服美术，那些游戏中无论活灵活现的主人公，还是酷炫吊炸天特效，都是美术们这样一帧一帧调出来的，真的是我心目中的艺术家，衷心的点个赞！</p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p>制作完之后，我加在了上一节课的作业的开始界面和帮助界面中，如下图：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/1111.gif" alt="效果图"><br>作业地址：<a href="http://www.cocoscvp.com/usercode/b09ecc9894fe6ab8a1ba17f5d5348b9a215038a6/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/b09ecc9894fe6ab8a1ba17f5d5348b9a215038a6/</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
+          
+            <a href="/tags/cvp/" rel="tag">#cvp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/07/CVP认证学习笔记--(何小成)025--音乐和音效/" rel="next" title="CVP认证学习笔记--(何小成)025--音乐和音效">
+                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)025--音乐和音效
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/16/Cocos2d-JS实现的贪吃蛇/" rel="prev" title="Cocos2d-JS实现的贪吃蛇">
+                Cocos2d-JS实现的贪吃蛇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/"
+     data-title="CVP认证学习笔记--(何小成)骨骼动画的制作"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/"
+           data-title="CVP认证学习笔记--(何小成)骨骼动画的制作" data-url="http://hjcenry.coding.me/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入资源"><span class="nav-number">1.</span> <span class="nav-text">导入资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加皮肤"><span class="nav-number">2.</span> <span class="nav-text">添加皮肤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加骨骼"><span class="nav-number">3.</span> <span class="nav-text">添加骨骼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定父关系"><span class="nav-number">4.</span> <span class="nav-text">绑定父关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作动画"><span class="nav-number">5.</span> <span class="nav-text">制作动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出资源"><span class="nav-number">6.</span> <span class="nav-text">导出资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果"><span class="nav-number">7.</span> <span class="nav-text">最终效果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

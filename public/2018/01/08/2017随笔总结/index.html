@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,游戏服务器,总结,随笔," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="今天，已经是2018年1月8日，2017年已经过去，今天挤出来时间，来为我的2017做一个迟到的总结。回忆起上次写文章，是2017年2月16号了，那篇文章叫做《我在创业游戏公司的一年》。这一年时间，我没有写文章，20%是因为今年变得很忙，几乎没有太多的业余时间，剩下的80%嘛，嗯，是因为懒，哈哈！说实在的，没有写不代表这一年什么都没发生，相反，2017年，是我收货最大的一年，嗯，各方各面。
+过去的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017随笔总结">
+<meta property="og:url" content="http://hjcenry.coding.me/2018/01/08/2017随笔总结/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="今天，已经是2018年1月8日，2017年已经过去，今天挤出来时间，来为我的2017做一个迟到的总结。回忆起上次写文章，是2017年2月16号了，那篇文章叫做《我在创业游戏公司的一年》。这一年时间，我没有写文章，20%是因为今年变得很忙，几乎没有太多的业余时间，剩下的80%嘛，嗯，是因为懒，哈哈！说实在的，没有写不代表这一年什么都没发生，相反，2017年，是我收货最大的一年，嗯，各方各面。
+过去的">
+<meta property="og:updated_time" content="2018-01-08T16:14:45.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017随笔总结">
+<meta name="twitter:description" content="今天，已经是2018年1月8日，2017年已经过去，今天挤出来时间，来为我的2017做一个迟到的总结。回忆起上次写文章，是2017年2月16号了，那篇文章叫做《我在创业游戏公司的一年》。这一年时间，我没有写文章，20%是因为今年变得很忙，几乎没有太多的业余时间，剩下的80%嘛，嗯，是因为懒，哈哈！说实在的，没有写不代表这一年什么都没发生，相反，2017年，是我收货最大的一年，嗯，各方各面。
+过去的">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 2017随笔总结 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2017随笔总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-08T20:14:00+08:00" content="2018-01-08">
+              2018-01-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/08/2017随笔总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/08/2017随笔总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天，已经是2018年1月8日，2017年已经过去，今天挤出来时间，来为我的2017做一个迟到的总结。回忆起上次写文章，是2017年2月16号了，那篇文章叫做《我在创业游戏公司的一年》。这一年时间，我没有写文章，20%是因为今年变得很忙，几乎没有太多的业余时间，剩下的80%嘛，嗯，是因为懒，哈哈！说实在的，没有写不代表这一年什么都没发生，相反，2017年，是我收货最大的一年，嗯，各方各面。</p>
+<p>过去的2017年，我做了很多我一直很想做的事。<a id="more"></a></p>
+<h2 id="完成了4次小型旅游"><a href="#完成了4次小型旅游" class="headerlink" title="完成了4次小型旅游"></a>完成了4次小型旅游</h2><p>还记得2016年写过一篇文章，计划2017年“能出门旅游一次，带上父母和女朋友”，这个小目标算是完成了，而且还超额完成了，因为17年，我们一共旅行了四次，第一次是五一青岛游，第二次是周末天津游，第三次是周末古北水镇游，第四次是元旦上海游。</p>
+<p>五一青岛游，这是一次女朋友、我妈、我姨妈、我，我们四个人的旅行，也是今年最满意的一次旅行，整个过程很舒服，青岛也是个十分舒适的城市，那时天气还不算热，也不算冷，很适宜的温度，沙滩上晒太阳的感觉很舒服，青岛的海鲜很好吃，没有遇到新闻里的坑人大虾，青岛有着很典型的滨海城市的特色、海风、海浪、沙滩、海鲜，该有的都有。好玩，好吃，还划算，去的很值。</p>
+<p>周末天津游，由女朋友、我、我姨妈、我舅妈我们四个人去的，之前我去过几次天津，印象还是不错的，印象很深的是有一次和同学来天津逛，天津的炸糕给了我很深的回味，很怀念天津炸糕的味道。可惜的是，这次天津游就不是那么顺利了，由于我们想要去天津的海边，于是我们在天津的塘沽地铁站下了地铁，一下地铁，就有很多人过来拉客，说到海边只要十元一位，我们算了下，自己坐车去也比这贵，于是就糊里糊涂的上了车，结果司机给我们拉到了不知名的海边，可以看出来，海边根本还没怎么开发，海水的颜色，就像黄河一样浑浊，这大概是我看过最脏的海水了，不知道是天津的海都这样还是只是这个地方是这样。那个地方很偏，只能通过他们拉客的车进出，不仅浪费了我们的时间，也坑了我们的钱，这大概就是最糟糕的一次天津游了，想想之前我们有同学在这里进了传销，我不是地域黑，但现在想想，天津整体给人的印象大概就一个字“骗”。</p>
+<p>古北水镇游，这是一次三五好友的自驾聚会旅行，韵哥，欣妹儿，龚世伟，周帅哥，谢姐姐，罗倩还有我，司机是我丰弟——经常给老师开车的老司机，这次的旅行还是非常开心的，因为大家都是很久不见的朋友，能在北京聚在一起玩儿一次也是不容易，有的在考研，有的在工作，有的在培训，有的在读研，各自的生活都有着很大的压力，一起出门自驾旅行一次，也算是放松放松了。</p>
+<p>元旦上海游，罗倩，侯玲，磊哥和我，我们四个人的旅行，到达当晚由黄懂请客吃饭，老实说，吃的不错，黄懂在饿了么省吃俭用，这回被我们一夜吃到解放前。第二天去了迪士尼，第三天，就累了一天……从此决定，节假日千万不要去游乐园的地方，真的是排队一小时，游玩五分钟，但不得不说的是，海盗船项目的360度身临其境大屏幕还是震撼到我了，另外小矮人矿山车也是很刺激，整体来说，就这两个项目最满意，其他的，基本都是好玩带来的感受不及排队带来的痛苦，只有这俩项目是值得排队的，遗憾的是极速光轮项目和飞跃地平线项目没能游玩上，听说是迪士尼的热门项目。经过了第一天的体力消耗，原本计划的第二天上海市区游也游不动了，真！的！不！想！走！了！，累趴了，31晚外滩人很多，元旦跨年活动也就取消了，遗憾的我们打车回去了，中间有个小插曲，就是打到车后，我们几乎等了一个小时才上到车，因为人真的太多了……</p>
+<p>不管怎么说，2017年，我也是有了四次小旅行了，感受了各地的人文和自然风景，对此来说，我已经非常满意了。</p>
+<h2 id="完成了多年的小目标"><a href="#完成了多年的小目标" class="headerlink" title="完成了多年的小目标"></a>完成了多年的小目标</h2><p>还没成年的时候，就想要开车了，我的记忆中，初中开始，家里就有车了，那时候最喜欢的事情，就是坐我妈的车到处走，去哪儿不重要，要的只是和爸爸妈妈坐在车里的感觉，我记得很清楚的是，当时我家车里有一股味道，大概是皮革味吧，离开家以后，闻到这种皮革味就想起坐我妈的车的感觉。18岁终于成年了，家里人担心我的安全就没允许我学车，而上了大学以后因为懒，我也没报驾校去学车。现在很后悔，因为工作以后，我需要花费更多的时间和金钱去学车，不过不管怎么样，我在12月18日，终于拿到了梦寐以求的驾照，这也算是完成了我多年来一个小小的心愿，中间过程还算顺利，就科目二考了两次，第一次因为太紧张，第一个项目倒车入库直接挂了两次，好在调整好心态后，第二次满分过了。拿到驾照以后，我就开始用一度用车APP到处开车练技术，在北京感觉还好，大家还是比较遵守交通规则，不过共享汽车是自动挡，不知道如果换成手动挡我还能不能熟练的起步停车。现在只想好好练练自己的技术，能做到开车时稳定心态，练好了，就能和家人或者朋友出去自驾游，想想还是很开心的。</p>
+<h2 id="看过的最感动的电影"><a href="#看过的最感动的电影" class="headerlink" title="看过的最感动的电影"></a>看过的最感动的电影</h2><p>这么久以来，看过的电影也不少了，而国庆档的《缝纫机乐队》却是让我最感动的电影。电影描述的是主角和一个小镇的摇滚梦想，努力保卫小镇大吉他雕像和自己的摇滚梦想。我还记得当时我学吉他的时候，听了一段老师打的架子鼓，感觉特别帅，特别有范儿，后来去网上看了很多很帅的打鼓视频，觉得帅爆了，但我还是觉得，听现场的打鼓才是最震撼的。后来，我经常在后海酒吧门口听里面的人演奏，标准的吉他+贝斯+架子鼓+键盘，觉得玩儿摇滚乐的都特别酷。很遗憾自己小时候没有多接触音乐，没有多学习乐器，后来长大了，高三采取学一点吉他，仅仅一点，大学又去学了一些钢琴，也算是小小的满足了下曾经的梦想，至少，能看懂五线谱了，能生啃一个谱子，生练一个月把一首钢琴曲弹会，也算是一点小小的成就感。<br>而我的这些音乐梦，在这部电影里，真的完完全全被重述了出来，电影里，乐队第一次合作的时候，即兴演奏的那一段，我不知道为什么，也许是电影院的音效太好，我的心一下被震撼了，当时有眼泪充斥眼眶，或许这正是我多年来被埋没的梦。而就是这一段即兴的演奏，我甚至认为比后面完整的乐队演奏更为震撼，不知道为什么，很奇怪，我现在仍能想起当时在电影院被震撼的感觉。<br>后来看评分，《缝纫机乐队》甚至评分不如《羞羞的铁拳》，但是我认为这真的是我整个2017年看过最能震撼到我的电影，或许这是所有有着音乐梦的人共同的心声。回想起来，上一期引起我音乐共鸣的，是一部泰国电影，叫《音为爱》，一部描述高中生的音乐之路，同样是摇滚和梦想的元素，当时我也正在上高中，也是深深的被感触，甚至莫名其妙的喜欢上了电影里的泰语歌。<br>感谢大鹏导演，用电影，用他自己的音乐梦，唤起了我们曾经单纯美好的梦想。</p>
+<h2 id="玩过的最深刻的游戏"><a href="#玩过的最深刻的游戏" class="headerlink" title="玩过的最深刻的游戏"></a>玩过的最深刻的游戏</h2><p>2017年，我也终于玩上了3A大作，《极品飞车20》《神秘海域》《GTA》《生化危机7》《直到黎明》《消逝的光芒》，太多太多大作了，相信所有人，心里都有一个游戏世界，而这些我们小时候都是很难体验到的，小时候玩游戏，总被认为是罪大恶极，总被灌输游戏是穿肠毒药的思想。长大后，再体验游戏这个东西，就会发现，好的游戏真是第九艺术，用一种艺术的形式，带我们体验一段神奇的旅程，感受不一样的世界。身在游戏行业圈，不得不承认的是，现在好游戏基本来自国外，国产游戏很难有什么好游戏，不知道何时开始的，国内游戏行业的发展方向就从用心做游戏变成了用心坑钱。庆幸的是，虽然艰难，我们国内，仍然有坚持做精品游戏的公司，以及独立游戏团队。因为，我支持ICEY，支持神舞幻想，希望能看到中国游戏行业在世界崛起的那一天，并且是以精品游戏为标杆，而不是过度商业化的圈钱产品。希望有更多的像仙剑之父姚壮宪这样优秀的行业大佬出现！<br>要说我玩过深刻的游戏，那必须是《最后的守护者》，又叫《食人的大鹫》，别看名字这么可怕，其他它讲述的是一个纯真少年和一直大鸟（或者叫大狗？）的奇妙旅程，游戏的开始，少年变和大鹫在一起，我扮演的就是少年，和大鹫从最初的陌生到熟悉，到亲密，到不可分离，我似乎能真切的感受到这一个游戏里虚拟的动物的存在，我好像真的有个朋友叫做Trico，它陪我渡过一个又一个的难关。而游戏最后的CG也终于让我忍不住落泪，这是我第一次玩游戏落泪，因为我真的感受到了那种与最亲密的朋友分离的痛苦。CG的最后，奄奄一息的少年，举起手对Trico下了最后一个命令——离开这里，大鹫才煽动翅膀飞走，看着大鹫离开的背影，我当时的心情真的很心酸，好在游戏的结尾，少年长大后，举起手中的铜镜，对Trico互换，远在山谷里的大鹫也似乎感受到了这样的心灵感应，最后点题，大鹫成为了山谷最后的守护者。整个游戏的故事背景最终也没有交代完全，其中还有很多玩家所不知道的事情，留下了悬念，但是少年与大鹫的感情，作为玩家的我是真真切切的感受到了。<br>真正的游戏大作，就如同音乐、电影一样，是一种艺术形式，通过更强的代入感，让玩家感受到游戏想要表达的真实情感。不能否定最近大火的竞技游戏的存在，但可以肯定是，这类游戏只能带我们实时竞技的快感，却没有任何实际的意义，而真正的大作游戏，是能引起你内心的共鸣，能让你对现实生活产生思考的好作品。</p>
+<h2 id="做过的最坚持的事情"><a href="#做过的最坚持的事情" class="headerlink" title="做过的最坚持的事情"></a>做过的最坚持的事情</h2><p>去年，我写了一本书，叫做《深度解析Java游戏服务器开发》，说实话，书的内容并不“深度”，基本都是很基础的内容，不过也算是我日日夜夜辛苦写出来的，其中内容质量，相比其他书来说，不算太好。有一次，我还在北京的王府井书店见到有我的书售卖，当时觉得，这本书没白写。鉴于我对去年写的书的内容并不满意，2017年，我又花了半年时间，写了《Cocos2d-JS快速入门到实战》，这本书不算百分百的满意，但也算把我所有关于Cocos的知识抖出来了，如果还要我再写一本书，我好像真的就没什么能写的了。有一点遗憾的是，我的Cocos2d-JS的书刚写出来，临近年底，微信又推出了微信小游戏，而Cocos Creator能更好的支持微信小游戏的构建，这种情况就很尴尬了，我写的Cocos2d-JS，技术相对过气了，现在Cocos更加大力推崇使用Creator，希2018年我的书能够大卖吧，毕竟Cocos2d-JS也是能做微信小游戏的。<br>想起前半年写书的日子，也是很痛苦的，每天几乎是9点下班，回家就写书，写到12点再洗漱睡觉，可以说是非常辛苦了，每一章每一小节，我都要想办法通过一个实际的代码案例来阐述（感觉以后可以做个培训老师了），写书的同时，也算是巩固了我自己的知识储备。按照清华出版社编辑的说法，今年年底，我的书应该就能出来了，到时候，希望大家来两本，毕竟，这次这本书，销量与我收入有关了，哈哈哈！</p>
+<h2 id="最荣幸的事情"><a href="#最荣幸的事情" class="headerlink" title="最荣幸的事情"></a>最荣幸的事情</h2><p>2017年年初的时候，我加入了云畅游戏，进入了鬼泣项目组，从进入到工作到现在，感觉这是我工作生涯中成长最快的一年。在上家公司的时候，我经历的阶段是探索和学习的阶段，在这家公司，我经历的是规范和进阶的阶段。在现在这家公司，我学到了更多的是如果更加规范的写代码，如何高效的写代码，了解了更多关于Java的泛型、反射、设计模式、枚举、JVM等。同时，团队的开发也让我有了更多与人沟通，团队协作的经验。我所在的项目组做的游戏也是我年少时玩过的划时代的ACT主机游戏——鬼泣，在当时来说，可以说是一流的动作游戏了，没有想到多年后的今天，我会亲自参与到游戏的手游版本的制作。说到手游，公司刚宣布与卡婊的合作的时候，游戏圈一片哗然，全是类似于“不要毁了我心中的鬼泣”“国内厂商，毁了”等消极言论，其实在我看来，手游和原作两者本身受众是不同的，我相信真正的动作游戏硬核玩家是不屑于玩儿手游的，我们这款产品无非做的就是一个情怀，吸引那些原IP里愿意体验简化版的鬼泣，以及新的手游玩家，算是同时面向一部分老的主机游戏玩家和一部分手游玩家。从公司以前的作品（《刀剑神域》《不良人2》）来看，我相信我们的《鬼泣》也会成功的，不期望成为爆款，至少达到《崩坏3》的水平，做出手游ACT的一代标杆。<br>2017年，我很荣幸成为了鬼泣项目组的一员！</p>
+<p>很久没写文章，请原谅我流水账式的总结，只想安安静静的做个总结，来概括我的2017年！</p>
+<p>来点彩蛋吧：<br>万万没想到的是，上家公司死掉的产品在快年底的时候，活过来了，这得感谢前同事的各种努力，年底突然的喜讯，也拿到一笔意外的小钱，希望我们可以继续越做越好！</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/游戏服务器/" rel="tag">#游戏服务器</a>
+          
+            <a href="/tags/总结/" rel="tag">#总结</a>
+          
+            <a href="/tags/随笔/" rel="tag">#随笔</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/10/Cocos2d-JS实现的打飞机/" rel="next" title="Cocos2d-JS实现的打飞机">
+                <i class="fa fa-chevron-left"></i> Cocos2d-JS实现的打飞机
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2018/01/08/2017随笔总结/"
+     data-title="2017随笔总结"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2018/01/08/2017随笔总结/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/01/08/2017随笔总结/"
+           data-title="2017随笔总结" data-url="http://hjcenry.coding.me/2018/01/08/2017随笔总结/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#完成了4次小型旅游"><span class="nav-number">1.</span> <span class="nav-text">完成了4次小型旅游</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成了多年的小目标"><span class="nav-number">2.</span> <span class="nav-text">完成了多年的小目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看过的最感动的电影"><span class="nav-number">3.</span> <span class="nav-text">看过的最感动的电影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩过的最深刻的游戏"><span class="nav-number">4.</span> <span class="nav-text">玩过的最深刻的游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#做过的最坚持的事情"><span class="nav-number">5.</span> <span class="nav-text">做过的最坚持的事情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最荣幸的事情"><span class="nav-number">6.</span> <span class="nav-text">最荣幸的事情</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

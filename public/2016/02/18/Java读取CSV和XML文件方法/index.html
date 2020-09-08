@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,csv,xml," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="游戏开发中，读取策划给的配置表是必不可少的，我在之前公司，策划给的是xml表来读取，现在公司策划给的是CSV表来读取，其实大同小异，也并不是什么难点，我就简单分享下Java如何读取XML文件和CSV文件。以下工具类可随意拿去使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java读取CSV和XML文件方法">
+<meta property="og:url" content="http://hjcenry.coding.me/2016/02/18/Java读取CSV和XML文件方法/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="游戏开发中，读取策划给的配置表是必不可少的，我在之前公司，策划给的是xml表来读取，现在公司策划给的是CSV表来读取，其实大同小异，也并不是什么难点，我就简单分享下Java如何读取XML文件和CSV文件。以下工具类可随意拿去使用。">
+<meta property="og:updated_time" content="2016-04-22T16:57:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java读取CSV和XML文件方法">
+<meta name="twitter:description" content="游戏开发中，读取策划给的配置表是必不可少的，我在之前公司，策划给的是xml表来读取，现在公司策划给的是CSV表来读取，其实大同小异，也并不是什么难点，我就简单分享下Java如何读取XML文件和CSV文件。以下工具类可随意拿去使用。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Java读取CSV和XML文件方法 | Henry Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Javaer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java读取CSV和XML文件方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-18T15:59:00+08:00" content="2016-02-18">
+              2016-02-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/18/Java读取CSV和XML文件方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/18/Java读取CSV和XML文件方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+           
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>游戏开发中，读取策划给的配置表是必不可少的，我在之前公司，策划给的是xml表来读取，现在公司策划给的是CSV表来读取，其实大同小异，也并不是什么难点，我就简单分享下Java如何读取XML文件和CSV文件。以下工具类可随意拿去使用。<br><a id="more"></a></p>
+<h3 id="Java读XML文件"><a href="#Java读XML文件" class="headerlink" title="Java读XML文件"></a>Java读XML文件</h3><p>如果是Maven项目，则依赖以下包（如果不是，则自己在项目添加配置相应jar包）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">      <span class="comment">&lt;!-- dom4j begin --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- dom4j end --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--xml转换 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.thoughtworks.xstream<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>xstream<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>读取XML文件应该是比较常见的，用dom4j就可以很简单的读出来，首先准备一个XML文件，来映射出所有的XML资源文件的名字，资源文件如下：<br>dataConfig.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"Test.xml"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>示例资源XML文件如下<br>Test.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">dataset</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">Test</span> <span class="attr">attr1</span>=<span class="string">""</span> <span class="attr">attr2</span>=<span class="string">""</span> <span class="attr">attr3</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dataset</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Java项目中建一个类，变量名与XML中属性名相同，Java代码通过这个XML文件来找出所有的资源XML文件，然后将XML文件中的属性值全部读取到类中，再把类放进Map，加载到内存中，这样，每次需要读取配置表，就可以直接从内存中读取，快速且方便<br>以下是XmlDataLoader.java，作用是从数据表中读取属性值到内存<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc._36.util.xml;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="keyword">import</span> java.sql.Timestamp;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.dom4j.Document;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.DocumentException;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.Element;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.io.SAXReader;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc._36.core.GameInit;</span><br><span class="line"><span class="keyword">import</span> com.hjc._36.util.csv.TempletService;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 1 所有的template类都必须在一个包中 2 通过读取xml 遍历所有的Element，通过Element.name和 package 得到具体的</span><br><span class="line"> * className; 3 通过Element的 attr 获取方法，并且根据parameterType 强制转换类型</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> Administrator</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XmlDataLoader</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String packageName;</span><br><span class="line">	<span class="keyword">private</span> String config; <span class="comment">// 每一行就是一个配置文件名字</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(XmlDataLoader.class);</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ActivityMaxValue;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">XmlDataLoader</span><span class="params">(String packageName, String config)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.packageName = packageName;</span><br><span class="line">		<span class="keyword">this</span>.config = config;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 调用load方法加载所有的配置文件</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Document doc = reader.read(<span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getClass()</span><br><span class="line">					.getResourceAsStream(<span class="keyword">this</span>.config)));</span><br><span class="line">			List&lt;?&gt; nodes = doc.selectNodes(<span class="string">"/config/file"</span>);</span><br><span class="line">			Map&lt;String, List&lt;?&gt;&gt; dataMap = <span class="keyword">new</span> HashMap&lt;String, List&lt;?&gt;&gt;();</span><br><span class="line">			List&lt;String&gt; files = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">			<span class="keyword">for</span> (Object n : nodes) &#123;</span><br><span class="line">				Element t = (Element) n;</span><br><span class="line">				String f = t.attributeValue(<span class="string">"name"</span>);</span><br><span class="line">				List&lt;?&gt; dataList = <span class="keyword">this</span>.loadFile(f, <span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">for</span> (Object o : dataList) &#123;</span><br><span class="line">					TempletService.getInstance().registerObject(o, dataMap);</span><br><span class="line">				&#125;</span><br><span class="line">				files.add(f);</span><br><span class="line">			&#125;</span><br><span class="line">			logger.info(<span class="string">"读取配置完毕，准备afterLoad"</span>);</span><br><span class="line">			TempletService.templetMap = dataMap;</span><br><span class="line">			TempletService.getInstance().afterLoad();</span><br><span class="line">			logger.info(<span class="string">"afterLoad 完毕"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (DocumentException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> List&lt;?&gt; loadFile(String file, <span class="keyword">boolean</span> exitWhenFail) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			file = GameInit.confFileBasePath + file;</span><br><span class="line">			logger.info(<span class="string">"load file: &#123;&#125;"</span>, file);</span><br><span class="line">			InputStream resourceAsStream = <span class="keyword">this</span>.getClass().getResourceAsStream(</span><br><span class="line">					file);</span><br><span class="line">			<span class="keyword">if</span> (resourceAsStream == <span class="keyword">null</span>) &#123;</span><br><span class="line">				logger.error(<span class="string">"文件不存在:"</span> + file);</span><br><span class="line">				<span class="keyword">if</span> (exitWhenFail) &#123;</span><br><span class="line">					System.exit(<span class="number">0</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> loadFromStream(resourceAsStream);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			logger.error(<span class="string">"载入文件出错："</span> + file);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			System.exit(<span class="number">0</span>);</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> Collections.EMPTY_LIST;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> List&lt;?&gt; loadFromStream(InputStream resourceAsStream)</span><br><span class="line">			<span class="keyword">throws</span> UnsupportedEncodingException, DocumentException,</span><br><span class="line">			InstantiationException, IllegalAccessException &#123;</span><br><span class="line">		SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">		Document doc = reader.read(<span class="keyword">new</span> InputStreamReader(resourceAsStream,</span><br><span class="line">				<span class="string">"utf-8"</span>));</span><br><span class="line">		Element dataSet = (Element) doc.selectNodes(<span class="string">"/dataset"</span>).get(<span class="number">0</span>);</span><br><span class="line">		List&lt;?&gt; nodes = dataSet.elements();</span><br><span class="line">		<span class="comment">// get clazz</span></span><br><span class="line">		String className = <span class="keyword">this</span>.packageName</span><br><span class="line">				+ ((Element) nodes.get(<span class="number">0</span>)).getName();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class&lt;?&gt; classObject = Class.forName(className);</span><br><span class="line">			<span class="keyword">if</span> (classObject == <span class="keyword">null</span>) &#123;</span><br><span class="line">				logger.error(<span class="string">"未找到类"</span> + className);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Get all the declared fields</span></span><br><span class="line">			Field[] fields = classObject.getDeclaredFields();</span><br><span class="line">			LinkedList&lt;Field&gt; fieldList = <span class="keyword">new</span> LinkedList&lt;Field&gt;();</span><br><span class="line">			<span class="keyword">int</span> length = fields.length;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = -<span class="number">1</span>; ++i &lt; length;) &#123;</span><br><span class="line">				<span class="keyword">boolean</span> isStaticField = Modifier.isStatic(fields[i]</span><br><span class="line">						.getModifiers());</span><br><span class="line">				<span class="keyword">if</span> (isStaticField)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">boolean</span> isTransientField = Modifier.isTransient(fields[i]</span><br><span class="line">						.getModifiers());</span><br><span class="line">				<span class="keyword">if</span> (isTransientField)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				fieldList.add(fields[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Get all the declared fields of supper class</span></span><br><span class="line">			Class&lt;?&gt; tmp = classObject;</span><br><span class="line">			<span class="keyword">while</span> ((tmp = tmp.getSuperclass()) != Object.class) &#123;</span><br><span class="line">				System.out.print(<span class="string">"the extends class is"</span> + tmp.getName());</span><br><span class="line">				fields = tmp.getDeclaredFields();</span><br><span class="line">				length = fields.length;</span><br><span class="line">				<span class="keyword">if</span> (length == <span class="number">0</span>)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> i = -<span class="number">1</span>; ++i &lt; length;) &#123;</span><br><span class="line">					<span class="keyword">boolean</span> isStaticField = Modifier.isStatic(fields[i]</span><br><span class="line">							.getModifiers());</span><br><span class="line">					<span class="keyword">if</span> (isStaticField)</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					<span class="keyword">boolean</span> isTransientField = Modifier.isTransient(fields[i]</span><br><span class="line">							.getModifiers());</span><br><span class="line">					<span class="keyword">if</span> (isTransientField)</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					fieldList.add(fields[i]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// The truly need to return object</span></span><br><span class="line">			List&lt;Object&gt; instances = <span class="keyword">new</span> ArrayList&lt;Object&gt;(nodes.size());</span><br><span class="line">			Object instance = <span class="keyword">null</span>;</span><br><span class="line">			String fieldName = <span class="keyword">null</span>;</span><br><span class="line">			String fieldValue = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">for</span> (Object node : nodes) &#123;</span><br><span class="line">				<span class="keyword">if</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">					instance = classObject.newInstance();</span><br><span class="line">					<span class="keyword">boolean</span> ok = <span class="keyword">false</span>;</span><br><span class="line">					Element row = (Element) node;</span><br><span class="line">					<span class="keyword">for</span> (Field field : fieldList) &#123;</span><br><span class="line">						fieldName = field.getName();</span><br><span class="line">						fieldValue = row.attributeValue(fieldName);</span><br><span class="line">						<span class="keyword">if</span> (fieldValue == <span class="keyword">null</span>)</span><br><span class="line">							<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">try</span> &#123;</span><br><span class="line">							<span class="keyword">this</span>.setField(instance, field, fieldValue);</span><br><span class="line">							ok = <span class="keyword">true</span>;</span><br><span class="line">						&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">							logger.error(<span class="string">"类名称是"</span> + className + <span class="string">"的属性"</span> + fieldName</span><br><span class="line">									+ <span class="string">"没有被成功赋予静态数据"</span>);</span><br><span class="line">							<span class="keyword">continue</span>;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">if</span> (ok)</span><br><span class="line">						instances.add(instance);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> instances;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e1) &#123;</span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">			logger.error(<span class="string">"未找到类"</span> + className);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reload</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 *</span><br><span class="line">	 * <span class="doctag">@Title</span>: setUnknowField</span><br><span class="line">	 * <span class="doctag">@Description</span>:</span><br><span class="line">	 * <span class="doctag">@param</span> ob</span><br><span class="line">	 * <span class="doctag">@param</span> f</span><br><span class="line">	 * <span class="doctag">@param</span> v</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalArgumentException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setField</span><span class="params">(Object obj, Field f, String v)</span></span><br><span class="line">			<span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">		f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">		<span class="keyword">if</span> (f.getType() == <span class="keyword">int</span>.class) &#123;</span><br><span class="line">			f.setInt(obj, Integer.parseInt(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">short</span>.class) &#123;</span><br><span class="line">			f.setShort(obj, Short.parseShort(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">byte</span>.class) &#123;</span><br><span class="line">			f.setByte(obj, Byte.parseByte(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">long</span>.class) &#123;</span><br><span class="line">			f.setLong(obj, Long.parseLong(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">double</span>.class) &#123;</span><br><span class="line">			f.setDouble(obj, Double.parseDouble(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">float</span>.class) &#123;</span><br><span class="line">			f.setFloat(obj, Float.parseFloat(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == Timestamp.class) &#123;</span><br><span class="line">			f.set(obj, Timestamp.valueOf(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			f.set(obj, f.getType().cast(v));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Test Code</span><br><span class="line">	 *</span><br><span class="line">	 * <span class="doctag">@param</span> args</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		XmlDataLoader dl = <span class="keyword">new</span> XmlDataLoader(<span class="string">"com.hjc._36.template."</span>,</span><br><span class="line">				<span class="string">"/dataConfig.xml"</span>);</span><br><span class="line">		dl.load();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如上的测试方法中看出，调用方式很简单，只需加载到映射XML文件，即可读取所有的配置XML文件，调用load()方法后，配置表就全部加载到了内存，我们通过以下类——TempletService.java来对这些配置数据进行管理：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc._36.util.csv;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 添加一个数据表需要做以下几步</span><br><span class="line"> * 1.在包com.hjc._36.template下创建对应的模板类，类名与数据文件一致</span><br><span class="line"> * 2.在src/main/resources/xml/中添加模板数据文件</span><br><span class="line"> * 3.在src/main/resources/dataConfig.xml加入刚才的模板数据文件</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> 何金成</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TempletService</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Logger log = LoggerFactory.getLogger(TempletService.class);</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> TempletService templetService = <span class="keyword">new</span> TempletService();</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * key:实体名 value:该实体下的所有模板数据</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String, List&lt;?&gt;&gt; templetMap = <span class="keyword">new</span> HashMap&lt;String, List&lt;?&gt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TempletService</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TempletService <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> templetService;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 获取该实体类下所有模板数据</span><br><span class="line">	 *</span><br><span class="line">	 * <span class="doctag">@param</span> beanName</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 */</span></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List <span class="title">listAll</span><span class="params">(String beanName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> templetMap.get(beanName);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * <span class="doctag">@Title</span>: registerObject</span><br><span class="line">	 * <span class="doctag">@Description</span>: 注册对象到对应类的List中</span><br><span class="line">	 * <span class="doctag">@param</span> o</span><br><span class="line">	 * <span class="doctag">@param</span> dataMap</span><br><span class="line">	 * <span class="doctag">@return</span> void</span><br><span class="line">	 * <span class="doctag">@throws</span></span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerObject</span><span class="params">(Object o, Map&lt;String, List&lt;?&gt;&gt; dataMap)</span> </span>&#123;</span><br><span class="line">		add(o.getClass().getSimpleName(), o, dataMap);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String key, Object data, Map&lt;String, List&lt;?&gt;&gt; dataMap)</span> </span>&#123;</span><br><span class="line">		List list = dataMap.get(key);</span><br><span class="line">		<span class="keyword">if</span> (list == <span class="keyword">null</span>) &#123;</span><br><span class="line">			list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">			dataMap.put(key, list);</span><br><span class="line">		&#125;</span><br><span class="line">		list.add(data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterLoad</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 加载后处理</span></span><br><span class="line">		<span class="comment">// List tests = TempletService.listAll(Test.class.getSimpleName());</span></span><br><span class="line">		<span class="comment">// for (Object object : tests) &#123;</span></span><br><span class="line">		<span class="comment">// Test test = (Test)object;</span></span><br><span class="line">		<span class="comment">// System.out.print(test.getEquipLv());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv1());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv2());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv3());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv4());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv5());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv6());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv7());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv8());</span></span><br><span class="line">		<span class="comment">// System.out.print(","+test.getLv9());</span></span><br><span class="line">		<span class="comment">// System.out.println(","+test.getLv10());</span></span><br><span class="line">		<span class="comment">// &#125;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadCanShu</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 加载全局参数xml配置</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在load()中，变用到了上述类的registerObject方法来添加数据，在使用时，只需要调用listAll方法即可，在上面代码中的测试代码已经写明了用法。</p>
+<h3 id="Java读取CSV文件"><a href="#Java读取CSV文件" class="headerlink" title="Java读取CSV文件"></a>Java读取CSV文件</h3><p>Java读CSV文件与读XML文件如出一辙，大致思路同上<br>dataConfig.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"Test.csv"</span> /&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"JunjichuUpgrade.csv"</span> /&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"Card.csv"</span> /&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"Equip.csv"</span> /&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"Prop.csv"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Test.csv如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">﻿等级,1星,2星,3星,4星,5星,6星,7星,8星,9星,10星,11星,12星,13星,14星,15星,16星,17星,18星,19星,20星,21星,22星,23星,24星,25星</span><br><span class="line">EquipLv,Lv1,Lv2,Lv3,Lv4,Lv5,Lv6,Lv7,Lv8,Lv9,Lv10,Lv11,Lv12,Lv13,Lv14,Lv15,Lv16,Lv17,Lv18,Lv19,Lv20,Lv21,Lv22,Lv23,Lv24,Lv25</span><br><span class="line">10,2,4,8,12,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</span><br><span class="line">20,6,12,24,36,48,60,72,84,96,108,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</span><br><span class="line">30,12,24,48,72,96,120,144,168,192,216,240,264,288,312,336,0,0,0,0,0,0,0,0,0,0</span><br><span class="line">40,20,40,80,120,160,200,240,280,320,360,400,440,480,520,560,0,0,0,0,0,0,0,0,0,0</span><br><span class="line">50,30,60,120,180,240,300,360,420,480,540,600,660,720,780,840,900,960,1020,1080,1140,0,0,0,0,0</span><br><span class="line">60,42,84,168,252,336,420,504,588,672,756,840,924,1008,1092,1176,1260,1344,1428,1512,1596,0,0,0,0,0</span><br><span class="line">70,56,112,224,336,448,560,672,784,896,1008,1120,1232,1344,1456,1568,1680,1792,1904,2016,2128,0,0,0,0,0</span><br><span class="line">80,72,144,288,432,576,720,864,1008,1152,1296,1440,1584,1728,1872,2016,2160,2304,2448,2592,2736,2880,3024,3168,3312,3456</span><br><span class="line">90,90,180,360,540,720,900,1080,1260,1440,1620,1800,1980,2160,2340,2520,2700,2880,3060,3240,3420,3600,3780,3960,4140,4320</span><br><span class="line">100,110,220,440,660,880,1100,1320,1540,1760,1980,2200,2420,2640,2860,3080,3300,3520,3740,3960,4180,4400,4620,4840,5060,5280</span><br></pre></td></tr></table></figure></p>
+<p>如上CSV表大家也能看出来，CSV文件中的数据是以一定规律呈现的，解析CSV便是根据CSV文件的这些特性来进行解析的，解析工具类CsvParser.java代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc._36.util.csv;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JAVA 操作 excel 中的 .csv文件格式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CsvParser</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> BufferedReader bufferedreader = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CsvParser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CsvParser</span><span class="params">(InputStream inStream)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		InputStreamReader isr = <span class="keyword">new</span> InputStreamReader(inStream, <span class="string">"UTF-8"</span>);</span><br><span class="line">		bufferedreader = <span class="keyword">new</span> BufferedReader(isr);</span><br><span class="line">		String stemp;</span><br><span class="line">		<span class="keyword">while</span> ((stemp = bufferedreader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			list.add(stemp);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List <span class="title">getList</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List <span class="title">getListWithNoHeader</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> list.subList(<span class="number">2</span>, list.size());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 得到csv文件的行数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRowNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> list.size();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 得到csv文件的列数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getColNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!list.toString().equals(<span class="string">"[]"</span>)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (list.get(<span class="number">0</span>).toString().contains(<span class="string">","</span>)) &#123; <span class="comment">// csv文件中，每列之间的是用','来分隔的</span></span><br><span class="line">				<span class="keyword">return</span> list.get(<span class="number">0</span>).toString().split(<span class="string">","</span>).length;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (list.get(<span class="number">0</span>).toString().trim().length() != <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 取得指定行的值</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.list.size() != <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 取得指定列的值</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getCol</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.getColNum() == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		StringBuffer scol = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">		String temp = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">int</span> colnum = <span class="keyword">this</span>.getColNum();</span><br><span class="line">		<span class="keyword">if</span> (colnum &gt; <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (Iterator it = list.iterator(); it.hasNext();) &#123;</span><br><span class="line">				temp = it.next().toString();</span><br><span class="line">				scol = scol.append(temp.split(<span class="string">","</span>)[index] + <span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">for</span> (Iterator it = list.iterator(); it.hasNext();) &#123;</span><br><span class="line">				temp = it.next().toString();</span><br><span class="line">				scol = scol.append(temp + <span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		String str = <span class="keyword">new</span> String(scol.toString());</span><br><span class="line">		str = str.substring(<span class="number">0</span>, str.length() - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 取得指定行，指定列的值</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getString</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">		String temp = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">int</span> colnum = <span class="keyword">this</span>.getColNum();</span><br><span class="line">		<span class="keyword">if</span> (colnum &gt; <span class="number">1</span>) &#123;</span><br><span class="line">			temp = list.get(row).toString().split(<span class="string">","</span>)[col];</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (colnum == <span class="number">1</span>) &#123;</span><br><span class="line">			temp = list.get(row).toString();</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			temp = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> temp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CsvClose</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.bufferedreader.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List <span class="title">readCvs</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		CsvParser cu = <span class="keyword">new</span> CsvParser(<span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(filename)));</span><br><span class="line">		List list = cu.getList();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createCsv</span><span class="params">(String biao, List list, String path)</span></span><br><span class="line">			<span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		List tt = list;</span><br><span class="line">		String data = <span class="string">""</span>;</span><br><span class="line">		SimpleDateFormat dataFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd"</span>);</span><br><span class="line">		Date today = <span class="keyword">new</span> Date();</span><br><span class="line">		String dateToday = dataFormat.format(today);</span><br><span class="line">		File file = <span class="keyword">new</span> File(path + <span class="string">"resource/expert/"</span> + dateToday</span><br><span class="line">				+ <span class="string">"importerrorinfo.csv"</span>);</span><br><span class="line">		<span class="keyword">if</span> (!file.exists())</span><br><span class="line">			file.createNewFile();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			file.delete();</span><br><span class="line">		String str[];</span><br><span class="line">		StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">""</span>);</span><br><span class="line">		sb.append(biao);</span><br><span class="line">		FileOutputStream writerStream = <span class="keyword">new</span> FileOutputStream(file, <span class="keyword">true</span>);</span><br><span class="line">		BufferedWriter output = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(</span><br><span class="line">				writerStream, <span class="string">"UTF-8"</span>));</span><br><span class="line">		<span class="keyword">for</span> (Iterator itt = tt.iterator(); itt.hasNext();) &#123;</span><br><span class="line">			String fileStr = itt.next().toString();</span><br><span class="line">			<span class="comment">// str = fileStr.split(",");</span></span><br><span class="line">			<span class="comment">// for (int i = 0; i &lt;= str.length - 1; i++) &#123; // 拆分成数组 用于插入数据库中</span></span><br><span class="line">			<span class="comment">// System.out.print("str[" + i + "]=" + str[i] + " ");</span></span><br><span class="line">			<span class="comment">// &#125;</span></span><br><span class="line">			<span class="comment">// System.out.println("");</span></span><br><span class="line">			sb.append(fileStr + <span class="string">"\r\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		output.write(sb.toString());</span><br><span class="line">		output.flush();</span><br><span class="line">		output.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		CsvParser test = <span class="keyword">new</span> CsvParser();</span><br><span class="line">		List aaa = test.readCvs(<span class="string">"D:/abc.csv"</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; aaa.size(); i++) &#123;</span><br><span class="line">			System.out.println(i + <span class="string">"---"</span> + aaa.get(i));</span><br><span class="line">			String a = (String) aaa.get(i).toString().split(<span class="string">","</span>)[<span class="number">0</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(aaa.size());</span><br><span class="line">		<span class="comment">//String biao = "用户名,姓名,排序,专家类型,业务专长,错误信息\n";</span></span><br><span class="line">		<span class="comment">//test.createCsv(biao, aaa, "D:/");</span></span><br><span class="line">		<span class="comment">// test.run("D:/abc.csv");</span></span><br><span class="line">		<span class="comment">// HttpServletResponse response = null;</span></span><br><span class="line">		<span class="comment">// test.createCsv(response);</span></span><br><span class="line"><span class="comment">//		CSVReader reader = new CSVReader(new FileReader("D:/abc.csv"));</span></span><br><span class="line"><span class="comment">//		ColumnPositionMappingStrategy&lt;Test&gt; strat = new ColumnPositionMappingStrategy&lt;Test&gt;();</span></span><br><span class="line"><span class="comment">//		strat.setType(Test.class);</span></span><br><span class="line"><span class="comment">//		String[] columns = new String[] &#123;"EquipLv","Lv1","Lv2","Lv3","Lv4","Lv5","Lv6","Lv7","Lv8","Lv9","Lv10","Lv11","Lv12","Lv13","Lv14","Lv15"&#125;; // the fields to bind do in your JavaBean</span></span><br><span class="line"><span class="comment">//		strat.setColumnMapping(columns);</span></span><br><span class="line"><span class="comment">//		CsvToBean&lt;Test&gt; csv = new CsvToBean&lt;Test&gt;();</span></span><br><span class="line"><span class="comment">//		List&lt;Test&gt; list = csv.parse(strat, reader);</span></span><br><span class="line"><span class="comment">//		System.out.println(list.size());</span></span><br><span class="line"><span class="comment">//		for (Test test : list) &#123;</span></span><br><span class="line"><span class="comment">//			System.out.println(test.getEquipLv());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv1());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv2());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv3());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv4());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv5());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv6());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv7());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv8());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv9());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv10());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv11());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv12());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv13());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv14());</span></span><br><span class="line"><span class="comment">//			System.out.print(test.getLv15());</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>CSV解析与XML解析的区别仅限于此，XML使用SaxReader来进行解析，而CSV自定义解析方式（当然网上也有很多别得第三方解析工具），接下来的步骤与XML解析一模一样，CsvDataLoader.java稍有不同的地方就是解析CSV文件的部分，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc._36.util.csv;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="keyword">import</span> java.sql.Timestamp;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.dom4j.Document;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.DocumentException;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.Element;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.io.SAXReader;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc._36.core.GameInit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CsvDataLoader</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(CsvDataLoader.class);</span><br><span class="line">	<span class="keyword">private</span> String packageName;</span><br><span class="line">	<span class="keyword">private</span> String config; <span class="comment">// 每一行就是一个配置文件名字</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ActivityMaxValue;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CsvDataLoader</span><span class="params">(String packageName, String config)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.packageName = packageName;</span><br><span class="line">		<span class="keyword">this</span>.config = config;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 调用load方法加载所有的配置文件</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Document doc = reader.read(<span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getClass()</span><br><span class="line">					.getResourceAsStream(<span class="keyword">this</span>.config)));</span><br><span class="line">			List&lt;?&gt; nodes = doc.selectNodes(<span class="string">"/config/file"</span>);</span><br><span class="line">			Map&lt;String, List&lt;?&gt;&gt; dataMap = <span class="keyword">new</span> HashMap&lt;String, List&lt;?&gt;&gt;();</span><br><span class="line">			List&lt;String&gt; files = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">			<span class="keyword">for</span> (Object n : nodes) &#123;</span><br><span class="line">				Element t = (Element) n;</span><br><span class="line">				String f = t.attributeValue(<span class="string">"name"</span>);</span><br><span class="line">				List&lt;?&gt; dataList = <span class="keyword">this</span>.loadFile(f, <span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">for</span> (Object o : dataList) &#123;</span><br><span class="line">					TempletService.getInstance().registerObject(o, dataMap);</span><br><span class="line">				&#125;</span><br><span class="line">				files.add(f);</span><br><span class="line">			&#125;</span><br><span class="line">			logger.info(<span class="string">"读取配置完毕，准备afterLoad"</span>);</span><br><span class="line">			TempletService.templetMap = dataMap;</span><br><span class="line">			TempletService.getInstance().afterLoad();</span><br><span class="line">			logger.info(<span class="string">"afterLoad 完毕"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (DocumentException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> List&lt;?&gt; loadFile(String file, <span class="keyword">boolean</span> exitWhenFail) &#123;<span class="comment">// 读文件</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			String clzName = file.replaceAll(<span class="string">".csv"</span>, <span class="string">""</span>);</span><br><span class="line">			file = GameInit.confFileBasePath + file;</span><br><span class="line">			logger.info(<span class="string">"load file: &#123;&#125;"</span>, file);</span><br><span class="line">			InputStream resourceAsStream = <span class="keyword">this</span>.getClass().getResourceAsStream(</span><br><span class="line">					file);</span><br><span class="line">			<span class="keyword">if</span> (resourceAsStream == <span class="keyword">null</span>) &#123;</span><br><span class="line">				logger.error(<span class="string">"文件不存在:"</span> + file);</span><br><span class="line">				<span class="keyword">if</span> (exitWhenFail) &#123;</span><br><span class="line">					System.exit(<span class="number">0</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> loadFromStream(resourceAsStream, clzName);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			logger.error(<span class="string">"载入文件出错："</span> + file);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			System.exit(<span class="number">0</span>);</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> Collections.EMPTY_LIST;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> List&lt;?&gt; loadFromStream(InputStream resourceAsStream, String clzName)</span><br><span class="line">			<span class="keyword">throws</span> DocumentException, InstantiationException,</span><br><span class="line">			IllegalAccessException, IOException &#123;<span class="comment">// 读csv文件</span></span><br><span class="line">		CsvParser csvParser = <span class="keyword">new</span> CsvParser(resourceAsStream);</span><br><span class="line">		List&lt;String&gt; nodes = csvParser.getListWithNoHeader();</span><br><span class="line">		<span class="comment">// get clazz</span></span><br><span class="line">		String className = <span class="keyword">this</span>.packageName + clzName;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class&lt;?&gt; classObject = Class.forName(className);</span><br><span class="line">			<span class="keyword">if</span> (classObject == <span class="keyword">null</span>) &#123;</span><br><span class="line">				logger.error(<span class="string">"未找到类"</span> + className);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Get all the declared fields</span></span><br><span class="line">			Field[] fields = classObject.getDeclaredFields();</span><br><span class="line">			LinkedList&lt;Field&gt; fieldList = <span class="keyword">new</span> LinkedList&lt;Field&gt;();</span><br><span class="line">			<span class="keyword">int</span> length = fields.length;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = -<span class="number">1</span>; ++i &lt; length;) &#123;</span><br><span class="line">				<span class="keyword">boolean</span> isStaticField = Modifier.isStatic(fields[i]</span><br><span class="line">						.getModifiers());</span><br><span class="line">				<span class="keyword">if</span> (isStaticField)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">boolean</span> isTransientField = Modifier.isTransient(fields[i]</span><br><span class="line">						.getModifiers());</span><br><span class="line">				<span class="keyword">if</span> (isTransientField)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				fieldList.add(fields[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Get all the declared fields of supper class</span></span><br><span class="line">			Class&lt;?&gt; tmp = classObject;</span><br><span class="line">			<span class="keyword">while</span> ((tmp = tmp.getSuperclass()) != Object.class) &#123;</span><br><span class="line">				System.out.print(<span class="string">"the extends class is"</span> + tmp.getName());</span><br><span class="line">				fields = tmp.getDeclaredFields();</span><br><span class="line">				length = fields.length;</span><br><span class="line">				<span class="keyword">if</span> (length == <span class="number">0</span>)</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> i = -<span class="number">1</span>; ++i &lt; length;) &#123;</span><br><span class="line">					<span class="keyword">boolean</span> isStaticField = Modifier.isStatic(fields[i]</span><br><span class="line">							.getModifiers());</span><br><span class="line">					<span class="keyword">if</span> (isStaticField)</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					<span class="keyword">boolean</span> isTransientField = Modifier.isTransient(fields[i]</span><br><span class="line">							.getModifiers());</span><br><span class="line">					<span class="keyword">if</span> (isTransientField)</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					fieldList.add(fields[i]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// The truly need to return object</span></span><br><span class="line">			List&lt;Object&gt; instances = <span class="keyword">new</span> ArrayList&lt;Object&gt;(nodes.size());</span><br><span class="line">			Object instance = <span class="keyword">null</span>;</span><br><span class="line">			String fieldName = <span class="keyword">null</span>;</span><br><span class="line">			String fieldValue = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">for</span> (String node : nodes) &#123;</span><br><span class="line">				<span class="keyword">if</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">					instance = classObject.newInstance();</span><br><span class="line">					<span class="keyword">boolean</span> ok = <span class="keyword">false</span>;</span><br><span class="line">					<span class="comment">// Element row = (Element) node;</span></span><br><span class="line">					String[] values = node.split(<span class="string">","</span>);<span class="comment">// csv文件以英文逗号分割值</span></span><br><span class="line">					<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fieldList.size(); i++) &#123;</span><br><span class="line">						Field field = fieldList.get(i);</span><br><span class="line">						fieldName = field.getName();</span><br><span class="line">						fieldValue = values[i];</span><br><span class="line">						<span class="keyword">if</span> (fieldValue == <span class="keyword">null</span>)</span><br><span class="line">							<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">try</span> &#123;</span><br><span class="line">							<span class="keyword">this</span>.setField(instance, field, fieldValue);</span><br><span class="line">							ok = <span class="keyword">true</span>;</span><br><span class="line">						&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">							logger.error(<span class="string">"类名称是"</span> + className + <span class="string">"的属性"</span> + fieldName</span><br><span class="line">									+ <span class="string">"没有被成功赋予静态数据"</span>);</span><br><span class="line">							<span class="keyword">continue</span>;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">if</span> (ok) &#123;</span><br><span class="line">						instances.add(instance);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> instances;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e1) &#123;</span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">			logger.error(<span class="string">"未找到类"</span> + className);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 *</span><br><span class="line">	 * <span class="doctag">@Title</span>: setUnknowField</span><br><span class="line">	 * <span class="doctag">@Description</span>:</span><br><span class="line">	 * <span class="doctag">@param</span> ob</span><br><span class="line">	 * <span class="doctag">@param</span> f</span><br><span class="line">	 * <span class="doctag">@param</span> v</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalArgumentException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setField</span><span class="params">(Object obj, Field f, String v)</span></span><br><span class="line">			<span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">		f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">		<span class="keyword">if</span> (f.getType() == <span class="keyword">int</span>.class) &#123;</span><br><span class="line">			f.setInt(obj, Integer.parseInt(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">short</span>.class) &#123;</span><br><span class="line">			f.setShort(obj, Short.parseShort(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">byte</span>.class) &#123;</span><br><span class="line">			f.setByte(obj, Byte.parseByte(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">long</span>.class) &#123;</span><br><span class="line">			f.setLong(obj, Long.parseLong(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">double</span>.class) &#123;</span><br><span class="line">			f.setDouble(obj, Double.parseDouble(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == <span class="keyword">float</span>.class) &#123;</span><br><span class="line">			f.setFloat(obj, Float.parseFloat(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.getType() == Timestamp.class) &#123;</span><br><span class="line">			f.set(obj, Timestamp.valueOf(v));</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			f.set(obj, f.getType().cast(v));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Test Code</span><br><span class="line">	 *</span><br><span class="line">	 * <span class="doctag">@param</span> args</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		CsvDataLoader dl = <span class="keyword">new</span> CsvDataLoader(<span class="string">"com.hjc._36.template."</span>,</span><br><span class="line">				<span class="string">"/dataConfig.xml"</span>);</span><br><span class="line">		dl.load();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后load()加载过后，依然使用TempletService来进行管理，使用方法也相同，具体代码参照上面。</p>
+<h5 id="以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。"><a href="#以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。" class="headerlink" title="以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。"></a>以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。</h5>
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我的微信号</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div></div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/csv/" rel="tag">#csv</a>
+          
+            <a href="/tags/xml/" rel="tag">#xml</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/22/JSON-RPC（jsonrpc4j）使用demo/" rel="prev" title="JSON-RPC（jsonrpc4j）使用demo">
+                JSON-RPC（jsonrpc4j）使用demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/02/18/Java读取CSV和XML文件方法/"
+     data-title="Java读取CSV和XML文件方法"
+     data-content=""
+     data-url="http://hjcenry.coding.me/2016/02/18/Java读取CSV和XML文件方法/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/18/Java读取CSV和XML文件方法/"
+           data-title="Java读取CSV和XML文件方法" data-url="http://hjcenry.coding.me/2016/02/18/Java读取CSV和XML文件方法/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.png"
+               alt="Henry He" />
+          <p class="site-author-name" itemprop="name">Henry He</p>
+          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java读XML文件"><span class="nav-number">1.</span> <span class="nav-text">Java读XML文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java读取CSV文件"><span class="nav-number">2.</span> <span class="nav-text">Java读取CSV文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。"><span class="nav-number">2.0.1.</span> <span class="nav-text">以上便是我对Java读取CSV和XML资源文件的总结，有需要的同学可以直接拿去用。</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+  
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hjcenry"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+
+</body>
+</html>

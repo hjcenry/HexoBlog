@@ -1,0 +1,14 @@
+/* 本css可根据不同浏览器以及不同版本自动生成对应调用代码,若下载此css或eot文件然后嵌入您的网站,浏览器版本识别功能将失效,在某些浏览器版本上将无法显示效果*/
+@font-face {
+font-family: 'CTjxiyuan468609';
+src: url('http://www.youziku.com/CSS/webfonts/2015-9-29/f0476095db4e4abd88d1fa0a35bcce0b/CTjxiyuan.gif');
+src: url('http://www.youziku.com/CSS/webfonts/2015-9-29/f0476095db4e4abd88d1fa0a35bcce0b/CTjxiyuan.gif?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+   }
+.cssb639450b0a54d6ac6997f066f3a7caac
+   {
+       font-family: CTjxiyuan468609;        
+   }
+
+ 
