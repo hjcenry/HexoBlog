@@ -1,388 +1,324 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hjcenry.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":false,"nav":{"changyan":{"text":"加载评论中","order":-1}},"activeClass":"changyan"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Java,rpc,Motan,开源," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
-
-
-
-
-
-
-<meta name="description" content="前两天，我在开源中国的微信公众号看到新浪微博的轻量Rpc框架——Motan开源了。上网查了下，才得知这个Motan来头不小，支撑着新浪微博的千亿调用，曾经在2014年的春晚中有着千亿次的调用，对抗了春晚的最高峰值。">
+  <meta name="description" content="前两天，我在开源中国的微信公众号看到新浪微博的轻量Rpc框架——Motan开源了。上网查了下，才得知这个Motan来头不小，支撑着新浪微博的千亿调用，曾经在2014年的春晚中有着千亿次的调用，对抗了春晚的最高峰值。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微博开源框架Motan初体验">
-<meta property="og:url" content="http://hjcenry.coding.me/2016/04/26/微博开源框架Motan初体验/index.html">
+<meta property="og:url" content="http://www.hjcenry.com/2016/04/26/%E5%BE%AE%E5%8D%9A%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Motan%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="Henry Blog">
 <meta property="og:description" content="前两天，我在开源中国的微信公众号看到新浪微博的轻量Rpc框架——Motan开源了。上网查了下，才得知这个Motan来头不小，支撑着新浪微博的千亿调用，曾经在2014年的春晚中有着千亿次的调用，对抗了春晚的最高峰值。">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-84987d6df57493e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://github.com/weibocom/motan/wiki/media/14612349319195.jpg">
-<meta property="og:updated_time" content="2016-04-26T14:21:12.000Z">
+<meta property="article:published_time" content="2016-04-26T09:44:00.000Z">
+<meta property="article:modified_time" content="2016-04-26T14:21:12.000Z">
+<meta property="article:author" content="Henry He">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="rpc">
+<meta property="article:tag" content="Motan">
+<meta property="article:tag" content="开源">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微博开源框架Motan初体验">
-<meta name="twitter:description" content="前两天，我在开源中国的微信公众号看到新浪微博的轻量Rpc框架——Motan开源了。上网查了下，才得知这个Motan来头不小，支撑着新浪微博的千亿调用，曾经在2014年的春晚中有着千亿次的调用，对抗了春晚的最高峰值。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1472037-84987d6df57493e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
+<link rel="canonical" href="http://www.hjcenry.com/2016/04/26/%E5%BE%AE%E5%8D%9A%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Motan%E5%88%9D%E4%BD%93%E9%AA%8C/">
 
 
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 0,
-      author: '博主'
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title> 微博开源框架Motan初体验 | Henry Blog </title>
+  <title>微博开源框架Motan初体验 | Henry Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Henry Blog</span>
+      <h1 class="site-title">Henry Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">Javaer</p>
   </div>
-  <p class="site-subtitle">Javaer</p>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-resume">
-          <a href="/resume" rel="section">
-            
-              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
-            
-            简历
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="#" class="st-search-show-outputs">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
-  
-    <div class="site-search">
-      
-  <form class="site-search-form">
-  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
-</form>
+  </li>
+        <li class="menu-item menu-item-categories">
 
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
-  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
-</script>
+  </li>
+        <li class="menu-item menu-item-archives">
 
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
+  </li>
+        <li class="menu-item menu-item-sitemap">
 
-    </div>
-  
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
- </div>
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hjcenry" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hjcenry.com/2016/04/26/%E5%BE%AE%E5%8D%9A%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Motan%E5%88%9D%E4%BD%93%E9%AA%8C/">
 
-  
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Henry He">
+      <meta itemprop="description" content="我们不生产代码，我们只是API的搬运工">
+    </span>
 
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Henry Blog">
+    </span>
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                微博开源框架Motan初体验
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          微博开源框架Motan初体验
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T17:44:00+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2016-04-26 17:44:00 / 修改时间：22:21:12" itemprop="dateCreated datePublished" datetime="2016-04-26T17:44:00+08:00">2016-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
-
-                
-                
-
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/微博开源框架Motan初体验/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/微博开源框架Motan初体验/" itemprop="commentsCount"></span>
-                </a>
+            <span id="/2016/04/26/%E5%BE%AE%E5%8D%9A%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Motan%E5%88%9D%E4%BD%93%E9%AA%8C/" class="post-meta-item leancloud_visitors" data-flag-title="微博开源框架Motan初体验" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-
-           
-
-          
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-          
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2016/04/26/%E5%BE%AE%E5%8D%9A%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Motan%E5%88%9D%E4%BD%93%E9%AA%8C/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/04/26/微博开源框架Motan初体验/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
         </div>
       </header>
+
     
-
-
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>前两天，我在开源中国的微信公众号看到新浪微博的轻量Rpc框架——Motan开源了。上网查了下，才得知这个Motan来头不小，支撑着新浪微博的千亿调用，曾经在2014年的春晚中有着千亿次的调用，对抗了春晚的最高峰值。<a id="more"></a></p>
-<h3 id="什么是Motan"><a href="#什么是Motan" class="headerlink" title="什么是Motan"></a>什么是Motan</h3><p><em>2013 年微博 RPC 框架 Motan 在前辈大师们（福林、fishermen、小麦、王喆等）的精心设计和辛勤工作中诞生，向各位大师们致敬，也得到了微博各个技术团队的鼎力支持及不断完善，如今 Motan 在微博平台中已经广泛应用，每天为数百个服务完成近千亿次的调用。” —— 张雷</em></p>
+<h3 id="什么是Motan"><a href="#什么是Motan" class="headerlink" title="什么是Motan"></a>什么是Motan</h3><p><em>2013 年微博 RPC 框架 Motan 在前辈大师们（福林、fishermen、小麦、王喆等）的精心设计和辛勤工作中诞生，向各位大师们致敬，也得到了微博各个技术团队的鼎力支持及不断完善，如今 Motan 在微博平台中已经广泛应用，每天为数百个服务完成近千亿次的调用。” —— 张雷</em></p>
 <p>微博的Motan RPC服务，底层通讯引擎采用了Netty网络框架，序列化协议支持Hessian和Java序列化，通讯协议支持Motan、http、tcp、mc等，Motan框架在内部大量使用，在系统的健壮性和服务治理方面，有较为成熟的技术解决方案，健壮性上，基于Config配置管理服务实现了High Availability与Load Balance策略（支持灵活的FailOver和FailFast HA策略，以及Round Robin、LRU、Consistent Hash等Load Balance策略），服务治理方面，生成完整的服务调用链数据，服务请求性能数据，响应时间（Response Time）、QPS以及标准化Error、Exception日志信息。</p>
-<p>Motan 属于服务治理类型，是一个基于 Java 开发的高性能的轻量级 RPC 框架，Motan 提供了实用的服务治理功能和优秀的 RPC 协议扩展能力。<br>Motan 提供的主要功能包括：<br><strong>服务发现</strong> ：服务发布、订阅、通知<br><strong>高可用策略</strong> ：失败重试（Failover）、快速失败（Failfast）、异常隔离（Server 连续失败超过指定次数置为不可用，然后定期进行心跳探测）<br><strong>负载均衡</strong> ：支持低并发优先、一致性 Hash、随机请求、轮询等<br><strong>扩展性</strong> ：支持 SPI 扩展（service provider interface）<br><strong>其他</strong> ：调用统计、访问日志等</p>
+<p>Motan 属于服务治理类型，是一个基于 Java 开发的高性能的轻量级 RPC 框架，Motan 提供了实用的服务治理功能和优秀的 RPC 协议扩展能力。<br>Motan 提供的主要功能包括：<br><strong>服务发现</strong> ：服务发布、订阅、通知<br><strong>高可用策略</strong> ：失败重试（Failover）、快速失败（Failfast）、异常隔离（Server 连续失败超过指定次数置为不可用，然后定期进行心跳探测）<br><strong>负载均衡</strong> ：支持低并发优先、一致性 Hash、随机请求、轮询等<br><strong>扩展性</strong> ：支持 SPI 扩展（service provider interface）<br><strong>其他</strong> ：调用统计、访问日志等</p>
 <p>Motan 可以支持不同的 RPC 协议、传输协议。Motan 能够无缝支持 Spring 配置方式使用 RPC 服务，通过简单、灵活的配置就可以提供或使用 RPC 服务。通过使用 Motan 框架，可以十分方便的进行服务拆分、分布式服务部署。</p>
-<p>关于Motan的更多内容可参考：<a href="http://h2ex.com/820" target="_blank" rel="external">http://h2ex.com/820</a><br>以及Motan的源码：<a href="https://github.com/weibocom/motan" target="_blank" rel="external">https://github.com/weibocom/motan</a></p>
+<p>关于Motan的更多内容可参考：<a target="_blank" rel="noopener" href="http://h2ex.com/820">http://h2ex.com/820</a><br>以及Motan的源码：<a target="_blank" rel="noopener" href="https://github.com/weibocom/motan">https://github.com/weibocom/motan</a></p>
 <h3 id="简单调用示例"><a href="#简单调用示例" class="headerlink" title="简单调用示例"></a>简单调用示例</h3><p>参照github中wiki，可以快速的跑一跑motan，提前感受一下，由于Motan刚开源，很多东西还不完整，我个人在这中间也遇到很多坑，后面一一介绍。我按照wiki介绍，先创建maven项目motandemo，</p>
-<h4 id="添加pom依赖"><a href="#添加pom依赖" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hjc.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motandemo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>motandemo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>spy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>36<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repo1.maven.org/maven2<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-transport-netty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 集群相关 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-consul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- dependencies blow were only needed for spring-based features --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-springsupport<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">finalName</span>&gt;</span>motan<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>注意如果maven下载不下来可以去仓库直接搜，然后下载jar包，我在搭建的过程就遇到了jar包下载不下来的情况，可能是网络原因吧。<br>仓库地址：<a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a><br>下载下来后使用maven进行本地安装，安装命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -Dfile=&lt;path-to-file&gt; -DgroupId=&lt;group-id&gt; -DartifactId=&lt;artifact-id&gt; -Dversion=&lt;version&gt; -Dpackaging=&lt;packaging&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="添加pom依赖"><a href="#添加pom依赖" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hjc.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motandemo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>motandemo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>spy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>36<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repo1.maven.org/maven2<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-transport-netty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 集群相关 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-consul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- dependencies blow were only needed for spring-based features --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-springsupport<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">finalName</span>&gt;</span>motan<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意如果maven下载不下来可以去仓库直接搜，然后下载jar包，我在搭建的过程就遇到了jar包下载不下来的情况，可能是网络原因吧。<br>仓库地址：<a target="_blank" rel="noopener" href="http://mvnrepository.com/">http://mvnrepository.com/</a><br>下载下来后使用maven进行本地安装，安装命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -Dfile=&lt;path-to-file&gt; -DgroupId=&lt;group-id&gt; -DartifactId=&lt;artifact-id&gt; -Dversion=&lt;version&gt; -Dpackaging=&lt;packaging&gt; </span><br></pre></td></tr></table></figure>
 <p>确定pom.xml不报错之后再进行下面的步骤</p>
-<h4 id="为服务方和调用方创建接口"><a href="#为服务方和调用方创建接口" class="headerlink" title="为服务方和调用方创建接口"></a>为服务方和调用方创建接口</h4><p>创建接口，服务方和调用方都使用这个接口FooService<br>FooService:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FooService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">helloInt</span><span class="params">(<span class="keyword">int</span> number1)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">helloDouble</span><span class="params">(<span class="keyword">double</span> number2)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">helloList</span><span class="params">(List&lt;String&gt; list)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Map&lt;String, List&lt;String&gt;&gt; helloMap(Map&lt;String, List&lt;String&gt;&gt; map);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DemoBean <span class="title">helloJavabean</span><span class="params">(DemoBean bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>服务方来实现这个接口的逻辑<br>FooServiceImpl:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FooServiceImpl</span> <span class="keyword">implements</span> <span class="title">FooService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(</span><br><span class="line">				<span class="string">"classpath:motan_server.xml"</span>);</span><br><span class="line">		System.out.println(<span class="string">"server start..."</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"invoked rpc service "</span> + name);</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"hello "</span> + name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">helloInt</span><span class="params">(<span class="keyword">int</span> number1)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"invoked rpc service "</span> + number1);</span><br><span class="line">		<span class="keyword">return</span> number1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">helloDouble</span><span class="params">(<span class="keyword">double</span> number2)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"invoked rpc service "</span> + number2);</span><br><span class="line">		<span class="keyword">return</span> number2;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">helloList</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">"invoked rpc service "</span>);</span><br><span class="line">		<span class="keyword">for</span> (String string : list) &#123;</span><br><span class="line">			System.out.print(string + <span class="string">","</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Map&lt;String, List&lt;String&gt;&gt; helloMap(Map&lt;String, List&lt;String&gt;&gt; map) &#123;</span><br><span class="line">		System.out.print(<span class="string">"invoked rpc service "</span>);</span><br><span class="line">		<span class="keyword">for</span> (String key : map.keySet()) &#123;</span><br><span class="line">			System.out.print(key + <span class="string">":["</span>);</span><br><span class="line">			<span class="keyword">for</span> (String list : map.get(key)) &#123;</span><br><span class="line">				System.out.print(list + <span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">"],"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> map;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DemoBean <span class="title">helloJavabean</span><span class="params">(DemoBean bean)</span> </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">"invoked rpc service "</span> + bean);</span><br><span class="line">		System.out.print(<span class="string">","</span> + bean.getId());</span><br><span class="line">		System.out.print(<span class="string">","</span> + bean.getName());</span><br><span class="line">		System.out.print(<span class="string">","</span> + bean.getScore());</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置服务方暴露接口"><a href="#配置服务方暴露接口" class="headerlink" title="配置服务方暴露接口"></a>配置服务方暴露接口</h4><p>在项目根目录（src/main/datasource）创建motan_server.xml，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">    <span class="attr">xmlns:motan</span>=<span class="string">"http://api.weibo.com/schema/motan"</span></span><br><span class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- service implemention bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"serviceImpl"</span> <span class="attr">class</span>=<span class="string">"com.hjc.motan.server.FooServiceImpl"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- exporting service by motan --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">"com.hjc.motan.server.FooService"</span> <span class="attr">ref</span>=<span class="string">"serviceImpl"</span> <span class="attr">export</span>=<span class="string">"8002"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="为服务方和调用方创建接口"><a href="#为服务方和调用方创建接口" class="headerlink" title="为服务方和调用方创建接口"></a>为服务方和调用方创建接口</h4><p>创建接口，服务方和调用方都使用这个接口FooService<br>FooService:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FooService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">helloInt</span><span class="params">(<span class="keyword">int</span> number1)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">helloDouble</span><span class="params">(<span class="keyword">double</span> number2)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">helloList</span><span class="params">(List&lt;String&gt; list)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Map&lt;String, List&lt;String&gt;&gt; helloMap(Map&lt;String, List&lt;String&gt;&gt; map);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DemoBean <span class="title">helloJavabean</span><span class="params">(DemoBean bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务方来实现这个接口的逻辑<br>FooServiceImpl:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FooServiceImpl</span> <span class="keyword">implements</span> <span class="title">FooService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(</span><br><span class="line">				<span class="string">&quot;classpath:motan_server.xml&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;server start...&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;invoked rpc service &quot;</span> + name);</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;hello &quot;</span> + name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">helloInt</span><span class="params">(<span class="keyword">int</span> number1)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;invoked rpc service &quot;</span> + number1);</span><br><span class="line">		<span class="keyword">return</span> number1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">helloDouble</span><span class="params">(<span class="keyword">double</span> number2)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;invoked rpc service &quot;</span> + number2);</span><br><span class="line">		<span class="keyword">return</span> number2;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">helloList</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">&quot;invoked rpc service &quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (String string : list) &#123;</span><br><span class="line">			System.out.print(string + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Map&lt;String, List&lt;String&gt;&gt; helloMap(Map&lt;String, List&lt;String&gt;&gt; map) &#123;</span><br><span class="line">		System.out.print(<span class="string">&quot;invoked rpc service &quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (String key : map.keySet()) &#123;</span><br><span class="line">			System.out.print(key + <span class="string">&quot;:[&quot;</span>);</span><br><span class="line">			<span class="keyword">for</span> (String list : map.get(key)) &#123;</span><br><span class="line">				System.out.print(list + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">&quot;],&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> map;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DemoBean <span class="title">helloJavabean</span><span class="params">(DemoBean bean)</span> </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">&quot;invoked rpc service &quot;</span> + bean);</span><br><span class="line">		System.out.print(<span class="string">&quot;,&quot;</span> + bean.getId());</span><br><span class="line">		System.out.print(<span class="string">&quot;,&quot;</span> + bean.getName());</span><br><span class="line">		System.out.print(<span class="string">&quot;,&quot;</span> + bean.getScore());</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置服务方暴露接口"><a href="#配置服务方暴露接口" class="headerlink" title="配置服务方暴露接口"></a>配置服务方暴露接口</h4><p>在项目根目录（src/main/datasource）创建motan_server.xml，如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motan</span>=<span class="string">&quot;http://api.weibo.com/schema/motan&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- service implemention bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;serviceImpl&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.hjc.motan.server.FooServiceImpl&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- exporting service by motan --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">&quot;com.hjc.motan.server.FooService&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;serviceImpl&quot;</span> <span class="attr">export</span>=<span class="string">&quot;8002&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在这个过程中，我发现我的eclipse不能自动下载motan.xsd，这时候我只能手动配置，从motan-core的jar包中，找到这个schema文件，复制到任意位置，然后eclipse中，选择Window-&gt;Preferences-&gt;XML-&gt;XML Catalog-&gt;User Specified Entries，点击Add，输入Location和Key，按照如下图所示：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1472037-84987d6df57493e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="手动添加schema"></p>
 <p>以上步骤完成之后，就可以启动Motan Rpc的服务方了，在FooServiceImpl中已经写好了main方法，右键run即可</p>
-<h4 id="配置调用方调用接口"><a href="#配置调用方调用接口" class="headerlink" title="配置调用方调用接口"></a>配置调用方调用接口</h4><p> 在项目根目录（src/main/datasource）创建motan_server.xml，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line"><span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line"><span class="attr">xmlns:motan</span>=<span class="string">"http://api.weibo.com/schema/motan"</span></span><br><span class="line"><span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- reference to the remote service --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">"remoteService"</span> <span class="attr">interface</span>=<span class="string">"com.hjc.motan.server.FooService"</span> <span class="attr">directUrl</span>=<span class="string">"localhost:8002"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="调用方调用"><a href="#调用方调用" class="headerlink" title="调用方调用"></a>调用方调用</h4><p>创建Client类调用服务方的接口并输出<br>Client：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.server.FooService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(</span><br><span class="line">				<span class="string">"classpath:motan_client.xml"</span>);</span><br><span class="line">		<span class="comment">// 获取到service</span></span><br><span class="line">		FooService service = (FooService) ctx.getBean(<span class="string">"remoteService"</span>);</span><br><span class="line">		<span class="comment">// rpc调用</span></span><br><span class="line">		<span class="comment">/** String **/</span></span><br><span class="line">		String ret1 = service.hello(<span class="string">"motan"</span>);</span><br><span class="line">		System.out.println(ret1);</span><br><span class="line">		<span class="comment">/** int **/</span></span><br><span class="line">		<span class="keyword">int</span> ret2 = service.helloInt(<span class="number">110</span>);</span><br><span class="line">		System.out.println(ret2);</span><br><span class="line">		<span class="comment">/** double **/</span></span><br><span class="line">		<span class="keyword">double</span> ret3 = service.helloDouble(<span class="number">11.2</span>);</span><br><span class="line">		System.out.println(ret3);</span><br><span class="line">		<span class="comment">/** list **/</span></span><br><span class="line">		List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		list.add(<span class="string">"hello"</span>);</span><br><span class="line">		list.add(<span class="string">"motan"</span>);</span><br><span class="line">		List&lt;String&gt; ret4 = service.helloList(list);</span><br><span class="line">		<span class="keyword">for</span> (String string : ret4) &#123;</span><br><span class="line">			System.out.print(string + <span class="string">","</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="comment">/** map **/</span></span><br><span class="line">		Map&lt;String, List&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line">		map.put(<span class="string">"key1"</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">"val1"</span>,<span class="string">"val2"</span> &#125;));</span><br><span class="line">		map.put(<span class="string">"key2"</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">"val1"</span>,<span class="string">"val2"</span>,<span class="string">"val3"</span> &#125;));</span><br><span class="line">		map.put(<span class="string">"key3"</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">"val1"</span>,<span class="string">"val2"</span>,<span class="string">"val3"</span>,<span class="string">"val4"</span> &#125;));</span><br><span class="line">		Map&lt;String, List&lt;String&gt;&gt; ret5 = service.helloMap(map);</span><br><span class="line">		<span class="keyword">for</span> (String key : ret5.keySet()) &#123;</span><br><span class="line">			System.out.print(key + <span class="string">":["</span>);</span><br><span class="line">			<span class="keyword">for</span> (String tmp : map.get(key)) &#123;</span><br><span class="line">				System.out.print(tmp + <span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">"],"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="comment">/** javabean **/</span></span><br><span class="line">		DemoBean bean = <span class="keyword">new</span> DemoBean();</span><br><span class="line">		bean.setId(<span class="number">1001l</span>);</span><br><span class="line">		bean.setName(<span class="string">"motan bean"</span>);</span><br><span class="line">		bean.setScore(<span class="number">99.998</span>);</span><br><span class="line">		DemoBean ret6 = service.helloJavabean(bean);</span><br><span class="line">		System.out.print(ret6.getId());</span><br><span class="line">		System.out.print(<span class="string">","</span> + ret6.getName());</span><br><span class="line">		System.out.print(<span class="string">","</span> + ret6.getScore());</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置调用方调用接口"><a href="#配置调用方调用接口" class="headerlink" title="配置调用方调用接口"></a>配置调用方调用接口</h4><p> 在项目根目录（src/main/datasource）创建motan_server.xml，如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:motan</span>=<span class="string">&quot;http://api.weibo.com/schema/motan&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- reference to the remote service --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">&quot;remoteService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;com.hjc.motan.server.FooService&quot;</span> <span class="attr">directUrl</span>=<span class="string">&quot;localhost:8002&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="调用方调用"><a href="#调用方调用" class="headerlink" title="调用方调用"></a>调用方调用</h4><p>创建Client类调用服务方的接口并输出<br>Client：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.motan.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.DemoBean;</span><br><span class="line"><span class="keyword">import</span> com.hjc.motan.server.FooService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(</span><br><span class="line">				<span class="string">&quot;classpath:motan_client.xml&quot;</span>);</span><br><span class="line">		<span class="comment">// 获取到service</span></span><br><span class="line">		FooService service = (FooService) ctx.getBean(<span class="string">&quot;remoteService&quot;</span>);</span><br><span class="line">		<span class="comment">// rpc调用</span></span><br><span class="line">		<span class="comment">/** String **/</span></span><br><span class="line">		String ret1 = service.hello(<span class="string">&quot;motan&quot;</span>);</span><br><span class="line">		System.out.println(ret1);</span><br><span class="line">		<span class="comment">/** int **/</span></span><br><span class="line">		<span class="keyword">int</span> ret2 = service.helloInt(<span class="number">110</span>);</span><br><span class="line">		System.out.println(ret2);</span><br><span class="line">		<span class="comment">/** double **/</span></span><br><span class="line">		<span class="keyword">double</span> ret3 = service.helloDouble(<span class="number">11.2</span>);</span><br><span class="line">		System.out.println(ret3);</span><br><span class="line">		<span class="comment">/** list **/</span></span><br><span class="line">		List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		list.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">		list.add(<span class="string">&quot;motan&quot;</span>);</span><br><span class="line">		List&lt;String&gt; ret4 = service.helloList(list);</span><br><span class="line">		<span class="keyword">for</span> (String string : ret4) &#123;</span><br><span class="line">			System.out.print(string + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="comment">/** map **/</span></span><br><span class="line">		Map&lt;String, List&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line">		map.put(<span class="string">&quot;key1&quot;</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">&quot;val1&quot;</span>,<span class="string">&quot;val2&quot;</span> &#125;));</span><br><span class="line">		map.put(<span class="string">&quot;key2&quot;</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">&quot;val1&quot;</span>,<span class="string">&quot;val2&quot;</span>,<span class="string">&quot;val3&quot;</span> &#125;));</span><br><span class="line">		map.put(<span class="string">&quot;key3&quot;</span>, Arrays.asList(<span class="keyword">new</span> String[] &#123; <span class="string">&quot;val1&quot;</span>,<span class="string">&quot;val2&quot;</span>,<span class="string">&quot;val3&quot;</span>,<span class="string">&quot;val4&quot;</span> &#125;));</span><br><span class="line">		Map&lt;String, List&lt;String&gt;&gt; ret5 = service.helloMap(map);</span><br><span class="line">		<span class="keyword">for</span> (String key : ret5.keySet()) &#123;</span><br><span class="line">			System.out.print(key + <span class="string">&quot;:[&quot;</span>);</span><br><span class="line">			<span class="keyword">for</span> (String tmp : map.get(key)) &#123;</span><br><span class="line">				System.out.print(tmp + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">&quot;],&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="comment">/** javabean **/</span></span><br><span class="line">		DemoBean bean = <span class="keyword">new</span> DemoBean();</span><br><span class="line">		bean.setId(<span class="number">1001l</span>);</span><br><span class="line">		bean.setName(<span class="string">&quot;motan bean&quot;</span>);</span><br><span class="line">		bean.setScore(<span class="number">99.998</span>);</span><br><span class="line">		DemoBean ret6 = service.helloJavabean(bean);</span><br><span class="line">		System.out.print(ret6.getId());</span><br><span class="line">		System.out.print(<span class="string">&quot;,&quot;</span> + ret6.getName());</span><br><span class="line">		System.out.print(<span class="string">&quot;,&quot;</span> + ret6.getScore());</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动Client的main方法开始调用</p>
-<h4 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h4><p>通过以上demo创建了server端和client端，分别启动服务方和调用方之后，查看控制台输出如下：<br>服务方：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server start...</span><br><span class="line">invoked rpc service motan</span><br><span class="line">invoked rpc service 110</span><br><span class="line">invoked rpc service 11.2</span><br><span class="line">invoked rpc service hello,motan,</span><br><span class="line">invoked rpc service key3:[val1,val2,val3,val4,],key2:[val1,val2,val3,],key1:[val1,val2,],</span><br><span class="line">invoked rpc service com.hjc.motan.DemoBean@2cf3e1fd,1001,motan bean,99.998</span><br></pre></td></tr></table></figure></p>
-<p>调用方：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello motan</span><br><span class="line">110</span><br><span class="line">11.2</span><br><span class="line">hello,motan,</span><br><span class="line">key3:[val1,val2,val3,val4,],key2:[val1,val2,val3,],key1:[val1,val2,],</span><br><span class="line">1001,motan bean,99.998</span><br></pre></td></tr></table></figure></p>
+<h4 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h4><p>通过以上demo创建了server端和client端，分别启动服务方和调用方之后，查看控制台输出如下：<br>服务方：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server start...</span><br><span class="line">invoked rpc service motan</span><br><span class="line">invoked rpc service 110</span><br><span class="line">invoked rpc service 11.2</span><br><span class="line">invoked rpc service hello,motan,</span><br><span class="line">invoked rpc service key3:[val1,val2,val3,val4,],key2:[val1,val2,val3,],key1:[val1,val2,],</span><br><span class="line">invoked rpc service com.hjc.motan.DemoBean@2cf3e1fd,1001,motan bean,99.998</span><br></pre></td></tr></table></figure>
+<p>调用方：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello motan</span><br><span class="line">110</span><br><span class="line">11.2</span><br><span class="line">hello,motan,</span><br><span class="line">key3:[val1,val2,val3,val4,],key2:[val1,val2,val3,],key1:[val1,val2,],</span><br><span class="line">1001,motan bean,99.998</span><br></pre></td></tr></table></figure>
 <h3 id="集群调用示例"><a href="#集群调用示例" class="headerlink" title="集群调用示例"></a>集群调用示例</h3><p>实现集群使用只需要在上面的基础做一点稍稍的改变就可以，motan的集群与阿里的dubbo的原理类似，通过注册方、服务方、调用方三方来实现，三者关系图如下：</p>
 <p><img src="https://github.com/weibocom/motan/wiki/media/14612349319195.jpg" alt="集群关系图"></p>
 <ol>
@@ -391,439 +327,482 @@
 <li>当 Server 发生变更时，Registry 会同步变更，Client 感知后会对本地的服务列表作相应调整。</li>
 </ol>
 <p>目前按照wiki说明，motan支持Consul和Zookeeper两种外部服务发现组件<br>以下我们再上面实现的基础之上进行更改（两种组件分别有介绍）</p>
-<h4 id="添加pom依赖-1"><a href="#添加pom依赖-1" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h4><p>在最上面，其实已经写出来了<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- consul --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-consul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- zookeeper --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="在server和client的配置文件中分别增加registry定义"><a href="#在server和client的配置文件中分别增加registry定义" class="headerlink" title="在server和client的配置文件中分别增加registry定义"></a>在server和client的配置文件中分别增加registry定义</h4><p>consul<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">"consul"</span> <span class="attr">name</span>=<span class="string">"my_consul"</span> <span class="attr">address</span>=<span class="string">"127.0.0.1:8500"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>zookeeper单节点<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">"zookeeper"</span> <span class="attr">name</span>=<span class="string">"my_zookeeper"</span> <span class="attr">address</span>=<span class="string">"127.0.0.1:2181"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>zookeeper多节点集群<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">"zookeeper"</span> <span class="attr">name</span>=<span class="string">"my_zookeeper"</span> <span class="attr">address</span>=<span class="string">"127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="在motan-client及server配置改为通过registry服务发现"><a href="#在motan-client及server配置改为通过registry服务发现" class="headerlink" title="在motan client及server配置改为通过registry服务发现"></a>在motan client及server配置改为通过registry服务发现</h4><p>consul client<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">"remoteService"</span> <span class="attr">interface</span>=<span class="string">"quickstart.FooService"</span> <span class="attr">registry</span>=<span class="string">"my_consul"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>consul server<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">"quickstart.FooService"</span> <span class="attr">ref</span>=<span class="string">"serviceImpl"</span> <span class="attr">registry</span>=<span class="string">"my_consul"</span> <span class="attr">export</span>=<span class="string">"8002"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>zookeeper client<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">"remoteService"</span> <span class="attr">interface</span>=<span class="string">"quickstart.FooService"</span> <span class="attr">registry</span>=<span class="string">"my_zookeeper"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>zookeeper server<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">"quickstart.FooService"</span> <span class="attr">ref</span>=<span class="string">"serviceImpl"</span> <span class="attr">registry</span>=<span class="string">"my_zookeeper"</span> <span class="attr">export</span>=<span class="string">"8002"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="调用方调用服务"><a href="#调用方调用服务" class="headerlink" title="调用方调用服务"></a>调用方调用服务</h4><p>consul需要显示调用心跳开关注册到consul（zookeeper不需要）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MotanSwitcherUtil.setSwitcher(ConsulConstants.NAMING_PROCESS_HEARTBEAT_SWITCHER, <span class="keyword">true</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我也是正好最近项目空闲，刚好又看到这么一则新闻，于是就动手了解了下，当然，我所做的只是浅层次的使用，至于更深层次的内容（如，跟dubbo等其他rpc框架的对比，集群上下线对zookeeper的影响等）还没来得及去研究，不过既然它曾经支撑过千亿的调用，那一定是经过实际运营检验的，作为搞技术的，也应该多去了解了解开源的东西，这里我想说一句，开源真好！<br>另外，以上demo代码我也传到了我的github上，欢迎交流学习：<br><a href="https://github.com/hjcenry/motan-demo" target="_blank" rel="external">https://github.com/hjcenry/motan-demo</a></p>
+<h4 id="添加pom依赖-1"><a href="#添加pom依赖-1" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h4><p>在最上面，其实已经写出来了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- consul --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-consul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- zookeeper --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.weibo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>motan-registry-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="在server和client的配置文件中分别增加registry定义"><a href="#在server和client的配置文件中分别增加registry定义" class="headerlink" title="在server和client的配置文件中分别增加registry定义"></a>在server和client的配置文件中分别增加registry定义</h4><p>consul</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">&quot;consul&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_consul&quot;</span> <span class="attr">address</span>=<span class="string">&quot;127.0.0.1:8500&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>zookeeper单节点</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">&quot;zookeeper&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_zookeeper&quot;</span> <span class="attr">address</span>=<span class="string">&quot;127.0.0.1:2181&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>zookeeper多节点集群</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:registry</span> <span class="attr">regProtocol</span>=<span class="string">&quot;zookeeper&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_zookeeper&quot;</span> <span class="attr">address</span>=<span class="string">&quot;127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="在motan-client及server配置改为通过registry服务发现"><a href="#在motan-client及server配置改为通过registry服务发现" class="headerlink" title="在motan client及server配置改为通过registry服务发现"></a>在motan client及server配置改为通过registry服务发现</h4><p>consul client</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">&quot;remoteService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;quickstart.FooService&quot;</span> <span class="attr">registry</span>=<span class="string">&quot;my_consul&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>consul server</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">&quot;quickstart.FooService&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;serviceImpl&quot;</span> <span class="attr">registry</span>=<span class="string">&quot;my_consul&quot;</span> <span class="attr">export</span>=<span class="string">&quot;8002&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>zookeeper client</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:referer</span> <span class="attr">id</span>=<span class="string">&quot;remoteService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;quickstart.FooService&quot;</span> <span class="attr">registry</span>=<span class="string">&quot;my_zookeeper&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>zookeeper server</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">motan:service</span> <span class="attr">interface</span>=<span class="string">&quot;quickstart.FooService&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;serviceImpl&quot;</span> <span class="attr">registry</span>=<span class="string">&quot;my_zookeeper&quot;</span> <span class="attr">export</span>=<span class="string">&quot;8002&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="调用方调用服务"><a href="#调用方调用服务" class="headerlink" title="调用方调用服务"></a>调用方调用服务</h4><p>consul需要显示调用心跳开关注册到consul（zookeeper不需要）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MotanSwitcherUtil.setSwitcher(ConsulConstants.NAMING_PROCESS_HEARTBEAT_SWITCHER, <span class="keyword">true</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我也是正好最近项目空闲，刚好又看到这么一则新闻，于是就动手了解了下，当然，我所做的只是浅层次的使用，至于更深层次的内容（如，跟dubbo等其他rpc框架的对比，集群上下线对zookeeper的影响等）还没来得及去研究，不过既然它曾经支撑过千亿的调用，那一定是经过实际运营检验的，作为搞技术的，也应该多去了解了解开源的东西，这里我想说一句，开源真好！<br>另外，以上demo代码我也传到了我的github上，欢迎交流学习：<br><a target="_blank" rel="noopener" href="https://github.com/hjcenry/motan-demo">https://github.com/hjcenry/motan-demo</a></p>
 <hr>
-<p><em>我的个人博客开通啦，每一篇文章都在简书跟个人博客同步，地址是：<a href="http://hjcenry.github.io" target="_blank" rel="external">http://hjcenry.github.io</a></em></p>
+<p><em>我的个人博客开通啦，每一篇文章都在简书跟个人博客同步，地址是：<a target="_blank" rel="noopener" href="http://hjcenry.github.io/">http://hjcenry.github.io</a></em></p>
 
-      
     </div>
+
     
-    <div>
-      
-        
-<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
-    <div>我的微信号</div>
-</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
-  <div></div>
-  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
-    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+    
+    
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
   </button>
-  <div id="QR" style="display: none;">
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
-        <p>微信打赏</p>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/wechat_pay.jpg" alt="Henry He 微信支付">
+        <p>微信支付</p>
       </div>
-    
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
-        <p>支付宝打赏</p>
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/alipay.jpg" alt="Henry He 支付宝">
+        <p>支付宝</p>
       </div>
-    
+
   </div>
 </div>
 
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Java/" rel="tag">#Java</a>
-          
-            <a href="/tags/rpc/" rel="tag">#rpc</a>
-          
-            <a href="/tags/Motan/" rel="tag">#Motan</a>
-          
-            <a href="/tags/开源/" rel="tag">#开源</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/" rel="next" title="CVP认证学习笔记--(何小成)020--实现切图帧动画">
-                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)020--实现切图帧动画
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/30/CVP认证学习笔记--(何小成)021--纹理打包文件读取/" rel="prev" title="CVP认证学习笔记--(何小成)021--纹理打包文件读取">
-                CVP认证学习笔记--(何小成)021--纹理打包文件读取 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/04/26/微博开源框架Motan初体验/"
-     data-title="微博开源框架Motan初体验"
-     data-content=""
-     data-url="http://hjcenry.coding.me/2016/04/26/微博开源框架Motan初体验/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-  <p>热评文章</p>
-  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/04/26/微博开源框架Motan初体验/"
-           data-title="微博开源框架Motan初体验" data-url="http://hjcenry.coding.me/2016/04/26/微博开源框架Motan初体验/">
-      </div>
-    
-  </div>
-
-
-        </div>
         
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.hjcenry.com/res/img/wx.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/rpc/" rel="tag"># rpc</a>
+              <a href="/tags/Motan/" rel="tag"># Motan</a>
+              <a href="/tags/%E5%BC%80%E6%BA%90/" rel="tag"># 开源</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/04/25/CVP%E8%AE%A4%E8%AF%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--(%E4%BD%95%E5%B0%8F%E6%88%90)020--%E5%AE%9E%E7%8E%B0%E5%88%87%E5%9B%BE%E5%B8%A7%E5%8A%A8%E7%94%BB/" rel="prev" title="CVP认证学习笔记--(何小成)020--实现切图帧动画">
+      <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)020--实现切图帧动画
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/04/30/CVP%E8%AE%A4%E8%AF%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--(%E4%BD%95%E5%B0%8F%E6%88%90)021--%E7%BA%B9%E7%90%86%E6%89%93%E5%8C%85%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/" rel="next" title="CVP认证学习笔记--(何小成)021--纹理打包文件读取">
+      CVP认证学习笔记--(何小成)021--纹理打包文件读取 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMotan"><span class="nav-number">1.</span> <span class="nav-text">什么是Motan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">简单调用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0pom%E4%BE%9D%E8%B5%96"><span class="nav-number">2.1.</span> <span class="nav-text">添加pom依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E6%9C%8D%E5%8A%A1%E6%96%B9%E5%92%8C%E8%B0%83%E7%94%A8%E6%96%B9%E5%88%9B%E5%BB%BA%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">为服务方和调用方创建接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E6%96%B9%E6%9A%B4%E9%9C%B2%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.3.</span> <span class="nav-text">配置服务方暴露接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.4.</span> <span class="nav-text">配置调用方调用接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%96%B9%E8%B0%83%E7%94%A8"><span class="nav-number">2.5.</span> <span class="nav-text">调用方调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="nav-number">2.6.</span> <span class="nav-text">输出结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">集群调用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0pom%E4%BE%9D%E8%B5%96-1"><span class="nav-number">3.1.</span> <span class="nav-text">添加pom依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8server%E5%92%8Cclient%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%86%E5%88%AB%E5%A2%9E%E5%8A%A0registry%E5%AE%9A%E4%B9%89"><span class="nav-number">3.2.</span> <span class="nav-text">在server和client的配置文件中分别增加registry定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8motan-client%E5%8F%8Aserver%E9%85%8D%E7%BD%AE%E6%94%B9%E4%B8%BA%E9%80%9A%E8%BF%87registry%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0"><span class="nav-number">3.3.</span> <span class="nav-text">在motan client及server配置改为通过registry服务发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%96%B9%E8%B0%83%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.4.</span> <span class="nav-text">调用方调用服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-      <section class="site-overview sidebar-panel ">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/avatar.png"
-               alt="Henry He" />
-          <p class="site-author-name" itemprop="name">Henry He</p>
-          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">36</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">16</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
+    <img class="site-author-image" itemprop="image" alt="Henry He"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Henry He</p>
+  <div class="site-description" itemprop="description">我们不生产代码，我们只是API的搬运工</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
           
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
           
-        </div>
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hjcenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hjcenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC9EM174qUGvIm8uQHILXE3Q" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC9EM174qUGvIm8uQHILXE3Q" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hejincheng1209@163.com" title="E-Mail → mailto:hejincheng1209@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/15286724" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;15286724" rel="noopener" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;2996874513&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
 
-        
-        
 
-        
-        
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43495590" title="https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_43495590" rel="noopener" target="_blank">周piaopiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baitanwa.com/" title="https:&#x2F;&#x2F;www.baitanwa.com" rel="noopener" target="_blank">泽北大佬</a>
+        </li>
+    </ul>
+  </div>
 
-      </section>
-
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Motan"><span class="nav-number">1.</span> <span class="nav-text">什么是Motan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单调用示例"><span class="nav-number">2.</span> <span class="nav-text">简单调用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加pom依赖"><span class="nav-number">2.1.</span> <span class="nav-text">添加pom依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为服务方和调用方创建接口"><span class="nav-number">2.2.</span> <span class="nav-text">为服务方和调用方创建接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置服务方暴露接口"><span class="nav-number">2.3.</span> <span class="nav-text">配置服务方暴露接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置调用方调用接口"><span class="nav-number">2.4.</span> <span class="nav-text">配置调用方调用接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用方调用"><span class="nav-number">2.5.</span> <span class="nav-text">调用方调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出结果"><span class="nav-number">2.6.</span> <span class="nav-text">输出结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群调用示例"><span class="nav-number">3.</span> <span class="nav-text">集群调用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加pom依赖-1"><span class="nav-number">3.1.</span> <span class="nav-text">添加pom依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在server和client的配置文件中分别增加registry定义"><span class="nav-number">3.2.</span> <span class="nav-text">在server和client的配置文件中分别增加registry定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在motan-client及server配置改为通过registry服务发现"><span class="nav-number">3.3.</span> <span class="nav-text">在motan client及server配置改为通过registry服务发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用方调用服务"><span class="nav-number">3.4.</span> <span class="nav-text">调用方调用服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-          </div>
-        </section>
-      
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-<div class="copyright" >
+        
+
+        
+
+<div class="copyright">
   
-  &copy;  2016 - 
+  &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Henry He</span>
-  
+
+
+  <div style="float:right;display:inline-block;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 20px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="float:right;display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;">
+      <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p>
+    </a>
+  </div>
+
+  <!-- 网站域名公安备案 -->
+  <!--
+  <div style="width:600px;margin:0 auto; padding:20px 0;">
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p></a><p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+  </div>
+  -->
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
 
         
-
 <div class="busuanzi-count">
-
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
-  
-
-  
-    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
-  
-  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
 </div>
 
 
 
-        
-      </div>
-    </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz","app_key":"77GsyoUfVcOoIueBsMYv2PoP","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+
+      <script src="/js/live2d/autoload.js"></script>
+    </footer>
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+<script src="/js/utils.js"></script>
 
-
-
-
-
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-  
+<script src="/js/next-boot.js"></script>
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
   
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"hjcenry"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
 
-  
-    
-      
-      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-      <script src="/js/src/hook-duoshuo.js"></script>
-    
-  
-
-
 
 
 
   
-  
-  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6vdofc43qnpkj50mghb80jws0rjhfjwb.js"></script>
+
+
+
+
+
+
 
   
 
   
-<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
-</script>
 
-
-  
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyv4Jfx7D';
+    var conf = '09034f3bb4af424e1d479cd8cfc7de8a';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 
 </body>
 </html>

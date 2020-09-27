@@ -1,812 +1,797 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hjcenry.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":false,"nav":{"changyan":{"text":"加载评论中","order":-1}},"activeClass":"changyan"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="cocos2d-js,贪吃蛇," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
-
-
-
-
-
-
-<meta name="description" content="前言相信贪吃蛇大家都玩儿过，我对贪吃蛇的印象就是在电子词典上，一只像素蛇在屏幕游走，饥渴难耐，看着豆子就要去吃，吃到豆子就会长一节，当蛇的身体越来越长的时候，它才发现这个世界变了，每走一步，都是寸步难行。">
+  <meta name="description" content="前言相信贪吃蛇大家都玩儿过，我对贪吃蛇的印象就是在电子词典上，一只像素蛇在屏幕游走，饥渴难耐，看着豆子就要去吃，吃到豆子就会长一节，当蛇的身体越来越长的时候，它才发现这个世界变了，每走一步，都是寸步难行。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cocos2d-JS实现的贪吃蛇">
-<meta property="og:url" content="http://hjcenry.coding.me/2016/05/16/Cocos2d-JS实现的贪吃蛇/index.html">
+<meta property="og:url" content="http://www.hjcenry.com/2016/05/16/Cocos2d-JS%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B4%AA%E5%90%83%E8%9B%87/index.html">
 <meta property="og:site_name" content="Henry Blog">
 <meta property="og:description" content="前言相信贪吃蛇大家都玩儿过，我对贪吃蛇的印象就是在电子词典上，一只像素蛇在屏幕游走，饥渴难耐，看着豆子就要去吃，吃到豆子就会长一节，当蛇的身体越来越长的时候，它才发现这个世界变了，每走一步，都是寸步难行。">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/snake1.png">
 <meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/snakemove.png">
 <meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/snake%E7%BB%93%E6%9E%84%E5%9B%BE.png">
 <meta property="og:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/snake.gif">
-<meta property="og:updated_time" content="2016-08-03T13:14:14.000Z">
+<meta property="article:published_time" content="2016-05-16T07:38:00.000Z">
+<meta property="article:modified_time" content="2016-08-03T13:14:14.000Z">
+<meta property="article:author" content="Henry He">
+<meta property="article:tag" content="cocos2d-js">
+<meta property="article:tag" content="贪吃蛇">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cocos2d-JS实现的贪吃蛇">
-<meta name="twitter:description" content="前言相信贪吃蛇大家都玩儿过，我对贪吃蛇的印象就是在电子词典上，一只像素蛇在屏幕游走，饥渴难耐，看着豆子就要去吃，吃到豆子就会长一节，当蛇的身体越来越长的时候，它才发现这个世界变了，每走一步，都是寸步难行。">
 <meta name="twitter:image" content="http://7xnnwn.com1.z0.glb.clouddn.com/snake1.png">
 
+<link rel="canonical" href="http://www.hjcenry.com/2016/05/16/Cocos2d-JS%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B4%AA%E5%90%83%E8%9B%87/">
 
 
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 0,
-      author: '博主'
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title> Cocos2d-JS实现的贪吃蛇 | Henry Blog </title>
+  <title>Cocos2d-JS实现的贪吃蛇 | Henry Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Henry Blog</span>
+      <h1 class="site-title">Henry Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">Javaer</p>
   </div>
-  <p class="site-subtitle">Javaer</p>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-resume">
-          <a href="/resume" rel="section">
-            
-              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
-            
-            简历
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="#" class="st-search-show-outputs">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
-  
-    <div class="site-search">
-      
-  <form class="site-search-form">
-  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
-</form>
+  </li>
+        <li class="menu-item menu-item-categories">
 
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
-  _st('install', 's_MxzeYVjGHBbKyqhanj','2.0.0');
-</script>
+  </li>
+        <li class="menu-item menu-item-archives">
 
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
+  </li>
+        <li class="menu-item menu-item-sitemap">
 
-    </div>
-  
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
- </div>
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hjcenry" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hjcenry.com/2016/05/16/Cocos2d-JS%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B4%AA%E5%90%83%E8%9B%87/">
 
-  
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Henry He">
+      <meta itemprop="description" content="我们不生产代码，我们只是API的搬运工">
+    </span>
 
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Henry Blog">
+    </span>
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Cocos2d-JS实现的贪吃蛇
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Cocos2d-JS实现的贪吃蛇
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-16T15:38:00+08:00" content="2016-05-16">
-              2016-05-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-05-16 15:38:00" itemprop="dateCreated datePublished" datetime="2016-05-16T15:38:00+08:00">2016-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-08-03 21:14:14" itemprop="dateModified" datetime="2016-08-03T21:14:14+08:00">2016-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index">
-                    <span itemprop="name">cocos2d-js</span>
-                  </a>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cocos2d-js/" itemprop="url" rel="index"><span itemprop="name">cocos2d-js</span></a>
                 </span>
-
-                
-                
-
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/16/Cocos2d-JS实现的贪吃蛇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/Cocos2d-JS实现的贪吃蛇/" itemprop="commentsCount"></span>
-                </a>
+            <span id="/2016/05/16/Cocos2d-JS%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B4%AA%E5%90%83%E8%9B%87/" class="post-meta-item leancloud_visitors" data-flag-title="Cocos2d-JS实现的贪吃蛇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-
-           
-
-          
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-          
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2016/05/16/Cocos2d-JS%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B4%AA%E5%90%83%E8%9B%87/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/05/16/Cocos2d-JS实现的贪吃蛇/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
         </div>
       </header>
+
     
-
-
+    
+    
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信贪吃蛇大家都玩儿过，我对贪吃蛇的印象就是在电子词典上，一只像素蛇在屏幕游走，饥渴难耐，看着豆子就要去吃，吃到豆子就会长一节，当蛇的身体越来越长的时候，它才发现这个世界变了，每走一步，都是寸步难行。<a id="more"></a>当它的蛇头触碰到任意的物体，无论是屏幕边界还是自己的身体，游戏都将结束。这款游戏应该是比较经典的一个童年记忆。刚接触游戏开发的人可能比较喜欢以这款游戏入手，因为贪吃蛇包含了很多游戏开发中的原理，并且难度也不大，而我刚好在学习Cocos CVP的课程，学习在一个中间阶段，我也来拿这个练练手，以下就把我做贪吃蛇的过程分享出来。</p>
 <h3 id="游戏分析"><a href="#游戏分析" class="headerlink" title="游戏分析"></a>游戏分析</h3><h4 id="身体关节"><a href="#身体关节" class="headerlink" title="身体关节"></a>身体关节</h4><p>贪吃蛇的实现可能有多种方法，但今天，我想用面向对象的思想来对游戏进行设计，到今天，任何的程序开发都离不开面向对象的思想，通过面向对象的思想我们能把很多抽象的问题具象化，方便我们解决很多问题。而在贪吃蛇中，面向对象的思想依然实用。<br>在贪吃蛇中，我们可以把一条游走的蛇的每个关节当做是一个对象，而蛇本身是由多个关节组成的整体，当每个关节在移动时，我们就能看到整个蛇的移动，每个关节的位置以及移动方向都跟它的上一个关节息息相关，那么我们就可以把关节与它的上一个关节关联起来，实现如下结构：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/snake1.png" alt="蛇关节关系图"></p>
 <h4 id="移动方向"><a href="#移动方向" class="headerlink" title="移动方向"></a>移动方向</h4><p>如上文所说，按照上面的关节关系来实现，那么蛇的移动方向就是与父节点的移动方向相关联，每一个关节应该有一个当前移动方向和下次移动方向，每一步的移动，都是跟着当前移动方向走的，而父关节的当前移动的方向即为子关节的下次移动方向，这样，只需要调整蛇头关节的下次移动方向，整条蛇就能顺着各自的父关节方向移动，蛇的移动方向图如下：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/snakemove.png" alt="蛇的移动方向图"></p>
 <h3 id="开发设计"><a href="#开发设计" class="headerlink" title="开发设计"></a>开发设计</h3><h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><p>按照前面的设计，我们可以大致可以划分出游戏场景类和关节类，进入游戏场景类，再将一些全局的变量单独存在一个类中，项目结构可划分如下图：<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/snake%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="项目结构图"></p>
-<h4 id="全局变量类"><a href="#全局变量类" class="headerlink" title="全局变量类"></a>全局变量类</h4><p>游戏中的全局变量，提炼为一个全局变量类，其中参数可以根据需求灵活变动配置<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Constants = &#123;</span><br><span class="line">    frequency: <span class="number">0.2</span>,<span class="comment">// 刷新频率</span></span><br><span class="line">    speed: <span class="number">31</span>,<span class="comment">// 每帧移动距离,身体节点大小+1像素间隔</span></span><br><span class="line">    errDistance: <span class="number">10</span>,<span class="comment">// 偏差举例</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="关节类"><a href="#关节类" class="headerlink" title="关节类"></a>关节类</h4><p>按照以上设计的结构，每一个关节对象都应该包含蛇的当前方向、下次方向和蛇的父节点三个属性，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> SnakeBody = cc.Sprite.extend(&#123;</span><br><span class="line">    frontBody: <span class="literal">null</span>,<span class="comment">//上一个身体关节,没有则为头部</span></span><br><span class="line">    nextDirection: <span class="number">0</span>,<span class="comment">// 1-上,2-下,3-左,4-右</span></span><br><span class="line">    direction: <span class="number">0</span>,<span class="comment">// 1-上,2-下,3-左,4-右</span></span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">frontBody, direction</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">this</span>.frontBody = frontBody;</span><br><span class="line">        <span class="keyword">this</span>.direction = direction;</span><br><span class="line">        <span class="keyword">this</span>.nextDirection = direction;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面说的，关节的位置跟它的福关节的位置是息息相关的，那么初始化的时候，我们就需要根据父关节的移动方向来进行次关节的位置设置，这部分代码，我们可以放在onEnter方法中，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>._super();</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 蛇头部关节,设置头部纹理</span></span><br><span class="line">      <span class="keyword">switch</span> (<span class="keyword">this</span>.direction) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">              <span class="keyword">this</span>.setTexture(res.head_up);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">              <span class="keyword">this</span>.setTexture(res.head_down);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">              <span class="keyword">this</span>.setTexture(res.head_left);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">              <span class="keyword">this</span>.setTexture(res.head_right);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 蛇身体关节</span></span><br><span class="line">      <span class="comment">// 设置纹理</span></span><br><span class="line">      <span class="keyword">this</span>.setTexture(res.body);</span><br><span class="line">      <span class="comment">// 设置关节位置</span></span><br><span class="line">      <span class="keyword">var</span> frontX = <span class="keyword">this</span>.frontBody.getPositionX();</span><br><span class="line">      <span class="keyword">var</span> frontY = <span class="keyword">this</span>.frontBody.getPositionY();</span><br><span class="line">      <span class="keyword">var</span> frontWidth = <span class="keyword">this</span>.frontBody.width;</span><br><span class="line">      <span class="keyword">var</span> frontHeight = <span class="keyword">this</span>.frontBody.height;</span><br><span class="line">      <span class="keyword">var</span> width = <span class="keyword">this</span>.width;</span><br><span class="line">      <span class="keyword">var</span> height = <span class="keyword">this</span>.height;</span><br><span class="line">      <span class="keyword">switch</span> (<span class="keyword">this</span>.frontBody.direction) &#123;</span><br><span class="line">          <span class="comment">// 根据父关节的当前移动方向,决定此关节的位置</span></span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">              <span class="keyword">this</span>.setPosition(frontX, frontY - frontHeight / <span class="number">2</span> - height / <span class="number">2</span> - <span class="number">1</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">              <span class="keyword">this</span>.setPosition(frontX, frontY + frontHeight / <span class="number">2</span> + height / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">              <span class="keyword">this</span>.setPosition(frontX + frontWidth / <span class="number">2</span> + width / <span class="number">2</span> + <span class="number">1</span>, frontY);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">              <span class="keyword">this</span>.setPosition(frontX - frontWidth / <span class="number">2</span> - width / <span class="number">2</span> - <span class="number">1</span>, frontY);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>有了这三个属性，每一个节点还应该有最重要的游戏逻辑——move方法，每一个关节分别调用move方法，从游戏场景中就能看到整条蛇按照预定方向进行移动，而整条蛇的运动方向就是跟着头部关节的方向走，头部关节的方向则通过点击屏幕区域控制。<br>在move方法中，我们需要做以下事情：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.按照关节的下次移动方向移动本身长度的像素的距离</span><br><span class="line">2.如果是头部关节，需要改变关节纹理</span><br></pre></td></tr></table></figure></p>
-<p>同时，如果是头部关节，我们还需要判断以下三个临界条件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.头部关节是否触碰到屏幕边界</span><br><span class="line">2.头部关节是否吃到屏幕中的豆子</span><br><span class="line">3.头部关节是否触碰到自身关节</span><br></pre></td></tr></table></figure></p>
-<p>其中1、3条件达成，则判定游戏结束，2条件达成，则能增加游戏分数，并且游戏继续。<br>move方法代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关节移动方法</span></span><br><span class="line">move: <span class="function"><span class="keyword">function</span> (<span class="params">layer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> star = layer.star;</span><br><span class="line">    <span class="keyword">var</span> direct;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 头部关节按照自身的下次方向行走</span></span><br><span class="line">        direct = <span class="keyword">this</span>.nextDirection;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 身体关节按照父关节的当前方向行走,并将福关节的当前方向设置为自身的下次方向</span></span><br><span class="line">        <span class="keyword">this</span>.nextDirection = direct = <span class="keyword">this</span>.frontBody.direction;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (direct) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">            <span class="keyword">this</span>.setPosition(<span class="keyword">this</span>.getPositionX(), <span class="keyword">this</span>.getPositionY() + Constants.speed);</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(0, Constants.speed), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">            <span class="keyword">this</span>.setPosition(<span class="keyword">this</span>.getPositionX(), <span class="keyword">this</span>.getPositionY() - Constants.speed);</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(0, -Constants.speed), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">            <span class="keyword">this</span>.setPosition(<span class="keyword">this</span>.getPositionX() - Constants.speed, <span class="keyword">this</span>.getPositionY());</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(-Constants.speed, 0), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">            <span class="keyword">this</span>.setPosition(<span class="keyword">this</span>.getPositionX() + Constants.speed, <span class="keyword">this</span>.getPositionY());</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(Constants.speed, 0), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (<span class="keyword">this</span>.nextDirection) &#123;</span><br><span class="line">            <span class="comment">// 头部关节需要设置头部不同方向的纹理</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">                <span class="keyword">this</span>.setTexture(res.head_up);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">                <span class="keyword">this</span>.setTexture(res.head_down);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">                <span class="keyword">this</span>.setTexture(res.head_left);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">                <span class="keyword">this</span>.setTexture(res.head_right);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 头部关节判断是否触碰到边界</span></span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">this</span>.getPositionX() &gt; size.width - <span class="keyword">this</span>.width / <span class="number">2</span>)</span><br><span class="line">            || (<span class="keyword">this</span>.getPositionX() &lt; <span class="keyword">this</span>.width / <span class="number">2</span>)</span><br><span class="line">            || (<span class="keyword">this</span>.getPositionY() &gt; size.height - <span class="keyword">this</span>.height / <span class="number">2</span>)</span><br><span class="line">            || (<span class="keyword">this</span>.getPositionY() &lt; <span class="keyword">this</span>.height / <span class="number">2</span>)) &#123;</span><br><span class="line">            <span class="comment">// 判断触碰边界</span></span><br><span class="line">            cc.log(<span class="string">"game over"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断是否触碰到自己身体关节</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> layer.bodys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (layer.bodys[index] != <span class="keyword">this</span> &amp;&amp; cc.rectIntersectsRect(<span class="keyword">this</span>.getBoundingBox(), layer.bodys[index].getBoundingBox())) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断是否吃到星星</span></span><br><span class="line">        <span class="keyword">if</span> (star != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cc.rectIntersectsRect(<span class="keyword">this</span>.getBoundingBox(), star.getBoundingBox())) &#123;</span><br><span class="line">                star.runAction(</span><br><span class="line">                    cc.sequence(cc.spawn(</span><br><span class="line">                        cc.scaleTo(<span class="number">0.2</span>, <span class="number">3</span>),</span><br><span class="line">                        cc.fadeOut(<span class="number">0.2</span>)</span><br><span class="line">                    ), cc.callFunc(<span class="function"><span class="keyword">function</span> (<span class="params">star</span>) </span>&#123;</span><br><span class="line">                        star.removeFromParent();</span><br><span class="line">                    &#125;, star))</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">// 清除星星</span></span><br><span class="line">                layer.star = <span class="literal">null</span>;</span><br><span class="line">                <span class="comment">// 添加身体</span></span><br><span class="line">                layer.canNewBody = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 改变分数</span></span><br><span class="line">                layer.score.setString(<span class="string">""</span> + (<span class="built_in">Number</span>(layer.score.getString()) + <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random() * <span class="number">3</span> + <span class="number">1</span>)));</span><br><span class="line">                layer.score.runAction(cc.sequence(cc.scaleTo(<span class="number">0.1</span>, <span class="number">2</span>), cc.scaleTo(<span class="number">0.1</span>, <span class="number">0.5</span>), cc.scaleTo(<span class="number">0.1</span>, <span class="number">1</span>)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="游戏场景类"><a href="#游戏场景类" class="headerlink" title="游戏场景类"></a>游戏场景类</h4><p>在游戏场景中我们需要以下几个变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 贪吃蛇数组：用于存储贪吃蛇所有的关节节点</span><br><span class="line">2. 贪吃蛇尾部：每添加一个关节节点 ，都将此变量指向这个新加的节点，以便下次继续再尾部节点添加</span><br><span class="line">3. 吃的星星：屏幕中随机产生的星星，用于判断头部关节是否与它产生碰撞</span><br><span class="line">4. 是否添加节点：如果在定时任务中判断到吃到星星，那么可以次变量为1，代表可以添加一个节点</span><br><span class="line">5. 分数：存储游戏中累加的分数</span><br></pre></td></tr></table></figure></p>
-<p>在cc.Layer的构造函数中对以上变量进行初始化，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GameLayer = cc.Layer.extend(&#123;</span><br><span class="line">  bodys: [],<span class="comment">// snake body</span></span><br><span class="line">  tail: <span class="literal">null</span>,<span class="comment">// snake tail</span></span><br><span class="line">  star: <span class="literal">null</span>,<span class="comment">// star</span></span><br><span class="line">  canNewBody: <span class="number">0</span>,<span class="comment">// 0-无,1-有</span></span><br><span class="line">  score: <span class="literal">null</span>,<span class="comment">// 分数Label</span></span><br><span class="line">  ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 初始化全局参数</span></span><br><span class="line">      <span class="keyword">this</span>._super();</span><br><span class="line">      <span class="keyword">this</span>.bodys = [];</span><br><span class="line">      <span class="keyword">this</span>.canNewBody = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">this</span>.tail = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">this</span>.score = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>之后，我们首先需要在场景中绘制出一条蛇，初始化定义为1个头部关节，5个身体关节，由于我们对关节类做了很好的封装，所以初始化一条蛇的代码很简单，我们在onEnter方法中进行初始化，如下所示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化一条蛇</span></span><br><span class="line"><span class="comment">// 初始化头部</span></span><br><span class="line"><span class="keyword">var</span> head = <span class="keyword">new</span> SnakeBody(<span class="literal">null</span>, <span class="number">4</span>);</span><br><span class="line">head.setPosition(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line"><span class="keyword">this</span>.addChild(head);</span><br><span class="line"><span class="keyword">this</span>.bodys.push(head);</span><br><span class="line">head.setTag(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">this</span>.tail = head;</span><br><span class="line"><span class="comment">// 循环添加5个身体</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="keyword">new</span> SnakeBody(<span class="keyword">this</span>.tail, <span class="keyword">this</span>.tail.direction);</span><br><span class="line">    <span class="keyword">this</span>.addChild(node);</span><br><span class="line">    <span class="keyword">this</span>.bodys.push(node);</span><br><span class="line">    <span class="keyword">this</span>.tail = node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>初始化完了之后蛇是不会动的，如何让它动起来呢，我们就要用到在关节类中封装的move方法了，我们每隔一个时间，对所有的关节类执行一次move方法，就能实现蛇的移动，首先在onEnter中添加定时任务：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 蛇移动的定时任务</span></span><br><span class="line"><span class="keyword">this</span>.schedule(<span class="keyword">this</span>.snakeMove, Constants.frequency);</span><br></pre></td></tr></table></figure></p>
-<p>在这个snakeMove定时调用的方法中，我们要写出所有关节移动的逻辑，在这个方法中，我们需要完成以下几件事：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 遍历蛇的所有关节，每个关节执行一遍move方法，并在move完了之后，将下次移动方法变为本次移动方向</span><br><span class="line">2. 如果需要新增关节，在遍历完成之后，新增一个关节类，并将其父节点指向之前的蛇尾节点，并把蛇尾指向新加的这个关节</span><br></pre></td></tr></table></figure></p>
-<p>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 蛇关节移动方法</span></span><br><span class="line">snakeMove: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="keyword">this</span>.bodys) &#123;</span><br><span class="line">        <span class="comment">// 循环执行移动方法,并返回移动结果,false即视为游戏结束</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.bodys[index].move(<span class="keyword">this</span>)) &#123;</span><br><span class="line">            <span class="comment">// 执行移动方法,移动失败,游戏结束</span></span><br><span class="line">            <span class="keyword">this</span>.unschedule(<span class="keyword">this</span>.snakeMove);</span><br><span class="line">            <span class="keyword">this</span>.unschedule(<span class="keyword">this</span>.updateStar);</span><br><span class="line">            <span class="keyword">var</span> overScene = <span class="keyword">new</span> OverScene(<span class="built_in">Number</span>(<span class="keyword">this</span>.score.getString()), <span class="literal">false</span>);</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, overScene));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="keyword">this</span>.bodys) &#123;</span><br><span class="line">        <span class="comment">// 本轮所有关节移动结束,所有节点的当前方向赋值为下一次的方向</span></span><br><span class="line">        <span class="keyword">this</span>.bodys[index].direction = <span class="keyword">this</span>.bodys[index].nextDirection;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.canNewBody == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果新增关节为1,增加关节</span></span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> SnakeBody(<span class="keyword">this</span>.tail, <span class="keyword">this</span>.tail.direction);</span><br><span class="line">        <span class="keyword">this</span>.addChild(node);</span><br><span class="line">        <span class="keyword">this</span>.bodys.push(node);</span><br><span class="line">        <span class="keyword">this</span>.tail = node;</span><br><span class="line">        <span class="keyword">this</span>.canNewBody = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>目前为止这条蛇是只会按照我们初始化的方向一直走到碰壁，然后游戏结束的，如何改变蛇的运动轨迹呢？前面说到了，蛇头部节点的下次移动方向的改变，即可对整个蛇的移动轨迹进行改变，这里我们可以通过点击屏幕实现蛇头的下次移动方向的改变。<br>首先在onEnter方法中添加触摸事件监听：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加屏幕触摸事件</span></span><br><span class="line">cc.eventManager.addListener(&#123;</span><br><span class="line">    event: cc.EventListener.TOUCH_ONE_BY_ONE,</span><br><span class="line">    swallowTouches: <span class="literal">true</span>,</span><br><span class="line">    onTouchBegan: <span class="keyword">this</span>.touchbegan,</span><br><span class="line">    onTouchMoved: <span class="keyword">this</span>.touchmoved,</span><br><span class="line">    onTouchEnded: <span class="keyword">this</span>.touchended</span><br><span class="line">&#125;, <span class="keyword">this</span>);</span><br></pre></td></tr></table></figure></p>
-<p>然后在onTouchBegan方法中实现点击事件，我们可以允许点击有一个10像素的误差：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击转向</span></span><br><span class="line">touchbegan: <span class="function"><span class="keyword">function</span> (<span class="params">touch, event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = touch.getLocation().x;</span><br><span class="line">    <span class="keyword">var</span> y = touch.getLocation().y;</span><br><span class="line">    <span class="keyword">var</span> head = event.getCurrentTarget().getChildByTag(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> headX = head.getPositionX();</span><br><span class="line">    <span class="keyword">var</span> headY = head.getPositionY();</span><br><span class="line">    <span class="keyword">switch</span> (head.direction) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">            <span class="keyword">if</span> (x &lt;= headX - Constants.errDistance) &#123;<span class="comment">// 转左</span></span><br><span class="line">                head.nextDirection = <span class="number">3</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt;= headX + Constants.errDistance) &#123;<span class="comment">// 转右</span></span><br><span class="line">                head.nextDirection = <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">            <span class="keyword">if</span> (y &lt;= headY - Constants.errDistance) &#123;<span class="comment">// 转下</span></span><br><span class="line">                head.nextDirection = <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &gt;= headY + Constants.errDistance) &#123;<span class="comment">// 转上</span></span><br><span class="line">                head.nextDirection = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后我们只差最后一步，就是蛇要吃的星星，我们可以在屏幕中任意位置随机产生一颗星星（又或者叫豆子，这都无所谓），只要这个星星满足以下条件，那么它就可以被绘制出来，否则我们需要重新随机这个星星的位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 星星在游戏场景的屏幕范围内</span><br><span class="line">2. 星星不能与蛇的身体部分重叠</span><br></pre></td></tr></table></figure></p>
-<p>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新星星</span></span><br><span class="line">updateStar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.star == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.star = <span class="keyword">new</span> cc.Sprite(res.bean);</span><br><span class="line">        <span class="keyword">var</span> randomX = <span class="built_in">Math</span>.random() * (cc.winSize.width - <span class="keyword">this</span>.star.width) + <span class="keyword">this</span>.star.width;</span><br><span class="line">        <span class="keyword">var</span> randomY = <span class="built_in">Math</span>.random() * (cc.winSize.height - <span class="keyword">this</span>.star.width) + <span class="keyword">this</span>.star.height;</span><br><span class="line">        <span class="keyword">this</span>.star.setPosition(randomX, randomY);</span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">this</span>.star);</span><br><span class="line">        <span class="comment">// 产生的星星只要在屏幕外,或与蛇的身体部分重叠,则本次任务不产生</span></span><br><span class="line">        <span class="keyword">if</span> ((randomX &gt; cc.winSize.width - <span class="keyword">this</span>.star.width / <span class="number">2</span>)</span><br><span class="line">            || (randomX &lt; <span class="keyword">this</span>.star.width / <span class="number">2</span>)</span><br><span class="line">            || (randomY &gt; cc.winSize.height - <span class="keyword">this</span>.star.height / <span class="number">2</span>)</span><br><span class="line">            || (randomY &lt; <span class="keyword">this</span>.star.height / <span class="number">2</span>)) &#123;</span><br><span class="line">            cc.log(<span class="string">"update star:out of screen"</span>);</span><br><span class="line">            <span class="keyword">this</span>.removeChild(<span class="keyword">this</span>.star);</span><br><span class="line">            <span class="keyword">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="keyword">this</span>.bodys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cc.rectIntersectsRect(<span class="keyword">this</span>.bodys[index].getBoundingBox(), <span class="keyword">this</span>.star.getBoundingBox())) &#123;</span><br><span class="line">                cc.log(<span class="string">"update star:intersect with self"</span>);</span><br><span class="line">                <span class="keyword">this</span>.removeChild(<span class="keyword">this</span>.star);</span><br><span class="line">                <span class="keyword">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="全局变量类"><a href="#全局变量类" class="headerlink" title="全局变量类"></a>全局变量类</h4><p>游戏中的全局变量，提炼为一个全局变量类，其中参数可以根据需求灵活变动配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Constants = &#123;</span><br><span class="line">    frequency: <span class="number">0.2</span>,<span class="comment">// 刷新频率</span></span><br><span class="line">    speed: <span class="number">31</span>,<span class="comment">// 每帧移动距离,身体节点大小+1像素间隔</span></span><br><span class="line">    errDistance: <span class="number">10</span>,<span class="comment">// 偏差举例</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="关节类"><a href="#关节类" class="headerlink" title="关节类"></a>关节类</h4><p>按照以上设计的结构，每一个关节对象都应该包含蛇的当前方向、下次方向和蛇的父节点三个属性，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> SnakeBody = cc.Sprite.extend(&#123;</span><br><span class="line">    frontBody: <span class="literal">null</span>,<span class="comment">//上一个身体关节,没有则为头部</span></span><br><span class="line">    nextDirection: <span class="number">0</span>,<span class="comment">// 1-上,2-下,3-左,4-右</span></span><br><span class="line">    direction: <span class="number">0</span>,<span class="comment">// 1-上,2-下,3-左,4-右</span></span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">frontBody, direction</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="built_in">this</span>.frontBody = frontBody;</span><br><span class="line">        <span class="built_in">this</span>.direction = direction;</span><br><span class="line">        <span class="built_in">this</span>.nextDirection = direction;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面说的，关节的位置跟它的福关节的位置是息息相关的，那么初始化的时候，我们就需要根据父关节的移动方向来进行次关节的位置设置，这部分代码，我们可以放在onEnter方法中，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._super();</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 蛇头部关节,设置头部纹理</span></span><br><span class="line">      <span class="keyword">switch</span> (<span class="built_in">this</span>.direction) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">              <span class="built_in">this</span>.setTexture(res.head_up);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">              <span class="built_in">this</span>.setTexture(res.head_down);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">              <span class="built_in">this</span>.setTexture(res.head_left);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">              <span class="built_in">this</span>.setTexture(res.head_right);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 蛇身体关节</span></span><br><span class="line">      <span class="comment">// 设置纹理</span></span><br><span class="line">      <span class="built_in">this</span>.setTexture(res.body);</span><br><span class="line">      <span class="comment">// 设置关节位置</span></span><br><span class="line">      <span class="keyword">var</span> frontX = <span class="built_in">this</span>.frontBody.getPositionX();</span><br><span class="line">      <span class="keyword">var</span> frontY = <span class="built_in">this</span>.frontBody.getPositionY();</span><br><span class="line">      <span class="keyword">var</span> frontWidth = <span class="built_in">this</span>.frontBody.width;</span><br><span class="line">      <span class="keyword">var</span> frontHeight = <span class="built_in">this</span>.frontBody.height;</span><br><span class="line">      <span class="keyword">var</span> width = <span class="built_in">this</span>.width;</span><br><span class="line">      <span class="keyword">var</span> height = <span class="built_in">this</span>.height;</span><br><span class="line">      <span class="keyword">switch</span> (<span class="built_in">this</span>.frontBody.direction) &#123;</span><br><span class="line">          <span class="comment">// 根据父关节的当前移动方向,决定此关节的位置</span></span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">              <span class="built_in">this</span>.setPosition(frontX, frontY - frontHeight / <span class="number">2</span> - height / <span class="number">2</span> - <span class="number">1</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">              <span class="built_in">this</span>.setPosition(frontX, frontY + frontHeight / <span class="number">2</span> + height / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">              <span class="built_in">this</span>.setPosition(frontX + frontWidth / <span class="number">2</span> + width / <span class="number">2</span> + <span class="number">1</span>, frontY);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">              <span class="built_in">this</span>.setPosition(frontX - frontWidth / <span class="number">2</span> - width / <span class="number">2</span> - <span class="number">1</span>, frontY);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了这三个属性，每一个节点还应该有最重要的游戏逻辑——move方法，每一个关节分别调用move方法，从游戏场景中就能看到整条蛇按照预定方向进行移动，而整条蛇的运动方向就是跟着头部关节的方向走，头部关节的方向则通过点击屏幕区域控制。<br>在move方法中，我们需要做以下事情：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.按照关节的下次移动方向移动本身长度的像素的距离</span><br><span class="line">2.如果是头部关节，需要改变关节纹理</span><br></pre></td></tr></table></figure>
+<p>同时，如果是头部关节，我们还需要判断以下三个临界条件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.头部关节是否触碰到屏幕边界</span><br><span class="line">2.头部关节是否吃到屏幕中的豆子</span><br><span class="line">3.头部关节是否触碰到自身关节</span><br></pre></td></tr></table></figure>
+<p>其中1、3条件达成，则判定游戏结束，2条件达成，则能增加游戏分数，并且游戏继续。<br>move方法代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关节移动方法</span></span><br><span class="line">move: <span class="function"><span class="keyword">function</span> (<span class="params">layer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> star = layer.star;</span><br><span class="line">    <span class="keyword">var</span> direct;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 头部关节按照自身的下次方向行走</span></span><br><span class="line">        direct = <span class="built_in">this</span>.nextDirection;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 身体关节按照父关节的当前方向行走,并将福关节的当前方向设置为自身的下次方向</span></span><br><span class="line">        <span class="built_in">this</span>.nextDirection = direct = <span class="built_in">this</span>.frontBody.direction;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (direct) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">            <span class="built_in">this</span>.setPosition(<span class="built_in">this</span>.getPositionX(), <span class="built_in">this</span>.getPositionY() + Constants.speed);</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(0, Constants.speed), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">            <span class="built_in">this</span>.setPosition(<span class="built_in">this</span>.getPositionX(), <span class="built_in">this</span>.getPositionY() - Constants.speed);</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(0, -Constants.speed), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">            <span class="built_in">this</span>.setPosition(<span class="built_in">this</span>.getPositionX() - Constants.speed, <span class="built_in">this</span>.getPositionY());</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(-Constants.speed, 0), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">            <span class="built_in">this</span>.setPosition(<span class="built_in">this</span>.getPositionX() + Constants.speed, <span class="built_in">this</span>.getPositionY());</span><br><span class="line">            <span class="comment">// this.runAction(cc.moveBy(Constants.frequency, cc.p(Constants.speed, 0), 0))</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.frontBody == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (<span class="built_in">this</span>.nextDirection) &#123;</span><br><span class="line">            <span class="comment">// 头部关节需要设置头部不同方向的纹理</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">                <span class="built_in">this</span>.setTexture(res.head_up);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">                <span class="built_in">this</span>.setTexture(res.head_down);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">                <span class="built_in">this</span>.setTexture(res.head_left);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">                <span class="built_in">this</span>.setTexture(res.head_right);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 头部关节判断是否触碰到边界</span></span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">if</span> ((<span class="built_in">this</span>.getPositionX() &gt; size.width - <span class="built_in">this</span>.width / <span class="number">2</span>)</span><br><span class="line">            || (<span class="built_in">this</span>.getPositionX() &lt; <span class="built_in">this</span>.width / <span class="number">2</span>)</span><br><span class="line">            || (<span class="built_in">this</span>.getPositionY() &gt; size.height - <span class="built_in">this</span>.height / <span class="number">2</span>)</span><br><span class="line">            || (<span class="built_in">this</span>.getPositionY() &lt; <span class="built_in">this</span>.height / <span class="number">2</span>)) &#123;</span><br><span class="line">            <span class="comment">// 判断触碰边界</span></span><br><span class="line">            cc.log(<span class="string">&quot;game over&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断是否触碰到自己身体关节</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> layer.bodys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (layer.bodys[index] != <span class="built_in">this</span> &amp;&amp; cc.rectIntersectsRect(<span class="built_in">this</span>.getBoundingBox(), layer.bodys[index].getBoundingBox())) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断是否吃到星星</span></span><br><span class="line">        <span class="keyword">if</span> (star != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cc.rectIntersectsRect(<span class="built_in">this</span>.getBoundingBox(), star.getBoundingBox())) &#123;</span><br><span class="line">                star.runAction(</span><br><span class="line">                    cc.sequence(cc.spawn(</span><br><span class="line">                        cc.scaleTo(<span class="number">0.2</span>, <span class="number">3</span>),</span><br><span class="line">                        cc.fadeOut(<span class="number">0.2</span>)</span><br><span class="line">                    ), cc.callFunc(<span class="function"><span class="keyword">function</span> (<span class="params">star</span>) </span>&#123;</span><br><span class="line">                        star.removeFromParent();</span><br><span class="line">                    &#125;, star))</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">// 清除星星</span></span><br><span class="line">                layer.star = <span class="literal">null</span>;</span><br><span class="line">                <span class="comment">// 添加身体</span></span><br><span class="line">                layer.canNewBody = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 改变分数</span></span><br><span class="line">                layer.score.setString(<span class="string">&quot;&quot;</span> + (<span class="built_in">Number</span>(layer.score.getString()) + <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random() * <span class="number">3</span> + <span class="number">1</span>)));</span><br><span class="line">                layer.score.runAction(cc.sequence(cc.scaleTo(<span class="number">0.1</span>, <span class="number">2</span>), cc.scaleTo(<span class="number">0.1</span>, <span class="number">0.5</span>), cc.scaleTo(<span class="number">0.1</span>, <span class="number">1</span>)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="游戏场景类"><a href="#游戏场景类" class="headerlink" title="游戏场景类"></a>游戏场景类</h4><p>在游戏场景中我们需要以下几个变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 贪吃蛇数组：用于存储贪吃蛇所有的关节节点</span><br><span class="line">2. 贪吃蛇尾部：每添加一个关节节点 ，都将此变量指向这个新加的节点，以便下次继续再尾部节点添加</span><br><span class="line">3. 吃的星星：屏幕中随机产生的星星，用于判断头部关节是否与它产生碰撞</span><br><span class="line">4. 是否添加节点：如果在定时任务中判断到吃到星星，那么可以次变量为1，代表可以添加一个节点</span><br><span class="line">5. 分数：存储游戏中累加的分数</span><br></pre></td></tr></table></figure>
+<p>在cc.Layer的构造函数中对以上变量进行初始化，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GameLayer = cc.Layer.extend(&#123;</span><br><span class="line">  bodys: [],<span class="comment">// snake body</span></span><br><span class="line">  tail: <span class="literal">null</span>,<span class="comment">// snake tail</span></span><br><span class="line">  star: <span class="literal">null</span>,<span class="comment">// star</span></span><br><span class="line">  canNewBody: <span class="number">0</span>,<span class="comment">// 0-无,1-有</span></span><br><span class="line">  score: <span class="literal">null</span>,<span class="comment">// 分数Label</span></span><br><span class="line">  ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 初始化全局参数</span></span><br><span class="line">      <span class="built_in">this</span>._super();</span><br><span class="line">      <span class="built_in">this</span>.bodys = [];</span><br><span class="line">      <span class="built_in">this</span>.canNewBody = <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">      <span class="built_in">this</span>.tail = <span class="literal">null</span>;</span><br><span class="line">      <span class="built_in">this</span>.score = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，我们首先需要在场景中绘制出一条蛇，初始化定义为1个头部关节，5个身体关节，由于我们对关节类做了很好的封装，所以初始化一条蛇的代码很简单，我们在onEnter方法中进行初始化，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化一条蛇</span></span><br><span class="line"><span class="comment">// 初始化头部</span></span><br><span class="line"><span class="keyword">var</span> head = <span class="keyword">new</span> SnakeBody(<span class="literal">null</span>, <span class="number">4</span>);</span><br><span class="line">head.setPosition(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line"><span class="built_in">this</span>.addChild(head);</span><br><span class="line"><span class="built_in">this</span>.bodys.push(head);</span><br><span class="line">head.setTag(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">this</span>.tail = head;</span><br><span class="line"><span class="comment">// 循环添加5个身体</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="keyword">new</span> SnakeBody(<span class="built_in">this</span>.tail, <span class="built_in">this</span>.tail.direction);</span><br><span class="line">    <span class="built_in">this</span>.addChild(node);</span><br><span class="line">    <span class="built_in">this</span>.bodys.push(node);</span><br><span class="line">    <span class="built_in">this</span>.tail = node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化完了之后蛇是不会动的，如何让它动起来呢，我们就要用到在关节类中封装的move方法了，我们每隔一个时间，对所有的关节类执行一次move方法，就能实现蛇的移动，首先在onEnter中添加定时任务：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 蛇移动的定时任务</span></span><br><span class="line"><span class="built_in">this</span>.schedule(<span class="built_in">this</span>.snakeMove, Constants.frequency);</span><br></pre></td></tr></table></figure>
+<p>在这个snakeMove定时调用的方法中，我们要写出所有关节移动的逻辑，在这个方法中，我们需要完成以下几件事：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 遍历蛇的所有关节，每个关节执行一遍move方法，并在move完了之后，将下次移动方法变为本次移动方向</span><br><span class="line">2. 如果需要新增关节，在遍历完成之后，新增一个关节类，并将其父节点指向之前的蛇尾节点，并把蛇尾指向新加的这个关节</span><br></pre></td></tr></table></figure>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 蛇关节移动方法</span></span><br><span class="line">snakeMove: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="built_in">this</span>.bodys) &#123;</span><br><span class="line">        <span class="comment">// 循环执行移动方法,并返回移动结果,false即视为游戏结束</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">this</span>.bodys[index].move(<span class="built_in">this</span>)) &#123;</span><br><span class="line">            <span class="comment">// 执行移动方法,移动失败,游戏结束</span></span><br><span class="line">            <span class="built_in">this</span>.unschedule(<span class="built_in">this</span>.snakeMove);</span><br><span class="line">            <span class="built_in">this</span>.unschedule(<span class="built_in">this</span>.updateStar);</span><br><span class="line">            <span class="keyword">var</span> overScene = <span class="keyword">new</span> OverScene(<span class="built_in">Number</span>(<span class="built_in">this</span>.score.getString()), <span class="literal">false</span>);</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, overScene));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="built_in">this</span>.bodys) &#123;</span><br><span class="line">        <span class="comment">// 本轮所有关节移动结束,所有节点的当前方向赋值为下一次的方向</span></span><br><span class="line">        <span class="built_in">this</span>.bodys[index].direction = <span class="built_in">this</span>.bodys[index].nextDirection;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.canNewBody == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果新增关节为1,增加关节</span></span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> SnakeBody(<span class="built_in">this</span>.tail, <span class="built_in">this</span>.tail.direction);</span><br><span class="line">        <span class="built_in">this</span>.addChild(node);</span><br><span class="line">        <span class="built_in">this</span>.bodys.push(node);</span><br><span class="line">        <span class="built_in">this</span>.tail = node;</span><br><span class="line">        <span class="built_in">this</span>.canNewBody = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前为止这条蛇是只会按照我们初始化的方向一直走到碰壁，然后游戏结束的，如何改变蛇的运动轨迹呢？前面说到了，蛇头部节点的下次移动方向的改变，即可对整个蛇的移动轨迹进行改变，这里我们可以通过点击屏幕实现蛇头的下次移动方向的改变。<br>首先在onEnter方法中添加触摸事件监听：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加屏幕触摸事件</span></span><br><span class="line">cc.eventManager.addListener(&#123;</span><br><span class="line">    event: cc.EventListener.TOUCH_ONE_BY_ONE,</span><br><span class="line">    swallowTouches: <span class="literal">true</span>,</span><br><span class="line">    onTouchBegan: <span class="built_in">this</span>.touchbegan,</span><br><span class="line">    onTouchMoved: <span class="built_in">this</span>.touchmoved,</span><br><span class="line">    onTouchEnded: <span class="built_in">this</span>.touchended</span><br><span class="line">&#125;, <span class="built_in">this</span>);</span><br></pre></td></tr></table></figure>
+<p>然后在onTouchBegan方法中实现点击事件，我们可以允许点击有一个10像素的误差：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击转向</span></span><br><span class="line">touchbegan: <span class="function"><span class="keyword">function</span> (<span class="params">touch, event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = touch.getLocation().x;</span><br><span class="line">    <span class="keyword">var</span> y = touch.getLocation().y;</span><br><span class="line">    <span class="keyword">var</span> head = event.getCurrentTarget().getChildByTag(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> headX = head.getPositionX();</span><br><span class="line">    <span class="keyword">var</span> headY = head.getPositionY();</span><br><span class="line">    <span class="keyword">switch</span> (head.direction) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">// 上</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">// 下</span></span><br><span class="line">            <span class="keyword">if</span> (x &lt;= headX - Constants.errDistance) &#123;<span class="comment">// 转左</span></span><br><span class="line">                head.nextDirection = <span class="number">3</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt;= headX + Constants.errDistance) &#123;<span class="comment">// 转右</span></span><br><span class="line">                head.nextDirection = <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">// 左</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">// 右</span></span><br><span class="line">            <span class="keyword">if</span> (y &lt;= headY - Constants.errDistance) &#123;<span class="comment">// 转下</span></span><br><span class="line">                head.nextDirection = <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &gt;= headY + Constants.errDistance) &#123;<span class="comment">// 转上</span></span><br><span class="line">                head.nextDirection = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后我们只差最后一步，就是蛇要吃的星星，我们可以在屏幕中任意位置随机产生一颗星星（又或者叫豆子，这都无所谓），只要这个星星满足以下条件，那么它就可以被绘制出来，否则我们需要重新随机这个星星的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 星星在游戏场景的屏幕范围内</span><br><span class="line">2. 星星不能与蛇的身体部分重叠</span><br></pre></td></tr></table></figure>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新星星</span></span><br><span class="line">updateStar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.star == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="built_in">this</span>.star = <span class="keyword">new</span> cc.Sprite(res.bean);</span><br><span class="line">        <span class="keyword">var</span> randomX = <span class="built_in">Math</span>.random() * (cc.winSize.width - <span class="built_in">this</span>.star.width) + <span class="built_in">this</span>.star.width;</span><br><span class="line">        <span class="keyword">var</span> randomY = <span class="built_in">Math</span>.random() * (cc.winSize.height - <span class="built_in">this</span>.star.width) + <span class="built_in">this</span>.star.height;</span><br><span class="line">        <span class="built_in">this</span>.star.setPosition(randomX, randomY);</span><br><span class="line">        <span class="built_in">this</span>.addChild(<span class="built_in">this</span>.star);</span><br><span class="line">        <span class="comment">// 产生的星星只要在屏幕外,或与蛇的身体部分重叠,则本次任务不产生</span></span><br><span class="line">        <span class="keyword">if</span> ((randomX &gt; cc.winSize.width - <span class="built_in">this</span>.star.width / <span class="number">2</span>)</span><br><span class="line">            || (randomX &lt; <span class="built_in">this</span>.star.width / <span class="number">2</span>)</span><br><span class="line">            || (randomY &gt; cc.winSize.height - <span class="built_in">this</span>.star.height / <span class="number">2</span>)</span><br><span class="line">            || (randomY &lt; <span class="built_in">this</span>.star.height / <span class="number">2</span>)) &#123;</span><br><span class="line">            cc.log(<span class="string">&quot;update star:out of screen&quot;</span>);</span><br><span class="line">            <span class="built_in">this</span>.removeChild(<span class="built_in">this</span>.star);</span><br><span class="line">            <span class="built_in">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> <span class="built_in">this</span>.bodys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cc.rectIntersectsRect(<span class="built_in">this</span>.bodys[index].getBoundingBox(), <span class="built_in">this</span>.star.getBoundingBox())) &#123;</span><br><span class="line">                cc.log(<span class="string">&quot;update star:intersect with self&quot;</span>);</span><br><span class="line">                <span class="built_in">this</span>.removeChild(<span class="built_in">this</span>.star);</span><br><span class="line">                <span class="built_in">this</span>.star = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至此，游戏的主要逻辑就大功告成了！贪吃蛇不仅能在屏幕中游走，还能吃星星，并且碰到自身或边缘都会GameOver！</p>
-<h4 id="开始-结束场景类"><a href="#开始-结束场景类" class="headerlink" title="开始/结束场景类"></a>开始/结束场景类</h4><p>说到GameOver，那么就必须要有一个Over的场景类了，毕竟有了开始场景，游戏场景和结束场景，才算得上一个完成的游戏流程嘛，结束场景类的实现很简单，只需要把游戏场景中获得的分数传递进来，然后在Label中展示即可，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> OverLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite: <span class="literal">null</span>,</span><br><span class="line">    score: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">score</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">var</span> over = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"Game Over,你的分数是:"</span> + <span class="keyword">this</span>.score, <span class="string">"Arial"</span>, <span class="number">38</span>);</span><br><span class="line">        over.setPosition(size.width / <span class="number">2</span>, size.height / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">this</span>.addChild(over);</span><br><span class="line">        over.runAction(cc.sequence(cc.scaleTo(<span class="number">0.2</span>, <span class="number">2</span>), cc.scaleTo(<span class="number">0.2</span>, <span class="number">0.5</span>), cc.scaleTo(<span class="number">0.2</span>, <span class="number">1</span>)));</span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">"再来一次"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> HelloWorldScene()));</span><br><span class="line">        &#125;, <span class="keyword">this</span>);</span><br><span class="line">        start.setPosition(over.getPositionX(), over.getPositionY() - over.height / <span class="number">2</span> - <span class="number">50</span>);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(start);</span><br><span class="line">        <span class="keyword">this</span>.addChild(menu);</span><br><span class="line">        menu.setPosition(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> OverScene = cc.Scene.extend(&#123;</span><br><span class="line">    score: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">score</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> OverLayer(<span class="keyword">this</span>.score);</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>与结束场景一样，开始场景也只需一个Label一个Menu即可，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> HelloWorldLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite: <span class="literal">null</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">var</span> helloLabel = <span class="keyword">new</span> cc.LabelTTF(<span class="string">"贪吃蛇"</span>, <span class="string">"Arial"</span>, <span class="number">38</span>);</span><br><span class="line">        helloLabel.x = size.width / <span class="number">2</span>;</span><br><span class="line">        helloLabel.y = size.height / <span class="number">2</span> + <span class="number">200</span>;</span><br><span class="line">        <span class="keyword">this</span>.addChild(helloLabel, <span class="number">5</span>);</span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">"开始游戏"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> GameScene()));</span><br><span class="line">        &#125;, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(start);</span><br><span class="line">        <span class="keyword">this</span>.addChild(menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HelloWorldScene = cc.Scene.extend(&#123;</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> HelloWorldLayer();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="开始-结束场景类"><a href="#开始-结束场景类" class="headerlink" title="开始/结束场景类"></a>开始/结束场景类</h4><p>说到GameOver，那么就必须要有一个Over的场景类了，毕竟有了开始场景，游戏场景和结束场景，才算得上一个完成的游戏流程嘛，结束场景类的实现很简单，只需要把游戏场景中获得的分数传递进来，然后在Label中展示即可，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> OverLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite: <span class="literal">null</span>,</span><br><span class="line">    score: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">score</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="built_in">this</span>.score = score;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">var</span> over = <span class="keyword">new</span> cc.LabelTTF(<span class="string">&quot;Game Over,你的分数是:&quot;</span> + <span class="built_in">this</span>.score, <span class="string">&quot;Arial&quot;</span>, <span class="number">38</span>);</span><br><span class="line">        over.setPosition(size.width / <span class="number">2</span>, size.height / <span class="number">2</span>);</span><br><span class="line">        <span class="built_in">this</span>.addChild(over);</span><br><span class="line">        over.runAction(cc.sequence(cc.scaleTo(<span class="number">0.2</span>, <span class="number">2</span>), cc.scaleTo(<span class="number">0.2</span>, <span class="number">0.5</span>), cc.scaleTo(<span class="number">0.2</span>, <span class="number">1</span>)));</span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">&quot;再来一次&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> HelloWorldScene()));</span><br><span class="line">        &#125;, <span class="built_in">this</span>);</span><br><span class="line">        start.setPosition(over.getPositionX(), over.getPositionY() - over.height / <span class="number">2</span> - <span class="number">50</span>);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(start);</span><br><span class="line">        <span class="built_in">this</span>.addChild(menu);</span><br><span class="line">        menu.setPosition(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> OverScene = cc.Scene.extend(&#123;</span><br><span class="line">    score: <span class="number">0</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params">score</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="built_in">this</span>.score = score;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> OverLayer(<span class="built_in">this</span>.score);</span><br><span class="line">        <span class="built_in">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>与结束场景一样，开始场景也只需一个Label一个Menu即可，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> HelloWorldLayer = cc.Layer.extend(&#123;</span><br><span class="line">    sprite: <span class="literal">null</span>,</span><br><span class="line">    ctor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.winSize;</span><br><span class="line">        <span class="keyword">var</span> helloLabel = <span class="keyword">new</span> cc.LabelTTF(<span class="string">&quot;贪吃蛇&quot;</span>, <span class="string">&quot;Arial&quot;</span>, <span class="number">38</span>);</span><br><span class="line">        helloLabel.x = size.width / <span class="number">2</span>;</span><br><span class="line">        helloLabel.y = size.height / <span class="number">2</span> + <span class="number">200</span>;</span><br><span class="line">        <span class="built_in">this</span>.addChild(helloLabel, <span class="number">5</span>);</span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> cc.MenuItemFont(<span class="string">&quot;开始游戏&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            cc.director.runScene(<span class="keyword">new</span> cc.TransitionFade(<span class="number">1</span>, <span class="keyword">new</span> GameScene()));</span><br><span class="line">        &#125;, <span class="built_in">this</span>);</span><br><span class="line">        <span class="keyword">var</span> menu = <span class="keyword">new</span> cc.Menu(start);</span><br><span class="line">        <span class="built_in">this</span>.addChild(menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HelloWorldScene = cc.Scene.extend(&#123;</span><br><span class="line">    onEnter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> HelloWorldLayer();</span><br><span class="line">        <span class="built_in">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>这样，我们就能形成一个完成游戏流程了，游戏加载进入游戏开始场景，点击开始游戏进行如主游戏场景，游戏结束后进入结束场景，结束场景点击“再来一次”又可以回到开始场景。</p>
-<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>最后的运行效果如下<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/snake.gif" alt="贪吃蛇效果图"><br>通过CVP平台的项目托管可看到实际运行效果，地址如下：<br><a href="http://www.cocoscvp.com/usercode/2e17b3cd9586a574140e0bb765bad21673fc7686/" target="_blank" rel="external">http://www.cocoscvp.com/usercode/2e17b3cd9586a574140e0bb765bad21673fc7686/</a></p>
-<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><p>所有源代码均上传到github，欢迎交流学习，地址：<br><a href="https://github.com/hjcenry/snake" target="_blank" rel="external">https://github.com/hjcenry/snake</a></p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>最后的运行效果如下<br><img src="http://7xnnwn.com1.z0.glb.clouddn.com/snake.gif" alt="贪吃蛇效果图"><br>通过CVP平台的项目托管可看到实际运行效果，地址如下：<br><a target="_blank" rel="noopener" href="http://www.cocoscvp.com/usercode/2e17b3cd9586a574140e0bb765bad21673fc7686/">http://www.cocoscvp.com/usercode/2e17b3cd9586a574140e0bb765bad21673fc7686/</a></p>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><p>所有源代码均上传到github，欢迎交流学习，地址：<br><a target="_blank" rel="noopener" href="https://github.com/hjcenry/snake">https://github.com/hjcenry/snake</a></p>
 
-      
     </div>
+
     
-    <div>
-      
-        
-<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He wechat" style="width: 200px; max-width: 100%;"/>
-    <div>我的微信号</div>
-</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
-  <div></div>
-  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
-    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+    
+    
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
   </button>
-  <div id="QR" style="display: none;">
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/wx.png" alt="Henry He WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
-        <p>微信打赏</p>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/wechat_pay.jpg" alt="Henry He 微信支付">
+        <p>微信支付</p>
       </div>
-    
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="http://7xnnwn.com1.z0.glb.clouddn.com/zfb.png" alt="Henry He Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
-        <p>支付宝打赏</p>
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/alipay.jpg" alt="Henry He 支付宝">
+        <p>支付宝</p>
       </div>
-    
+
   </div>
 </div>
 
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/cocos2d-js/" rel="tag">#cocos2d-js</a>
-          
-            <a href="/tags/贪吃蛇/" rel="tag">#贪吃蛇</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/" rel="next" title="CVP认证学习笔记--(何小成)骨骼动画的制作">
-                <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)骨骼动画的制作
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/29/CVP认证学习笔记--(何小成)026--数组的使用/" rel="prev" title="CVP认证学习笔记--(何小成)026--数组的使用">
-                CVP认证学习笔记--(何小成)026--数组的使用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/05/16/Cocos2d-JS实现的贪吃蛇/"
-     data-title="Cocos2d-JS实现的贪吃蛇"
-     data-content=""
-     data-url="http://hjcenry.coding.me/2016/05/16/Cocos2d-JS实现的贪吃蛇/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-  <p>热评文章</p>
-  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/05/16/Cocos2d-JS实现的贪吃蛇/"
-           data-title="Cocos2d-JS实现的贪吃蛇" data-url="http://hjcenry.coding.me/2016/05/16/Cocos2d-JS实现的贪吃蛇/">
-      </div>
-    
-  </div>
-
-
-        </div>
         
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.hjcenry.com/res/img/wx.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cocos2d-js/" rel="tag"># cocos2d-js</a>
+              <a href="/tags/%E8%B4%AA%E5%90%83%E8%9B%87/" rel="tag"># 贪吃蛇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/10/CVP%E8%AE%A4%E8%AF%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--(%E4%BD%95%E5%B0%8F%E6%88%90)%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E7%9A%84%E5%88%B6%E4%BD%9C/" rel="prev" title="CVP认证学习笔记--(何小成)骨骼动画的制作">
+      <i class="fa fa-chevron-left"></i> CVP认证学习笔记--(何小成)骨骼动画的制作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/29/CVP%E8%AE%A4%E8%AF%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--(%E4%BD%95%E5%B0%8F%E6%88%90)026--%E6%95%B0%E7%BB%84%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="CVP认证学习笔记--(何小成)026--数组的使用">
+      CVP认证学习笔记--(何小成)026--数组的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">游戏分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BA%AB%E4%BD%93%E5%85%B3%E8%8A%82"><span class="nav-number">2.1.</span> <span class="nav-text">身体关节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%B9%E5%90%91"><span class="nav-number">2.2.</span> <span class="nav-text">移动方向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">开发设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%B1%BB"><span class="nav-number">3.2.</span> <span class="nav-text">全局变量类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%8A%82%E7%B1%BB"><span class="nav-number">3.3.</span> <span class="nav-text">关节类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E5%9C%BA%E6%99%AF%E7%B1%BB"><span class="nav-number">3.4.</span> <span class="nav-text">游戏场景类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B-%E7%BB%93%E6%9D%9F%E5%9C%BA%E6%99%AF%E7%B1%BB"><span class="nav-number">3.5.</span> <span class="nav-text">开始&#x2F;结束场景类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">源代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-      <section class="site-overview sidebar-panel ">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/avatar.png"
-               alt="Henry He" />
-          <p class="site-author-name" itemprop="name">Henry He</p>
-          <p class="site-description motion-element" itemprop="description">我们不生产代码，我们只是API的搬运工</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">36</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">16</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
+    <img class="site-author-image" itemprop="image" alt="Henry He"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Henry He</p>
+  <div class="site-description" itemprop="description">我们不生产代码，我们只是API的搬运工</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
           
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hjcenry" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/hjcenry" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
           
-        </div>
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hjcenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hjcenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC9EM174qUGvIm8uQHILXE3Q" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC9EM174qUGvIm8uQHILXE3Q" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hejincheng1209@163.com" title="E-Mail → mailto:hejincheng1209@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/15286724" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;15286724" rel="noopener" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;2996874513&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
 
-        
-        
 
-        
-        
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43495590" title="https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_43495590" rel="noopener" target="_blank">周piaopiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baitanwa.com/" title="https:&#x2F;&#x2F;www.baitanwa.com" rel="noopener" target="_blank">泽北大佬</a>
+        </li>
+    </ul>
+  </div>
 
-      </section>
-
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏分析"><span class="nav-number">2.</span> <span class="nav-text">游戏分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#身体关节"><span class="nav-number">2.1.</span> <span class="nav-text">身体关节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动方向"><span class="nav-number">2.2.</span> <span class="nav-text">移动方向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发设计"><span class="nav-number">3.</span> <span class="nav-text">开发设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目结构"><span class="nav-number">3.1.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局变量类"><span class="nav-number">3.2.</span> <span class="nav-text">全局变量类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关节类"><span class="nav-number">3.3.</span> <span class="nav-text">关节类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#游戏场景类"><span class="nav-number">3.4.</span> <span class="nav-text">游戏场景类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始-结束场景类"><span class="nav-number">3.5.</span> <span class="nav-text">开始/结束场景类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">4.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码"><span class="nav-number">5.</span> <span class="nav-text">源代码</span></a></li></ol></div>
-            
-          </div>
-        </section>
-      
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-<div class="copyright" >
+        
+
+        
+
+<div class="copyright">
   
-  &copy;  2016 - 
+  &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Henry He</span>
-  
+
+
+  <div style="float:right;display:inline-block;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 20px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="float:right;display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;">
+      <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p>
+    </a>
+  </div>
+
+  <!-- 网站域名公安备案 -->
+  <!--
+  <div style="width:600px;margin:0 auto; padding:20px 0;">
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p></a><p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+  </div>
+  -->
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
 
         
-
 <div class="busuanzi-count">
-
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
-  
-
-  
-    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
-  
-  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
 </div>
 
 
 
-        
-      </div>
-    </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz","app_key":"77GsyoUfVcOoIueBsMYv2PoP","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+
+      <script src="/js/live2d/autoload.js"></script>
+    </footer>
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+<script src="/js/utils.js"></script>
 
-
-
-
-
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-  
+<script src="/js/next-boot.js"></script>
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
   
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"hjcenry"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
 
-  
-    
-      
-      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-      <script src="/js/src/hook-duoshuo.js"></script>
-    
-  
-
-
 
 
 
   
-  
-  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6vdofc43qnpkj50mghb80jws0rjhfjwb.js"></script>
+
+
+
+
+
+
 
   
 
   
-<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
-</script>
 
-
-  
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyv4Jfx7D';
+    var conf = '09034f3bb4af424e1d479cd8cfc7de8a';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 
 </body>
 </html>

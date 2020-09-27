@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hjcenry.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":false,"nav":{"changyan":{"text":"加载评论中","order":-1}},"activeClass":"changyan"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="看看这个标题，没错，这又是一篇年终总结，上一次写年终总结还是2017年，而2018年直接就跳过没有写。之前的业余时间的确是很多，现在我连休息时间也变少了，所以一年都很难产出一篇，前段时间闲了一点，才很艰难的挤出了一篇关于我对Python这门语言的理解。其实没有用文字记录下来，并不代表我这两年什么都没有做，相反，我经历了太多的事情，才让我连用文字记录的时间都没有了。那么接下来，我会用一整篇的篇幅来告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的2019">
+<meta property="og:url" content="http://www.hjcenry.com/2019/12/25/%E6%88%91%E7%9A%842019/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="看看这个标题，没错，这又是一篇年终总结，上一次写年终总结还是2017年，而2018年直接就跳过没有写。之前的业余时间的确是很多，现在我连休息时间也变少了，所以一年都很难产出一篇，前段时间闲了一点，才很艰难的挤出了一篇关于我对Python这门语言的理解。其实没有用文字记录下来，并不代表我这两年什么都没有做，相反，我经历了太多的事情，才让我连用文字记录的时间都没有了。那么接下来，我会用一整篇的篇幅来告">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-d8986d58e1e1856f.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-2ea959c46cf7703d.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-adefcafc8ebf00cf.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-7104098758fc2ec6.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1472037-4c7ec957ea7dca7d.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-aba39822f01b225b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-eede58fc739732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-a81f4f70c1fb0146.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-985258b320fe60b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-5d133a242f415602.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-93225e93d64afe08.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-58552ba076d79037.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-d1a0b00721a2d462.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-7638161852d52755.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-130619996006a2ee.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-b234c56608b9c92a.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-fc3d568850f253cd.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-b9cd52ba5e6c9435.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-b83567e8175b8884.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-4d65e8caeecacaf5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-358c3fc290088c41.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-7d855594b41759d1.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-c9afdec5905cd14c.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-861adef451c8be7d.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-0cdbf2d49e7bf809.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-ecea7f62fca67f1a.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-969213d616cf89b5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-72682673ed542738.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-f79cd2cc48843dc2.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1472037-2d4061c49193650f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2019-12-24T17:10:00.000Z">
+<meta property="article:modified_time" content="2020-09-26T15:34:23.838Z">
+<meta property="article:author" content="Henry He">
+<meta property="article:tag" content="生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1472037-d8986d58e1e1856f.jpg">
+
+<link rel="canonical" href="http://www.hjcenry.com/2019/12/25/%E6%88%91%E7%9A%842019/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我的2019 | Henry Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Henry Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Javaer</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hjcenry" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hjcenry.com/2019/12/25/%E6%88%91%E7%9A%842019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Henry He">
+      <meta itemprop="description" content="我们不生产代码，我们只是API的搬运工">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Henry Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的2019
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-25 01:10:00" itemprop="dateCreated datePublished" datetime="2019-12-25T01:10:00+08:00">2019-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-26 23:34:23" itemprop="dateModified" datetime="2020-09-26T23:34:23+08:00">2020-09-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/25/%E6%88%91%E7%9A%842019/" class="post-meta-item leancloud_visitors" data-flag-title="我的2019" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2019/12/25/%E6%88%91%E7%9A%842019/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/12/25/我的2019/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>看看这个标题，没错，这又是一篇年终总结，上一次写年终总结还是2017年，而2018年直接就跳过没有写。之前的业余时间的确是很多，现在我连休息时间也变少了，所以一年都很难产出一篇，前段时间闲了一点，才很艰难的挤出了一篇关于我对Python这门语言的理解。其实没有用文字记录下来，并不代表我这两年什么都没有做，相反，我经历了太多的事情，才让我连用文字记录的时间都没有了。那么接下来，我会用一整篇的篇幅来告诉大家，这两年，我都做了什么，学会了什么，完成了什么。</p>
+<a id="more"></a>
+<p><code>——一名游戏行业程序员的生活记录</code></p>
+<h2 id="一、关于写书"><a href="#一、关于写书" class="headerlink" title="一、关于写书"></a>一、关于写书</h2><p>大概是从入职上家公司开始，我开始学着写作，因为工作中需要我去学习很多新的东西，而学会一个东西最好的方式就是把你学会的从头到尾都详细解释出来，所以我开始了写博客，我写的东西其实并不高深，都是基础知识的运用，甚至在文章中加过很多修辞，故弄玄虚，夸大其词，而实际上却是知识很基础的一部分内容，而这些恰恰是因为我最初开始写文章的时候，自己的基础并不扎实，而又想急于求成所造成的结果。</p>
+<p>2016年，我花了几乎一年的时间写了一本书《深度解析Java游戏服务器开发》，我的确是倾注了个人的大部分时间和精力，但是老实说，这本书的内容特别的华而不实，这也是我后来对我那本书的一个自我反省，甚至说我想在两年后的今天，去重写里面的内容。那本书一经推出后，我也看了网上的评论，收获了不少差评，里面确实有我的个人原因，本身基础不太扎实的我，以一种急于求成的姿态去写了这样一本书，用网友的评论来说，这本书的确是堆砌代码且无营养。</p>
+<p>后来第二年，也就是2017年，我又开始写第二本书《Cocos2d-JS游戏开发快速入门到实战》，总结第一本书的经验教训，在写第二本书的时候，我特别注重书里内容的图、文、代码相结合，内容可以不多，但一定要准确，精简，让读者能看懂。同样是一年的时间，我完成了我的第二本书，这本书从销量上来说，可能还不如第一本书，因为JS技术的普遍性以及用Cocos2d-JS来做游戏的普遍性相对Java的使用普遍性来说要少很多，不过对我个人来说，第二本书是我结合了上一本书的经验教训写出来内容更加优质的书，写书的收入并不多，也就小一万块钱，但对于我个人的意义真的是不一样的，单从写书这件事情来说，就是对我个人意志力的一个巨大的挑战，你要牺牲近半年的休息时间用来写书，写案例，写示例代码，保证所有的代码都是可运行的。好在最后结果还不错，虽然销量可能并不高，但我看到网上的评论里大部分是好评，甚至有大学生或者刚毕业的开始工作的人私信我，问我一些职业发展上的问题，那个时候我就在想，我可能并不能给你们什么有用的建议，但我的书只要可以让一个人开始对游戏开发感兴趣，那我就是成功了。</p>
+<h3 id="果然，坚持与认真，是做成一件事情最重要的品质。"><a href="#果然，坚持与认真，是做成一件事情最重要的品质。" class="headerlink" title="果然，坚持与认真，是做成一件事情最重要的品质。"></a><code>果然，坚持与认真，是做成一件事情最重要的品质。</code></h3><h2 id="二、关于工作"><a href="#二、关于工作" class="headerlink" title="二、关于工作"></a>二、关于工作</h2><p>从写完第二本书之后，我几乎停止了写作，因为在2017年初入职了我现在这家公司后，我的业余时间大大减少，那个时间点，游戏行业面临寒冬，版号开始限制，审查开始严格，大批量的不合格游戏需要整顿，当然，从宏观上来看，这是对游戏行业的规范的合理化，但最后落在我们每一个游戏行业的螺丝钉——程序员来说，可能就是加班以及赶工。从长远来看，加班并不影响我们做一件事情的热情，如果我正在做的是一件成功率很高的产品来说，加班赶工把它做好的意义，要远大于优哉游哉混日子的意义。对于我所在的项目组来说，我们所做的产品，在我看来也确实是有希望做成的，所以我选择了留在这里，并且到现在为止，已经做了快三年了，在前几天第一次内测的情况来看，我们的游戏确实是有希望成为游戏界的一款爆款游戏，测试数据要远好于同行产品，也获得了玩家和媒体的一致好评。</p>
+<p>在游戏测试的当天，我们就看到B站已经有主播在开始直播了，跟着有不少玩家发弹幕和评论，从网上的评论来看，这款游戏的惊艳程度，远远超过了玩家的预期，虽然也有很多不足的地方，但从大部分玩家来看，都是对我们的游戏充满了期待，希望能快点优化并上线，不管怎么样，看到网上铺天盖地的好评，以及最后的测试数据来看，我们最近一两个月的连续加班都是有意义的，而测试的三天时间，我也亲自玩了我们游戏，从玩家的角度来说，我也是对这款游戏充满了期待。</p>
+<p><code>测试结束后的玩家一个宣传视频</code><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av79947489]">https://www.bilibili.com/video/av79947489]</a>(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a></p>
+<p>从整个项目来说，它在朝一款创新的类主机体验的ACT游戏发展，并且是一款有很大几率能做成的产品。从我个人成长来说，我也非常有幸从项目初期就加入到这款游戏的开发，我的个人能力也快速的成长了起来，并且我的老大对我的成长很有帮助，大到为人处世，小到编码规范，都对我有很重要的影响，有人说，工作就是要跟对好的项目，和跟对好的领导，现在这两样我都有了。在这个项目组的这几年，是对我的职业发展最快的几年。得益于老大的照顾，我能了解到项目整体的技术结构，我经历过项目战斗的状态同步到帧同步的转变，参与过核心战斗的开发，写过部分功能的可扩展的底层框架代码，对接过项目上线部署更新流程，也自己写过一些提高工作效率的工具。总的来说，参与这个项目，让我从头到尾都了解了一遍一款游戏的制作需要经历些什么，也让我的个人技术以及职业生涯成长了很多。虽然是游戏行业的新生代码农，但我也感觉我并没有走多少弯路，一直在正确的方向上，一直向前走。</p>
+<h3 id="在正确的方向上，摸索和成长。"><a href="#在正确的方向上，摸索和成长。" class="headerlink" title="在正确的方向上，摸索和成长。"></a><code>在正确的方向上，摸索和成长。</code></h3><h2 id="三、关于生活"><a href="#三、关于生活" class="headerlink" title="三、关于生活"></a>三、关于生活</h2><ul>
+<li>#####婚姻<br>2019年，我27岁了，不算大也不算小的年纪，这一年，我完成了人生的婚姻大事，实现了第一次的出国自由行，喜欢上了拍照和拍视频，也开始对人生产生思考，开始对生命和宇宙产生好奇。</li>
+</ul>
+<p>年初的时候，我完成了自己的人生大事，从那天之后，我可能就真的长成大人了，我需要对自己负责，也需要对新成立的小家负责。在婚后的一年时间里，其实我也没有太多不一样的感觉，我们还是很正常的生活，正常的工作，早上一起起床，一起洗漱，一起上班，晚上先后回家。有时候我加班很晚，她也会等到我回家，周末偶尔看看电影，做做饭，或者去稍远一点的郊区自驾游，拍拍照，这种感觉就像是，没有什么特别，没有什么不一样，但却有着陪伴的温暖，不可或缺。有个人和我一起在异地他乡赚钱生活，是一件很辛苦，却很幸福的事情。</p>
+<h3 id="生活，平平淡淡才是真。"><a href="#生活，平平淡淡才是真。" class="headerlink" title="生活，平平淡淡才是真。"></a><code>生活，平平淡淡才是真。</code></h3><p><img src="http://upload-images.jianshu.io/upload_images/1472037-d8986d58e1e1856f.jpg" alt="结婚"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1472037-2ea959c46cf7703d.jpg" alt="结婚"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1472037-adefcafc8ebf00cf.jpg" alt="结婚"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1472037-7104098758fc2ec6.jpg" alt="结婚"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1472037-4c7ec957ea7dca7d.jpg" alt="结婚"></p>
+<ul>
+<li>#####旅行<br>结婚之后，接着我又做了第二件人生的第一次尝试——出国旅游。请了长达12天的婚假（10天婚假连 一个周末），去了泰国的普吉和清迈，全程的签证、酒店、机票、景点路线以及各种注意事项，都是我和罗同学两个人研究的，并且全程下来，整个旅行的感受特别好，完全不同于各种购物旅游团，完全就是12天的度假休闲。休假的前的一个月，我们就开始研究这次旅行的所有攻略，并且制定了excel表格，规划好了所有的航班和酒店，并且计算了预计价格。<br><img src="https://upload-images.jianshu.io/upload_images/1472037-aba39822f01b225b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="行程安排"><br>上网搜索我需要准备那些APP<br><img src="https://upload-images.jianshu.io/upload_images/1472037-eede58fc739732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="APP"><br>准备那些物品<br><img src="https://upload-images.jianshu.io/upload_images/1472037-a81f4f70c1fb0146.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="物品准备"><br>甚至根据B站上那些旅游UP主的旅游视频规划了我出门旅拍都需要拍摄什么内容<br><img src="https://upload-images.jianshu.io/upload_images/1472037-985258b320fe60b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="VLOG设计"></li>
+</ul>
+<p>最后在一款叫出发吧的APP上详细罗列了我们的行程，并且整个自由行过程都按照行程一步一步的走。<br><a target="_blank" rel="noopener" href="http://chufaba.me/journals/1055821">http://chufaba.me/journals/1055821</a></p>
+<p>整个旅程下来，12天时间，加上购物等所有的花销，我们一共是花费了两万六左右，人均一万三左右，在我看来，是一次性价比很高的旅行。与跟团旅行不同，我们的旅游路线完全是自己制定，甚至可以任性修改，而且我们每天都是八点多才起床，九点多才出门，如果突然发现今天计划的景点突然不感兴趣了，想去另外一个景点，也是可以突然更改的，只要整体进度在计划之内，就不会对整体行程有什么比较大的影响。</p>
+<p>在这次做了充足准备的泰国自由行中，我们也是度过了非常愉快的假期，拍了很多好看的照片和视频，包括泰国整个给我的印象也是一个非常开放的国度，大部分人的英语都特别好，很好交流，甚至在中国人密集的地方，小贩都能和你用中文聊天。这次去的两个地方分别有着不一样的风格，普吉岛的感觉是热情奔放，有热情的当地导游，有热闹的夜市小吃，有美丽的海岛风情，而清迈的感觉是悠然自得，阳光正好，心情舒适，能彻底放松身心。按照出行的规划的拍摄，我拍了很多视频片段，回来了精心挑选了一些片段以及音效音乐，剪成了一段小短片，也算是给我人生的第一次完全自己主导的出国自由行留下了一段美好的回忆。</p>
+<p>泰国蜜月旅行<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av47155696">https://www.bilibili.com/video/av47155696</a></p>
+<h3 id="如果有时间，一定要出去旅行，看看外面的世界有多精彩"><a href="#如果有时间，一定要出去旅行，看看外面的世界有多精彩" class="headerlink" title="如果有时间，一定要出去旅行，看看外面的世界有多精彩"></a><code>如果有时间，一定要出去旅行，看看外面的世界有多精彩</code></h3><ul>
+<li>#####摄影<br>说到拍照和拍视频，这也是我最近两年才突然学会的一项技能。大概是2015年的时候，罗同学不知道怎么回事，非要买一台相机，想学习拍照，后来不知道怎么的，相机就吃灰了，被搁置了，而近两年，我又不知道怎么回事，突然想要学习怎么拍照拍视频，尤其是今年，我经常会上B站去看看别人拍的照片和视频，学习前期拍摄技巧以及后期剪辑技术。就这样，一台四年前购买的Sony A7一代相机的使用率突然就高了起来，加上去年买了车，只要放假，就想要出去拍点好看的照片或者好看的视频，回家后期修图或者剪辑视频，而罗同学作为我的模特，也越来越喜欢让我给她拍照。慢慢的，摄影，也成了我除了打游戏以外的另一个爱好。</li>
+</ul>
+<p>不敢和各路大神相提并论，我喜欢摄影单纯只是想拍出美的照片，或者是剪辑一段好看的视频，每一次修照片或者剪视频，我都会觉得我之前拍的都是什么东西啊之类的想法，然后经常去看一些摄影UP主的视频去学习一些前期拍摄的技巧以及后期剪辑的技能。在我看来，时间不会停下来，但相机，可以留住一些珍贵的记忆。</p>
+<p>今年年底的时候，也就是前几天，我终于狠下心决定升级一下我的拍摄设备，购买了Sony A7M3相机，由于我拍罗同学比较多，所以我也买了适合拍人像的55mm1.8镜头和85mm1.8镜头，并打算把原来的A7一代卖掉，但挂闲鱼上却至今也没有人要。遗憾的是，我刚买完相机和镜头，公司项目就开始忙起来了，一直也没时间出去拍一点东西，最近两天才闲下来，打算在后边的几个周末出去拍一下，把我的新设备用起来。这个我新产生的爱好，也是我记录生活的一种方式。</p>
+<p>以下是一些我之前剪辑的视频：<br>百里山水画廊：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av70489540">https://www.bilibili.com/video/av70489540</a><br>丰宁坝上草原两日游：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av60763262">https://www.bilibili.com/video/av60763262</a><br>周末日常：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av60764806">https://www.bilibili.com/video/av60764806</a><br>奥森公园：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av60764187">https://www.bilibili.com/video/av60764187</a><br>世界公园：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av60763703">https://www.bilibili.com/video/av60763703</a></p>
+<h3 id="摄影，是暂停时间最好的方式"><a href="#摄影，是暂停时间最好的方式" class="headerlink" title="摄影，是暂停时间最好的方式"></a><code>摄影，是暂停时间最好的方式</code></h3><h2 id="四、关于时间的猜想"><a href="#四、关于时间的猜想" class="headerlink" title="四、关于时间的猜想"></a>四、关于时间的猜想</h2><p>说到时间，我想起来之前在网上看到的一个小视频，里面有这样的一段话：“闭上眼睛想象，当你白发苍苍，七老八十的时候，你向上帝发问：神啊，能不能让我再活一次啊！上帝说，你闭上眼睛，然后时光倒流，这时候，睁开眼，你回到了现在，这一次，你打算怎么活？”。这是一个非常有意思的想象，从上帝视角来看，我其实是在进行我的第二次生命，并且命运如何我可以自己重新制定。视频的本意其实就是让我们把自己的命运掌握在自己手中。</p>
+<p>而我想到了另一个关于时间的猜想，我今年27岁，这27年来，除了父母和亲戚，身边的同学，朋友，同事，都是不断在变换，身边的人形形色色，人来人往。如果12岁的我，能通过时间隧道看到未来的我，也就是现在的我的话，他会怎么想，是感叹身边都是完全陌生的人吗？还是看到我写着自己完全看不懂的代码？还是过着自己完全想象不到的生活？如果换成是16岁的我，20岁的我呢？</p>
+<p>这不得不让我想到人们经常讨论的另一个问题，你真的活成了你所期望的样子吗？6岁的时候，我对未来世界的幻想就是长大做一名宇航员，去宇宙旅游，去其他星球旅游。抬头仰望的那一片星空，就是我最遥远的梦。12岁的时候，我对未来世界的幻想就是去大城市里生活。电视新闻里的大都市，就是我最遥远的梦。16岁的时候，我对未来世界的幻想就是去上海工作和生活。中国的国际经济中心，就是我最遥远的梦，20岁的我，对未来世界的幻想就是有自己的房子。车子，工作和生活，稳定的生活，就是我最遥远的梦。梦想变得越来越实际，眼光却也变得越来越狭隘，甚至不如6岁的我，在那双明亮的眼睛里，有着一整片的星空，可生活却只能这样，稳定的生活远好过遥远的星空。27岁的我，有父母赞助首付的一套小房子，有一辆工作两年攒钱买的很便宜的车，有在外人看来还算过得去的工作，有陪伴我的媳妇儿，有目前看来还算稳定并且日渐变好的生活。</p>
+<p>但就如我前面所说的，如果是6岁的我，12岁的我，16岁的我，20岁的我，分别通过时间隧道看到他们未来的样子，是会感到喜悦，欣慰，开心，还是难过，失望，沮丧。这个问题的答案，或许也不是一定的，或许我没能去到心里向往的国际大都市生活和工作，但我却留在了中国的首都，或许我并不是登陆外太空星球的宇航员，但我却能写出构建人类未来的代码，或许我的经济并不是衣食无忧，但我却也能过得悠然自得。这样看来，或许6岁的我会对现在的我感到失望，12岁的我会对现在的我感到沮丧，但我相信16岁的我，20岁的我，并不会对这样的未来失望。曾经，我想去宇宙，去探索那些人类未知的东西，后来随着年龄的增长，可能我更喜欢的，是让自己的生活更加精彩。不能忘记抬头仰望星空，但也不能忘记脚踏实地走好每一步。</p>
+<p>每当我怀疑自己“我真的活成了自己想要的样子吗”的时候，我可能还会想起来曾经那双明亮的双眼里的那一片星空，但生活会马上把我拉回到现实，努力工作，努力生活，过好眼前的一切，珍惜眼前的一切，才是我的人生目标，在我身边的一切，不才是我的整片星空吗。</p>
+<h3 id="前进的时候，不要忘了仰望星空，仰望星空的时候，也别忘了脚踏实地"><a href="#前进的时候，不要忘了仰望星空，仰望星空的时候，也别忘了脚踏实地" class="headerlink" title="前进的时候，不要忘了仰望星空，仰望星空的时候，也别忘了脚踏实地"></a><code>前进的时候，不要忘了仰望星空，仰望星空的时候，也别忘了脚踏实地</code></h3><h2 id="五、我的2019"><a href="#五、我的2019" class="headerlink" title="五、我的2019"></a>五、我的2019</h2><p>2020年，是以前大部分科幻世界里存在的年份，2020年，有机器人，有人工智能，有足不出户了解天下事。不管科幻世界里的描述是否都成为现实，当它真正到来的时候，我们才感慨到，时间过得真的很快。2019，我过得还算不错，很顺利，2020年，未来，继续加油！</p>
+<h3 id="未来已来"><a href="#未来已来" class="headerlink" title="未来已来"></a><code>未来已来</code></h3><h2 id="六、憧憬"><a href="#六、憧憬" class="headerlink" title="六、憧憬"></a>六、憧憬</h2><p>对于2020或者更遥远的未来，我也有一些憧憬</p>
+<ul>
+<li>去更多地方旅游</li>
+<li>拍更多好看的照片和视频</li>
+<li>项目上线赚钱</li>
+<li>提升个人工作能力以及交往能力</li>
+</ul>
+<hr>
+<p><code>下面贴一些2019年自己认为拍的不错的照片作为结尾吧</code><br><img src="https://upload-images.jianshu.io/upload_images/1472037-5d133a242f415602.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普吉岛"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-93225e93d64afe08.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普吉岛"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-58552ba076d79037.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普吉镇"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-d1a0b00721a2d462.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普吉岛"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-7638161852d52755.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普吉岛"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-130619996006a2ee.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="蜜月岛"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-b234c56608b9c92a.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清迈"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-fc3d568850f253cd.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清迈"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-b9cd52ba5e6c9435.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="加班凌晨回家"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-b83567e8175b8884.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="百里山水画廊"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-4d65e8caeecacaf5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="纪念碑谷"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-358c3fc290088c41.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="纪念碑谷"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-7d855594b41759d1.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="纪念碑谷"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-c9afdec5905cd14c.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="首钢工业遗址"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-861adef451c8be7d.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="首钢工业遗址"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-0cdbf2d49e7bf809.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="首钢工业遗址"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-ecea7f62fca67f1a.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="世界公园"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-969213d616cf89b5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="坡峰岭"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-72682673ed542738.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="坡峰岭"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-f79cd2cc48843dc2.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="坡峰岭"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1472037-2d4061c49193650f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="坡峰岭"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/wechat_pay.jpg" alt="Henry He 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/alipay.jpg" alt="Henry He 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.hjcenry.com/res/img/wx.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag"># 生活</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/10/%E6%88%91%E7%9A%84Python%E4%B9%8B%E6%97%85/" rel="prev" title="我的Python之旅">
+      <i class="fa fa-chevron-left"></i> 我的Python之旅
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8E%E5%86%99%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">一、关于写书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9C%E7%84%B6%EF%BC%8C%E5%9D%9A%E6%8C%81%E4%B8%8E%E8%AE%A4%E7%9C%9F%EF%BC%8C%E6%98%AF%E5%81%9A%E6%88%90%E4%B8%80%E4%BB%B6%E4%BA%8B%E6%83%85%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%93%81%E8%B4%A8%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">果然，坚持与认真，是做成一件事情最重要的品质。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B3%E4%BA%8E%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">二、关于工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%B9%E5%90%91%E4%B8%8A%EF%BC%8C%E6%91%B8%E7%B4%A2%E5%92%8C%E6%88%90%E9%95%BF%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">在正确的方向上，摸索和成长。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB"><span class="nav-number">3.</span> <span class="nav-text">三、关于生活</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%B4%BB%EF%BC%8C%E5%B9%B3%E5%B9%B3%E6%B7%A1%E6%B7%A1%E6%89%8D%E6%98%AF%E7%9C%9F%E3%80%82"><span class="nav-number">3.1.</span> <span class="nav-text">生活，平平淡淡才是真。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%9C%89%E6%97%B6%E9%97%B4%EF%BC%8C%E4%B8%80%E5%AE%9A%E8%A6%81%E5%87%BA%E5%8E%BB%E6%97%85%E8%A1%8C%EF%BC%8C%E7%9C%8B%E7%9C%8B%E5%A4%96%E9%9D%A2%E7%9A%84%E4%B8%96%E7%95%8C%E6%9C%89%E5%A4%9A%E7%B2%BE%E5%BD%A9"><span class="nav-number">3.2.</span> <span class="nav-text">如果有时间，一定要出去旅行，看看外面的世界有多精彩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%84%E5%BD%B1%EF%BC%8C%E6%98%AF%E6%9A%82%E5%81%9C%E6%97%B6%E9%97%B4%E6%9C%80%E5%A5%BD%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">摄影，是暂停时间最好的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E7%8C%9C%E6%83%B3"><span class="nav-number">4.</span> <span class="nav-text">四、关于时间的猜想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%BF%9B%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%BF%98%E4%BA%86%E4%BB%B0%E6%9C%9B%E6%98%9F%E7%A9%BA%EF%BC%8C%E4%BB%B0%E6%9C%9B%E6%98%9F%E7%A9%BA%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B9%9F%E5%88%AB%E5%BF%98%E4%BA%86%E8%84%9A%E8%B8%8F%E5%AE%9E%E5%9C%B0"><span class="nav-number">4.1.</span> <span class="nav-text">前进的时候，不要忘了仰望星空，仰望星空的时候，也别忘了脚踏实地</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%88%91%E7%9A%842019"><span class="nav-number">5.</span> <span class="nav-text">五、我的2019</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%B2%E6%9D%A5"><span class="nav-number">5.1.</span> <span class="nav-text">未来已来</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%86%A7%E6%86%AC"><span class="nav-number">6.</span> <span class="nav-text">六、憧憬</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Henry He"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Henry He</p>
+  <div class="site-description" itemprop="description">我们不生产代码，我们只是API的搬运工</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hjcenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hjcenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC9EM174qUGvIm8uQHILXE3Q" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC9EM174qUGvIm8uQHILXE3Q" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hejincheng1209@163.com" title="E-Mail → mailto:hejincheng1209@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/15286724" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;15286724" rel="noopener" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;2996874513&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43495590" title="https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_43495590" rel="noopener" target="_blank">周piaopiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baitanwa.com/" title="https:&#x2F;&#x2F;www.baitanwa.com" rel="noopener" target="_blank">泽北大佬</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+
+
+  <div style="float:right;display:inline-block;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 20px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="float:right;display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;">
+      <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p>
+    </a>
+  </div>
+
+  <!-- 网站域名公安备案 -->
+  <!--
+  <div style="width:600px;margin:0 auto; padding:20px 0;">
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p></a><p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+  </div>
+  -->
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz","app_key":"77GsyoUfVcOoIueBsMYv2PoP","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+
+      <script src="/js/live2d/autoload.js"></script>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6vdofc43qnpkj50mghb80jws0rjhfjwb.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyv4Jfx7D';
+    var conf = '09034f3bb4af424e1d479cd8cfc7de8a';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>
