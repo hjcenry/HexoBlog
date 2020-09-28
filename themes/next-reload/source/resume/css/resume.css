@@ -1,0 +1,65 @@
+.work ul,.basiclayer ul{
+	list-style-type: none;
+}
+.basiclayer ul,.skills ul{
+	float: left;
+}
+.logo{
+    font-size: 2em;
+}
+.clear{
+	clear: both;
+}
+.skill1,.skill2,.skill3,.skill4,.project{
+	padding: 10px;
+}
+.skill1 li,.skill2 li,.skill3 li,.skill4 li{
+	margin-bottom: 5px;
+}
+.skill2,.skill3,.skill4,.project2,.project2img,.project3,.project3img,.project4,.project4img{
+	display: none;
+}
+.skilllist,.project{
+	height: 500px;
+}
+.project1,.project2,.project3,.project4{
+	
+}
+.imgs{
+	height: 500px;
+}
+.worklogos{
+	height: 450px;
+}
+.biglogo{
+	margin: 5px;
+	height: 110px;
+}
+.smalllogo{
+	margin: 5px;
+	height: 50px;
+}
+.pro{
+	float: left;
+}
+.arrows{
+	color: white;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin: 10px;
+	text-align: center;
+	background: black;
+	border-radius: 50%;
+	border-color: black;
+	vertical-align: middle;
+	transition: all 0.3s; 
+}
+.arrows:hover{
+	opacity: 0.8;
+	transform: scale(1.2);
+	cursor: pointer;
+}
+.bookimg{
+	height: 400px;
+}
