@@ -392,8 +392,8 @@ director对场景的管理是以堆栈的数据结构来管理，简单来说就
           
     
   <div class="comments">
-<!--    <div id="SOHUCS" sid=""></div>-->
-    <div id="SOHUCS" sid=></div>
+    <div id="SOHUCS" sid=""></div>
+<!--    <div id="SOHUCS" sid=></div>-->
   </div>
   
 
@@ -598,6 +598,9 @@ director对场景的管理是以堆栈的数据结构来管理，简单来说就
 
     function addCount(Counter) {
       var visitors = document.querySelector('.leancloud_visitors');
+      if(visitors==undefined){
+        return;
+      }
       var url = decodeURI(visitors.id);
       var title = visitors.dataset.flagTitle;
 

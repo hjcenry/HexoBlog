@@ -386,8 +386,8 @@
           
     
   <div class="comments">
-<!--    <div id="SOHUCS" sid=""></div>-->
-    <div id="SOHUCS" sid=></div>
+    <div id="SOHUCS" sid=""></div>
+<!--    <div id="SOHUCS" sid=></div>-->
   </div>
   
 
@@ -592,6 +592,9 @@
 
     function addCount(Counter) {
       var visitors = document.querySelector('.leancloud_visitors');
+      if(visitors==undefined){
+        return;
+      }
       var url = decodeURI(visitors.id);
       var title = visitors.dataset.flagTitle;
 
