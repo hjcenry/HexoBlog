@@ -76,7 +76,7 @@ footer:
     # The digit in the num of gongan beian.
     gongan_id: 11010502042351
     # The full num of gongan beian.
-    gongan_num: 1
+    gongan_num: 11010502042351
     # The icon for gongan beian. See: http://www.beian.gov.cn/portal/download
     gongan_icon_url: "https://www.hjcenry.com/res/img/beianicon.png"
 
