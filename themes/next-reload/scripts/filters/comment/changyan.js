@@ -36,7 +36,9 @@ hexo.extend.filter.register('theme_inject', injects => {
       </a>
     {% else %}
     <!--
-    ${iconText('far fa-comment', 'changyan')}
+    畅言系统bug吧？怎么都显示不出来？后期看看会不会有人修复再用吧
+    http://changyan.kuaizhan.com/install/code/comment-count-code
+    ${iconText('far fa-comment', '评论')}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
         <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
       </a>
