@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/db.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themes/next-reload/layout/_partials/footer.swig" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/layout/_partials/footer.swig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/05/CVP认证学习笔记--(何小成)022--加载帧动画/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/05/CVP认证学习笔记--(何小成)022--加载帧动画/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/leancloud_counter_security_urls.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/leancloud_counter_security_urls.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
-      <workItem from="1601353010092" duration="6121000" />
+      <workItem from="1601353010092" duration="8206000" />
     </task>
     <servers />
   </component>
@@ -95,13 +99,13 @@
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
     <state width="1899" height="285" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601364976800" />
-    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2" timestamp="1601366849291">
+    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2" timestamp="1601367960859">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
-    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601366849291" />
-    <state x="-1284" y="258" width="647" height="534" key="find.popup" timestamp="1601366945261">
+    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601367960859" />
+    <state x="-1284" y="258" width="827" height="534" key="find.popup" timestamp="1601370850989">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
-    <state x="-1284" y="258" width="647" height="534" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601366945261" />
+    <state x="-1284" y="258" width="827" height="534" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601370850989" />
   </component>
 </project>
