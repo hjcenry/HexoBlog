@@ -28,20 +28,20 @@ hexo.extend.filter.register('theme_inject', injects => {
   injects.postMeta.raw('changyan', `
   {% if post.comments %}
   <span class="post-meta-item">
-    ${iconText('far fa-comment', 'changyan')}
+
     {% if is_post() %}
+    ${iconText('far fa-comment', 'changyan')}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
         <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
       </a>
     {% else %}
+    <!--
+    ${iconText('far fa-comment', 'changyan')}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
-<!--        <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>-->
-            <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
+        <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
       </a>
+     -->
     {% endif %}
-<!--    <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">-->
-<!--        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentCount"></span>-->
-<!--      </a>-->
   </span>
   {% endif %}
   `, {}, {}, theme.changyan.post_meta_order);
