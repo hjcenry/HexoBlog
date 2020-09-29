@@ -31,7 +31,7 @@ hexo.extend.filter.register('theme_inject', injects => {
   <span class="post-meta-item">
 
     {% if is_post() %}
-    ${iconText('far fa-comment', '评论')}
+    ${iconText('far fa-comment', 'changyan')}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
         <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
       </a>
@@ -39,7 +39,7 @@ hexo.extend.filter.register('theme_inject', injects => {
     <!--
     畅言系统bug吧？怎么都显示不出来？后期看看会不会有人修复再用吧
     http://changyan.kuaizhan.com/install/code/comment-count-code
-    ${iconText('far fa-comment', '评论')}
+    ${iconText('far fa-comment', 'changyan')}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
         <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
       </a>
