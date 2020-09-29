@@ -35,7 +35,7 @@ hexo.extend.filter.register('theme_inject', injects => {
       </a>
     {% else %}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
-        <span id="{{ post.title }}" sid="{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
+        <span id="url::{{ post.permalink }}" sid="{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
 <!--        <span id = "{{ page.title }}" class = "cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>-->
       </a>
     {% endif %}
