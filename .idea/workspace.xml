@@ -2,7 +2,154 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/db.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/17/Java游戏服务器成长之路——弱联网游戏篇（源码分析）/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/17/Java游戏服务器成长之路——弱联网游戏篇（源码分析）/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/17/Java游戏服务器成长之路——感悟篇/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/17/Java游戏服务器成长之路——感悟篇/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/17/使用Echarts进行可视化的数据线呈现/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/17/使用Echarts进行可视化的数据线呈现/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/17/我的Linux病毒追踪记录/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/17/我的Linux病毒追踪记录/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/20/Java游戏服务器成长之路——你好，Mongo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/20/Java游戏服务器成长之路——你好，Mongo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/01/23/游戏服务器首次大bug解决记录/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/01/23/游戏服务器首次大bug解决记录/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/02/16/Java并发Bug记录/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/02/16/Java并发Bug记录/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/02/18/Java读取CSV和XML文件方法/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/02/18/Java读取CSV和XML文件方法/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/02/21/Java并发Bug记录（后续）/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/02/21/Java并发Bug记录（后续）/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/03/22/JSON-RPC（jsonrpc4j）使用demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/03/22/JSON-RPC（jsonrpc4j）使用demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/06/CVP认证学习笔记--(何小成)001--在场景中加入文字层/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/06/CVP认证学习笔记--(何小成)001--在场景中加入文字层/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/06/CVP认证学习笔记--(何小成)002--在场景中加入图片层/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/06/CVP认证学习笔记--(何小成)002--在场景中加入图片层/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/08/CVP认证学习笔记--(何小成)003--实现文本菜单层/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/08/CVP认证学习笔记--(何小成)003--实现文本菜单层/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/13/CVP认证学习笔记--(何小成)004--实现自定义场景/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/14/CVP认证学习笔记--(何小成)005--实现多场景切换/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/14/CVP认证学习笔记--(何小成)005--实现多场景切换/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/15/服务器架构文档/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/15/服务器架构文档/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/16/CVP认证学习笔记--(何小成)006--实现场景切换特效/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/16/CVP认证学习笔记--(何小成)006--实现场景切换特效/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/17/CVP认证学习笔记--(何小成)007--节点的锚点和坐标/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/17/CVP认证学习笔记--(何小成)007--节点的锚点和坐标/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)008--Node的父子关系/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)008--Node的父子关系/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)009--节点的旋转和缩放/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)009--节点的旋转和缩放/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)010--节点的计划任务/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/18/CVP认证学习笔记--(何小成)010--节点的计划任务/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/19/CVP认证学习笔记--(何小成)011--节点的Action/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/19/CVP认证学习笔记--(何小成)011--节点的Action/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/19/CVP认证学习笔记--(何小成)013--在Node的生命周期和图层种处理触摸/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/19/CVP认证学习笔记--(何小成)013--在Node的生命周期和图层种处理触摸/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/20/CVP认证学习笔记--(何小成)014--点击英雄/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/20/CVP认证学习笔记--(何小成)014--点击英雄/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/21/CVP认证学习笔记--(何小成)015--实现绘图节点/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/21/CVP认证学习笔记--(何小成)015--实现绘图节点/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)016--实现纹理缓存/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)016--实现纹理缓存/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)017--图片资源的异步加载/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)017--图片资源的异步加载/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)018--批处理纹理绘图/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/23/CVP认证学习笔记--(何小成)018--批处理纹理绘图/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/24/CVP认证学习笔记--(何小成)019--实现帧动画处理/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/24/CVP认证学习笔记--(何小成)019--实现帧动画处理/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/25/CVP认证学习笔记--(何小成)020--实现切图帧动画/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/26/微博开源框架Motan初体验/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/26/微博开源框架Motan初体验/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/04/30/CVP认证学习笔记--(何小成)021--纹理打包文件读取/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/04/30/CVP认证学习笔记--(何小成)021--纹理打包文件读取/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/05/CVP认证学习笔记--(何小成)022--加载帧动画/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/05/CVP认证学习笔记--(何小成)022--加载帧动画/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/06/CVP认证学习笔记--(何小成)023--加载骨骼动画/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/06/CVP认证学习笔记--(何小成)023--加载骨骼动画/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/07/CVP认证学习笔记--(何小成)024--粒子动画/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/07/CVP认证学习笔记--(何小成)024--粒子动画/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/07/CVP认证学习笔记--(何小成)025--音乐和音效/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/07/CVP认证学习笔记--(何小成)025--音乐和音效/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/10/CVP认证学习笔记--(何小成)骨骼动画的制作/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/16/Cocos2d-JS实现的贪吃蛇/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/16/Cocos2d-JS实现的贪吃蛇/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/05/29/CVP认证学习笔记--(何小成)026--数组的使用/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/05/29/CVP认证学习笔记--(何小成)026--数组的使用/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/06/02/CVP认证学习笔记--(何小成)027--纹理缓存的管理/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/06/02/CVP认证学习笔记--(何小成)027--纹理缓存的管理/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/06/19/Cocos2d-JS实现的2048/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/06/19/Cocos2d-JS实现的2048/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/07/02/Cocos Creator实现的《点我+1》/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/07/02/Cocos Creator实现的《点我+1》/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/07/10/Cocos2d-JS实现的打飞机/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/07/10/Cocos2d-JS实现的打飞机/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/08/14/SLG手游Java服务器的设计与开发——架构分析/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/08/14/SLG手游Java服务器的设计与开发——架构分析/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/08/27/SLG手游Java服务器的设计与开发——网络通信/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/08/27/SLG手游Java服务器的设计与开发——网络通信/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/09/04/SLG手游Java服务器的设计与开发——数据管理/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/09/04/SLG手游Java服务器的设计与开发——数据管理/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2016/10/22/SLG手游Java服务器数据管理方案/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2016/10/22/SLG手游Java服务器数据管理方案/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2017/01/03/Java游戏服务器成长之路——2016随笔总结/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2017/01/03/Java游戏服务器成长之路——2016随笔总结/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2017/02/16/我在创业游戏公司的一年/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2017/02/16/我在创业游戏公司的一年/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2018/01/08/2017随笔总结/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2018/01/08/2017随笔总结/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2019/11/10/我的Python之旅/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2019/11/10/我的Python之旅/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2019/12/25/我的2019/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2019/12/25/我的2019/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2020/09/28/Java游戏服务器成长之路——三年技术成长总结/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/2020/09/28/Java游戏服务器成长之路——三年技术成长总结/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/about/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/01/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/01/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/02/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/02/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/03/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/03/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/04/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/04/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/04/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/04/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/04/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/04/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/05/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/05/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/06/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/06/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/07/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/07/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/08/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/08/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/09/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/09/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/10/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/10/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2016/page/5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2016/page/5/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2017/01/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2017/01/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2017/02/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2017/02/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2017/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2017/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2018/01/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2018/01/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2018/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2018/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2019/11/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2019/11/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2019/12/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2019/12/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2019/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2019/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2020/09/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2020/09/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/2020/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/2020/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/page/5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/page/5/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archives/page/6/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/archives/page/6/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/Java/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/Java/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/Java/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/Java/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/Python/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/Python/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/cocos2d-js/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/cocos2d-js/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/cocos2d-js/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/cocos2d-js/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/cocos2d-js/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/cocos2d-js/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/cocos2d-js/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/cocos2d-js/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/生活/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/生活/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/leancloud_counter_security_urls.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/leancloud_counter_security_urls.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/5/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/6/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/6/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/2048/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/2048/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Bug/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Bug/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Echarts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Echarts/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Java/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Java/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Java/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Java/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Linux/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Linux/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Mongo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Mongo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Motan/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Motan/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/Python/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/Python/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/SLG/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/SLG/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cocos2d-js/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cocos2d-js/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cocos2d-js/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cocos2d-js/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cocos2d-js/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cocos2d-js/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cocos2d-js/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cocos2d-js/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/csv/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/csv/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cvp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cvp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cvp/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cvp/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cvp/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cvp/page/3/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/cvp/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/cvp/page/4/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/jsonrpc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/jsonrpc/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/rpc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/rpc/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/xml/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/xml/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/创业/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/创业/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/并发/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/并发/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/开源/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/开源/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/弱联网/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/弱联网/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/总结/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/总结/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/感悟/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/感悟/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/打飞机/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/打飞机/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/架构/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/架构/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/游戏服务器/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/游戏服务器/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/游戏服务器/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/游戏服务器/page/2/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/点我-1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/点我-1/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/生活/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/生活/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/病毒/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/病毒/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/贪吃蛇/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/贪吃蛇/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/随笔/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/随笔/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themes/next-reload/layout/_macro/post.swig" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/layout/_macro/post.swig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themes/next-reload/layout/_third-party/statistics/lean-analytics.swig" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/layout/_third-party/statistics/lean-analytics.swig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +194,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
       <workItem from="1601353010092" duration="9269000" />
-      <workItem from="1601372274072" duration="2357000" />
+      <workItem from="1601372274072" duration="2637000" />
     </task>
     <servers />
   </component>
