@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" afterDir="false" />
-    </list>
+    <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1iAamPzC8OuptSxiOQ0YgTw5psq" />
@@ -39,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
-      <workItem from="1601353010092" duration="4183000" />
+      <workItem from="1601353010092" duration="5249000" />
     </task>
     <servers />
   </component>
@@ -54,6 +58,17 @@
         <option value="3" />
         <option value="1" />
       </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
     </option>
   </component>
   <component name="WindowStateProjectService">
@@ -77,6 +92,10 @@
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
     <state width="1899" height="285" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601364976800" />
+    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2" timestamp="1601366210801">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1739" y="134" key="Vcs.Push.Dialog.v2/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601366210801" />
     <state x="-1284" y="258" width="647" height="534" key="find.popup" timestamp="1601362930721">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
