@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hjcenry.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":false,"nav":{"changyan":{"text":"加载评论中","order":-1}},"activeClass":"changyan"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="写在前面的话从15年12月入职到前两天离职，我经历了一个创业游戏公司的由盛到衰的整个过程，从16年的下半年开始，每天上班就眼看着公司的状况一天不如一天。从另一方面来说，也算是映射了国内的大部分手游小团队的兴盛到衰落的一个过程。从最初移动端设备的兴起，带动的移动游戏行业的大规模爆发，大量的企业及投资进军手游行业，到如今盛极而衰，大量小团队一个一个的死去，一波又一波的泡沫破灭，手游行业这条路越来越难走">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我在创业游戏公司的一年">
+<meta property="og:url" content="http://www.hjcenry.com/2017/02/16/%E6%88%91%E5%9C%A8%E5%88%9B%E4%B8%9A%E6%B8%B8%E6%88%8F%E5%85%AC%E5%8F%B8%E7%9A%84%E4%B8%80%E5%B9%B4/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="写在前面的话从15年12月入职到前两天离职，我经历了一个创业游戏公司的由盛到衰的整个过程，从16年的下半年开始，每天上班就眼看着公司的状况一天不如一天。从另一方面来说，也算是映射了国内的大部分手游小团队的兴盛到衰落的一个过程。从最初移动端设备的兴起，带动的移动游戏行业的大规模爆发，大量的企业及投资进军手游行业，到如今盛极而衰，大量小团队一个一个的死去，一波又一波的泡沫破灭，手游行业这条路越来越难走">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-16T08:03:00.000Z">
+<meta property="article:modified_time" content="2020-09-29T03:25:11.725Z">
+<meta property="article:author" content="Henry He">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="游戏服务器">
+<meta property="article:tag" content="创业">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.hjcenry.com/2017/02/16/%E6%88%91%E5%9C%A8%E5%88%9B%E4%B8%9A%E6%B8%B8%E6%88%8F%E5%85%AC%E5%8F%B8%E7%9A%84%E4%B8%80%E5%B9%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我在创业游戏公司的一年 | Henry Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Henry Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Javaer</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hjcenry" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hjcenry.com/2017/02/16/%E6%88%91%E5%9C%A8%E5%88%9B%E4%B8%9A%E6%B8%B8%E6%88%8F%E5%85%AC%E5%8F%B8%E7%9A%84%E4%B8%80%E5%B9%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Henry He">
+      <meta itemprop="description" content="我们不生产代码，我们只是API的搬运工">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Henry Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我在创业游戏公司的一年
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-16 16:03:00" itemprop="dateCreated datePublished" datetime="2017-02-16T16:03:00+08:00">2017-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-29 11:25:11" itemprop="dateModified" datetime="2020-09-29T11:25:11+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+          <!--
+            <span id="/2017/02/16/%E6%88%91%E5%9C%A8%E5%88%9B%E4%B8%9A%E6%B8%B8%E6%88%8F%E5%85%AC%E5%8F%B8%E7%9A%84%E4%B8%80%E5%B9%B4/" class="post-meta-item leancloud_visitors" data-flag-title="我在创业游戏公司的一年" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          -->
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2017/02/16/%E6%88%91%E5%9C%A8%E5%88%9B%E4%B8%9A%E6%B8%B8%E6%88%8F%E5%85%AC%E5%8F%B8%E7%9A%84%E4%B8%80%E5%B9%B4/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/02/16/我在创业游戏公司的一年/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><p>从15年12月入职到前两天离职，我经历了一个创业游戏公司的由盛到衰的整个过程，从16年的下半年开始，每天上班就眼看着公司的状况一天不如一天。从另一方面来说，也算是映射了国内的大部分手游小团队的兴盛到衰落的一个过程。从最初移动端设备的兴起，带动的移动游戏行业的大规模爆发，大量的企业及投资进军手游行业，到如今盛极而衰，大量小团队一个一个的死去，一波又一波的泡沫破灭，手游行业这条路越来越难走<a id="more"></a>，加上去年天朝的版号新规，更是加剧了小团队的灭亡（我们团队失败的直接原因也是因为版号问题）。经历一个公司的由盛而衰，我觉得我也算是幸运的，从感觉到公司越来越不行的时候，我就告诉自己，一定要坚持到最后，亲眼目睹一下创业公司的生存之道，如果活下来了，皆大欢喜，如果死掉了，也能从中汲取一些教训（我的内心深处还是有在未来有一定资本和行业经验的基础上创业的渴望）。</p>
+<h1 id="行业的逐渐规范"><a href="#行业的逐渐规范" class="headerlink" title="行业的逐渐规范"></a>行业的逐渐规范</h1><h2 id="响应号召"><a href="#响应号召" class="headerlink" title="响应号召"></a>响应号召</h2><p>整个过程中，我也逐渐明白马云说过的一句话“可以和政府谈恋爱，不要和政府结婚”，这句话一定程度上，诠释了如今的互联网企业与天朝政府的微妙关系，企业应该处理好和政府之间的关系，因为它们既能控制一个行业的兴起，也能控制一个行业的衰落，并且，它的政策，你必须积极响应。就如同16年的版号新规，最初引起了多少小团队的反驳，但，依旧没有用，在天朝制度下，响应号召，顺应脚步走就对了。</p>
+<h2 id="黑色产业"><a href="#黑色产业" class="headerlink" title="黑色产业"></a>黑色产业</h2><p>反而观之，版号制度，对于小团队的确是毁灭性的打击，然而对于整个游戏行业来说，确实是逐渐规范的过程，在这个制度出现之前，有成千上万的团队，依靠的是盗版，劣质游戏内容来获取利益，这样的游戏，的确是游戏界的毒瘤，我虽然只是游戏行业的一名小将，但我也不怕说出这个行业的一些黑色利益链，类似应用榜单刷榜，源代码交易，服务器相互攻击，数据窃取，游戏外挂等地下产业，养活了一批黑户，这其中的利益是巨大的，当然，他们的行动都是在暗地的，赚一波，就撤退，法律也很难严惩，这是很多正规游戏厂商所厌恶的。版号新规出现后，我相信这样的劣质游戏甚至这一批黑色产业，都能慢慢的消亡殆尽。</p>
+<h2 id="其他行业"><a href="#其他行业" class="headerlink" title="其他行业"></a>其他行业</h2><p>说句题外话，上面所说的劣质产品，也不仅仅存在游戏产品上，许多app也是一样的，比如越来越多甚至开始泛滥的直播app，里面很多内容都是不符合相关法律法规的，但因此类产品追查难度太大，也是很难杜绝，希望政府在这方面也能做出一些行业的规范。</p>
+<h2 id="期望"><a href="#期望" class="headerlink" title="期望"></a>期望</h2><p>我对任何互联网产品都没有恶意，只是希望这个世界多一点真诚，少一点套路，多一些做真正用户需要的产品，而不是利益圈钱的产品。制度决定高度，没有规矩，不成方圆，虽说版号新规是造成我们团队灭亡的直接原因（并不是我们的产品是违规盗版，仅仅是因为我们的版号还没审批下来，被抽查到后要求全部下架，这件事直接断了公司的经济来源，对于小团队来说，是毁灭性的打击），但我也不得不说，我还是挺支持这样的规范行业的制度的，希望游戏行业越来越好，越来越规范！</p>
+<h1 id="产品的成长之路"><a href="#产品的成长之路" class="headerlink" title="产品的成长之路"></a>产品的成长之路</h1><h2 id="高效率开发"><a href="#高效率开发" class="headerlink" title="高效率开发"></a>高效率开发</h2><p>我们公司的产品，这一路走来，也确实不容易，没有做起来，并不是因为这个产品不够优秀，更多是因为公司的资源不够，无论是策划，美术还是技术，这一款产品，我们团队，仅仅5个人，用一年时间，便完成了产品的开发，并且已经迭代优化了好几个版本，5个人，两个美术一个策划一个前端一个后端，可以说我们的效率是非常高的，我们的上班时间是上午十点到下午六点，从来不加班，我们的工作方式追求的是效率，而不是苦力，我们更喜欢把时间花在有工作热情的时间上。说实话，虽说公司状况每况愈下，但我们的团队成员之间，却是非常的和谐，大家都是齐心协力，真正用心的想做好一款产品。</p>
+<h2 id="团队人数的窘迫"><a href="#团队人数的窘迫" class="headerlink" title="团队人数的窘迫"></a>团队人数的窘迫</h2><p>想做好是一回事，能不能做好又是一回事，从我们的团队构造来看，我们的美术两个人，每天忙得不可开交，每天应对各种各样的原画或者美术需求；策划一个人，每天也要应付各种各样的需求，包括团队内部的需求，以及外部对接渠道的需求，还有一些产品上线运营的需求；客户端一个人，除了产品迭代开发，还要面对各种玩家提的bug、渠道提的bug等等；服务端一个人，也就是我了，也是整天忙得天旋地转的，除了产品开发，还有渠道对接，也是要每天面对各种各样神奇的bug，还包括服务器的运维工作，偶尔网络不通了，端口不通了，服务器宕机了。虽然感觉每一天，我们团队都是热情饱满的在做各种各样的工作，但其实我感觉，如果公司的资产足够，多招来几个人，工作效率也许会更高，就单从我服务器这块来说，如果能够将开发和运维独立分开，或许我每天也不会那么忙，也会有更多的时间去修改bug，或者思考更加成熟的架构方案。同样的道理，我们的策划也是我们公司的coo，我们的美术也是我们的ceo，这样的工作内容交叉，很容易在工作的时候把自己忙的一团糟。在小公司的这一年，我深刻体会到，人的精力都是有限的，确有神人，能在单个领域独当一面，但真正成熟的公司是不会这么做的，这样的风险太高了，人一旦到一个极限，他的工作效率或许会不增反减，这个道理就如同计算机的多线程，做技术的或许抖动，计算机的cpu数是一定的，分配一定数量的线程，确能提高运算效率，但分配线程数越多，线程之间的切换频率也就越高，而切换线程也是一种资源消耗，线程数量太多只会拖慢整个运算效率。</p>
+<p>虽然有团队人数的窘迫，但我们几个人还是尽心尽力，花费一年时间做出来了这款产品，好不容易上线了，然而经过几场市场的验证，发现它并不是玩家喜欢的产品，从各种数据来看，如arpu、dau来看，它的成绩并不如我们想象的那么理想，公司几乎倾尽所有人力财力做的这款产品，就这样以失败告终了，或许我们还不能称为失败，因为我们后续还可以继续进行优化，团队虽然不存在了，但我们依然可以进行私下的合作，毕竟有一群志同道合的朋友，也是人生路上一大乐事，后续在工作之余，我们依然会进行开新服，维护等操作，或许是心有不甘，我们仍从内心深处，渴望这款产品的成功。</p>
+<h2 id="产品的失败"><a href="#产品的失败" class="headerlink" title="产品的失败"></a>产品的失败</h2><p>然而目前来看，这款产品的确有很多不足之处，我认为这也跟公司的一些决策有关系，我刚去的时候，公司打算做slg产品，那个时候，slg的确是在风口浪尖上，然而公司决定做的slg，最终却被设计为异步玩法，这对于如今越来越发达的网络来说，是一种资源浪费，那些实时对战，实时通信的slg火了，像cok，战火与秩序，甚至是很多不知名的产品，最终都做得还不错，然而我们的产品，更多是异步玩法，玩家玩起来有种单机的感觉，而单机早已不是现在网络时代应有的产物了，从这个层面上来说，我觉得这款产品的失败跟这种设计决策有很大的关系。另外也不得不否认，公司团队整体很年轻，无论是美术、策划还是程序，我们都还缺少丰富的项目经验，造成一个产品在整个市场来说也不是特别的成熟，这点来说，我们每个人都是有责任的。</p>
+<p>从我刚到公司做这款产品，一直到前几天从公司离职，除了见证一个公司兴盛到衰亡，我也是亲自全程参与了这款产品的从无到有的开发，从设计，开发，迭代，一点一点的看着他越来越大，越来越成熟，从个人成就感来说，我倒也是挺欣慰的，这也算是我的职业生涯中挺重要的一段经历，无论如何，这都是我们亲手塑造的产品！</p>
+<h1 id="个人的技术成长"><a href="#个人的技术成长" class="headerlink" title="个人的技术成长"></a>个人的技术成长</h1><h2 id="从菜鸟到不辣么菜的菜鸟"><a href="#从菜鸟到不辣么菜的菜鸟" class="headerlink" title="从菜鸟到不辣么菜的菜鸟"></a>从菜鸟到不辣么菜的菜鸟</h2><p>我在公司是负责服务端技术的，无论公司如何走向，从我个人的角度来说，我的技术成长是无法抹去的，所以从另一方面来说，我还是挺感谢在这个创业公司的一年的。在来这家公司之前，我只是在另一个中型的游戏公司的一名后台开发，说得不好听点就是打杂工的，平时只负责写写游戏逻辑之类的，但我个人的学习欲望确实很强烈，出了写自己的逻辑代码，我也会去研究研究老大写的服务器架构，了解一些更底层更深层次的东西，可惜的是在那家公司的最后几个月里，我几乎被闲置了，每天都没有什么事做，我当时觉得这样下去一定会废掉的，长时间不练手就生了，于是我离职，跳到了这家创业公司，选择这家公司的原因很简单，我需要独立负责服务端的所有工作，包括架构，开发，部署，运维，我觉得这对我来说算是一个挑战，于是我就接受了，那个时候我并没有考虑太多，就是简简单单的年轻气盛，我觉得我能做下来，而实际上，这一年时间我确实成长了不少，从一枚菜鸟，成长成了一枚不那么菜的菜鸟，至少，我能独自包揽整个服务端的工作了。毫不夸张的说，跳槽过来之前，我不会多线程，不会并发编程，不会jvm，不会nginx转发，不会服务器部署等等，有很多不会的东西，或者说我都只是了解一点或听说一点，根本没有实际用过，到这家公司后，由于服务端只有我自己，我不得不强迫自己不断的学习，不断的成长，虽说我现在不能在上述的技术都精通，但至少都有实际操作的经验了，多多少少会用了，到现在我都还记得我的后端出过的第一个重大bug，是因为并发的线程安全没有控制，本该用memcache的incr来控制并发安全，我却傻呵呵的直接用get/set，导致大规模的并发出现问题，当时我也是写博客记录了下来。当然，后来也出现过其他的bug，我几乎都是靠自己慢慢摸索学习。对于游戏行业，我有我自己的热情，所有的工作对我来说，不是苦难，是享受，游戏编程的过程就像是上帝创造世界的过程，想象一下，你在我创造的游戏世界里玩游戏，那是种什么感受？做游戏开发，我挺享受这种类似上帝创造世界的这种过程的，所以这一年时间，所有的学习，所有的成长，我都觉得还好，不算太辛苦，我觉得这一切都是值得的。</p>
+<h2 id="瓶颈期"><a href="#瓶颈期" class="headerlink" title="瓶颈期"></a>瓶颈期</h2><p>然而成长到一定程度的时候，我就越来越发现了，有些东西，自己独立是做不出来的，独立开发久了，就会发现个人的技术到了瓶颈期了，是，那些技术你都能用，你能真正用的漂亮吗？你能用的恰到好处吗？你会设计模式吗？你的架构能支持高并发吗？越来越多的问题开始困扰我，包括我前段时间，看了不少别人的代码，别人的架构，我越来越发现，自己这一年学的东西，虽说对自己成长不少，但对整个技术生涯来看，只是小小的一步，我需要更大的成长空间，我需要一个团队的开发。经过很久的思考后，我决定了离职（巧的是，我刚离职，公司就因为版号问题而挂掉了，这其中，确实跟我有一定关系，内心还有一点内疚的），一直到现在，我拿到一家中型游戏公司的offer，薪资待遇各方面都还挺满意，最关键的是，他家发行的几款产品，都还是比较火的，公司只招中高级开发，这对我来说也是学习的一大机会，我已经决定下周一去入职，我觉得或许加入这公司，我能学到更多东西。</p>
+<h1 id="写在结尾的话"><a href="#写在结尾的话" class="headerlink" title="写在结尾的话"></a>写在结尾的话</h1><h2 id="对行业新人的建议"><a href="#对行业新人的建议" class="headerlink" title="对行业新人的建议"></a>对行业新人的建议</h2><p>工作也有两年多时间了，也对准备进入游戏行业的新人或者已经进入游戏行业的新人一些建议和忠告。的确，我花了一年时间，在小公司成长了不少，但现在我还是认为，有机会，还是应该在大公司里学习，大公司无论是行业规范还是学习平台都是优于小公司的。但记住，千万不要在大公司里休养生息，在大公司里，也要不断的学习，否则也迟早会被淘汰，做技术这行，千万不能停止学习，如果你发现你被闲置了，你可以选择跳槽（最好还是跳另一个大公司），总之，千万不能闲下来，人一旦懒了，就再也勤快不起来了，技术的更新换代一定要跟上，不一定精通新兴技术，但一定要会当前最流行的技术，一年时间一路走来，我也确实学到了不少东西，技术更新不少，也淘汰了不少。从产品来说，找工作的时候也一定要看产品，对公司的产品有一个了解，心里对这个产品有个预估，能不能做起来，找工作要做的就三件事：跟对团队，做对产品，谈对待遇。</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>下周我将入职的新公司，我不能保证他的产品一定能做起来，但我一定不会停止学习，更大的平台，意味着更大的前进空间。最后祝愿自己在2017年能越来越好吧！</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/wechat_pay.jpg" alt="Henry He 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/alipay.jpg" alt="Henry He 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.hjcenry.com/res/img/wx.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 游戏服务器</a>
+              <a href="/tags/%E5%88%9B%E4%B8%9A/" rel="tag"># 创业</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/03/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%942016%E9%9A%8F%E7%AC%94%E6%80%BB%E7%BB%93/" rel="prev" title="Java游戏服务器成长之路——2016随笔总结">
+      <i class="fa fa-chevron-left"></i> Java游戏服务器成长之路——2016随笔总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/08/2017%E9%9A%8F%E7%AC%94%E6%80%BB%E7%BB%93/" rel="next" title="2017随笔总结">
+      2017随笔总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS" sid=""></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E7%9A%84%E9%80%90%E6%B8%90%E8%A7%84%E8%8C%83"><span class="nav-number">2.</span> <span class="nav-text">行业的逐渐规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%8F%B7%E5%8F%AC"><span class="nav-number">2.1.</span> <span class="nav-text">响应号召</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E8%89%B2%E4%BA%A7%E4%B8%9A"><span class="nav-number">2.2.</span> <span class="nav-text">黑色产业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%A1%8C%E4%B8%9A"><span class="nav-number">2.3.</span> <span class="nav-text">其他行业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%9F%E6%9C%9B"><span class="nav-number">2.4.</span> <span class="nav-text">期望</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A7%E5%93%81%E7%9A%84%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">产品的成长之路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="nav-number">3.1.</span> <span class="nav-text">高效率开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%A2%E9%98%9F%E4%BA%BA%E6%95%B0%E7%9A%84%E7%AA%98%E8%BF%AB"><span class="nav-number">3.2.</span> <span class="nav-text">团队人数的窘迫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E5%93%81%E7%9A%84%E5%A4%B1%E8%B4%A5"><span class="nav-number">3.3.</span> <span class="nav-text">产品的失败</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E7%9A%84%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF"><span class="nav-number">4.</span> <span class="nav-text">个人的技术成长</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E8%8F%9C%E9%B8%9F%E5%88%B0%E4%B8%8D%E8%BE%A3%E4%B9%88%E8%8F%9C%E7%9A%84%E8%8F%9C%E9%B8%9F"><span class="nav-number">4.1.</span> <span class="nav-text">从菜鸟到不辣么菜的菜鸟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%93%B6%E9%A2%88%E6%9C%9F"><span class="nav-number">4.2.</span> <span class="nav-text">瓶颈期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E7%BB%93%E5%B0%BE%E7%9A%84%E8%AF%9D"><span class="nav-number">5.</span> <span class="nav-text">写在结尾的话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%A1%8C%E4%B8%9A%E6%96%B0%E4%BA%BA%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-number">5.1.</span> <span class="nav-text">对行业新人的建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AF%9D"><span class="nav-number">5.2.</span> <span class="nav-text">后话</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Henry He"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Henry He</p>
+  <div class="site-description" itemprop="description">我们不生产代码，我们只是API的搬运工</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hjcenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hjcenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC9EM174qUGvIm8uQHILXE3Q" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC9EM174qUGvIm8uQHILXE3Q" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hejincheng1209@163.com" title="E-Mail → mailto:hejincheng1209@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/15286724" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;15286724" rel="noopener" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;2996874513&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43495590" title="https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_43495590" rel="noopener" target="_blank">周piaopiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baitanwa.com/" title="https:&#x2F;&#x2F;www.baitanwa.com" rel="noopener" target="_blank">泽北大佬</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备2020034953号 </a>
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" rel="noopener" target="_blank">1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+
+
+  <div style="float:right;display:inline-block;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 20px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="float:right;display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;">
+      <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p>
+    </a>
+  </div>
+
+  <!-- 网站域名公安备案 -->
+  <!--
+  <div style="width:600px;margin:0 auto; padding:20px 0;">
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p></a><p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+  </div>
+  -->
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz","app_key":"77GsyoUfVcOoIueBsMYv2PoP","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+
+      <script src="/js/live2d/autoload.js"></script>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6vdofc43qnpkj50mghb80jws0rjhfjwb.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyv4Jfx7D';
+    var conf = '09034f3bb4af424e1d479cd8cfc7de8a';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>

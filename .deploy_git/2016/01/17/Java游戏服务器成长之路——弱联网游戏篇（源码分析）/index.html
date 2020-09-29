@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hjcenry.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":false,"nav":{"changyan":{"text":"加载评论中","order":-1}},"activeClass":"changyan"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言前段时间由于公司的一款弱联网游戏急着上线，没能及时分享，现在基本做的差不多，剩下的就是测试阶段了（本来说元旦来分享一下服务器技术的）。公司的这款游戏已经上线一年多了，在我来之前一直都是单机版本，由于人民群众的力量太强大，各种内购破解，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java游戏服务器成长之路——弱联网游戏篇（源码分析）">
+<meta property="og:url" content="http://www.hjcenry.com/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%B1%E8%81%94%E7%BD%91%E6%B8%B8%E6%88%8F%E7%AF%87%EF%BC%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%89/index.html">
+<meta property="og:site_name" content="Henry Blog">
+<meta property="og:description" content="前言前段时间由于公司的一款弱联网游戏急着上线，没能及时分享，现在基本做的差不多，剩下的就是测试阶段了（本来说元旦来分享一下服务器技术的）。公司的这款游戏已经上线一年多了，在我来之前一直都是单机版本，由于人民群众的力量太强大，各种内购破解，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-01-17T06:01:00.000Z">
+<meta property="article:modified_time" content="2020-09-29T03:25:11.721Z">
+<meta property="article:author" content="Henry He">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="游戏服务器">
+<meta property="article:tag" content="弱联网">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.hjcenry.com/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%B1%E8%81%94%E7%BD%91%E6%B8%B8%E6%88%8F%E7%AF%87%EF%BC%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java游戏服务器成长之路——弱联网游戏篇（源码分析） | Henry Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/atom.xml" title="Henry Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Henry Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Javaer</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hjcenry" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hjcenry.com/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%B1%E8%81%94%E7%BD%91%E6%B8%B8%E6%88%8F%E7%AF%87%EF%BC%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Henry He">
+      <meta itemprop="description" content="我们不生产代码，我们只是API的搬运工">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Henry Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java游戏服务器成长之路——弱联网游戏篇（源码分析）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-17 14:01:00" itemprop="dateCreated datePublished" datetime="2016-01-17T14:01:00+08:00">2016-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-29 11:25:11" itemprop="dateModified" datetime="2020-09-29T11:25:11+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+          <!--
+            <span id="/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%B1%E8%81%94%E7%BD%91%E6%B8%B8%E6%88%8F%E7%AF%87%EF%BC%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%89/" class="post-meta-item leancloud_visitors" data-flag-title="Java游戏服务器成长之路——弱联网游戏篇（源码分析）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          -->
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%B1%E8%81%94%E7%BD%91%E6%B8%B8%E6%88%8F%E7%AF%87%EF%BC%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%89/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/01/17/Java游戏服务器成长之路——弱联网游戏篇（源码分析）/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前段时间由于公司的一款弱联网游戏急着上线，没能及时分享，现在基本做的差不多，剩下的就是测试阶段了（本来说元旦来分享一下服务器技术的）。公司的这款游戏已经上线一年多了，在我来之前一直都是单机版本，由于人民群众的力量太强大，各种内购破解，<a id="more"></a>刷体力，刷金币，刷钻石版本的出现，公司才决定将这款游戏转型为弱联网游戏，压制百分之八十的破解用户（毕竟原则上还是属于单机游戏，不可能做到百分之百的防破解），招了我这一个服务器来进行后台的开发。什么是弱联网游戏？在这之前我也没有做过弱联网游戏的服务器，但是按照我对策划对我提出的需求的理解，就是游戏的大部分逻辑运算都是在移动端本地完成，而服务器要做的就是登录、支付验证、游戏存档读档的工作，这相对于我在上家公司做的ARPG那种强联网游戏要简单多了，那款ARPG就是所有游戏产出，逻辑运算都是在服务器端完成，服务器要完成大部分的游戏运算，而我做的这款弱联网游戏，只需要简简单单的登录、验证、读取和存储。这一类的游戏，做的最火的，就是腾讯早期手游中的《全民消消乐》《节奏大师》《天天飞车》（天天飞车后来加的实时竞赛应该还是强联网的实时数据）等，这类游戏中，服务器就只需要负责游戏数据存储和一些简单的社交功能，例如qq好友送红心送体力的等。</p>
+<h3 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h3><p>公司招聘我进来做服务器开发其实是为了两个项目，一个是这款单机转弱联网的游戏，另一款是公司准备拿来发家致富的SLG——战争策略游戏。从入职到现在，我一直是在支持弱联网游戏的开发，到现在，基本上这款游戏也算是差不多了，这款游戏的目前版本仍然基本属于单机，到年后会加上竞技场功能，到时候可能就会需要实时的数据交互了，现在就先来分享一下目前这个版本开发的过程。<br>要开发一个后台系统，首先要考虑的就是架构了，系统的高效稳定性，可扩展性。在游戏开发中，我认为后台服务器无非负责几个大得模块：</p>
+<ol>
+<li>网络通信</li>
+<li>逻辑处理</li>
+<li>数据存储</li>
+<li>游戏安全</li>
+</ol>
+<p>首先从需求分析入手，我在这款弱联网游戏中，后端需要做的事情就是，登录，支付验证，数据存储，数据读取，再加上一些简单的逻辑判断，第一眼看去，并没有任何难点，我就分别从以上几点一一介绍<br>###网络通信<br>弱联网游戏，基本上来说，最简单直接的，就是使用http短连接来进行网络层的通信，那么我又用什么来做http服务器呢，servlet还是springmvc，还是其他框架。因为之前做的ARPG用的一款nio框架——mina，然后对比servlet和springmvc的bio（实质上，springmvc只是层层封装servlet后的框架，它的本质原理还是servlet），个人还是觉得，作为需要处理大量高并发请求的业务需求来说，还是nio框架更适合，然而，我了解到netty又是比mina更好一点的框架，于是我选择了netty，然后自己写了demo测试，发现netty的处理性能确实是很可观的，netty是一个异步的，事件驱动的网络编程框架，使用netty可以快速开发出可维护的，高性能、高扩展能力的协议服务及其客户端应用。netty使用起来基本上就是傻瓜式的，它很好的封装了java的nio api。我也是刚刚接触这款网络通信框架，为此我还买了《Netty权威指南》，想系统的多了解下这款框架，以下几点，就是我使用netty作为网络层的理由：</p>
+<ol>
+<li>netty的通信机制就是它本身最大的优势，nio的通信机制无论是可靠性还是吞吐量都是优于bio的。</li>
+<li>netty使用自建的buffer API，而不是使用NIO的ByteBuffer来代表一个连续的字节序列。与ByteBuffer相比这种方式拥有明显的优势。netty使用新的buffer类型ChannelBuffer，ChannelBuffer被设计为一个可从底层解决ByteBuffer问题（netty的ByteBuf的使用跟C语言中使用对象一样，需要手动malloc和release，否则可能出现内存泄露，昨天遇到这个问题我都傻眼了，后来才知道，原来netty的ByteBuf是需要手动管理内存的，它不受java的gc机制影响，这点设定有点返璞归真的感觉！）。</li>
+<li>netty也提供了多种编码解码类，可以支持Google的Protobuffer，Facebook的Trift，JBoss的Marshalling以及MessagePack等编解码框架，我记得用mina的时候，当时看老大写的编解码的类，貌似是自己写protobuffer编解码工具的，mina并没有支持protobuffer。这些编解码框架的出现就是解决Java序列化后的一些缺陷。</li>
+<li>netty不仅能进行TCP/UDP开发，更是支持Http开发，netty的api中就有支持http开发的类，以及http请求响应的编解码工具，真的可谓是人性化，我使用的就是这些工具，除此之外，netty更是支持WebSocket协议的开发，还记得之前我自己试着写过mina的WebSocket通信，我得根据WebSocket的握手协议自己来写消息编解码机制，虽然最终也写出来了，但是当我听说netty的api本身就能支持WebSocket协议开发的时候，我得内心几乎是崩溃的，为什么当初不用netty呢？</li>
+<li>另外，netty还有处理TCP粘包拆包的工具类！<br>可能对于netty的理解还是太浅，不过以上几个优势就让我觉得，我可以使用这款框架。实时也证明，它确实很高效很稳定的。<br>废话不多说，以下就贴出我使用netty作为Http通信的核心类：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpServer</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> Logger log = LoggerFactory.getLogger(HttpServer.class);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> HttpServer inst;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> Properties p;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> port;</span><br><span class="line"> <span class="keyword">private</span> NioEventLoopGroup bossGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"> <span class="keyword">private</span> NioEventLoopGroup workGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> ThreadPoolTaskExecutor handleTaskExecutor;<span class="comment">// 处理消息线程池</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="title">HttpServer</span><span class="params">()</span> </span>&#123;<span class="comment">// 线程池初始化</span></span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Title</span>: initThreadPool </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 初始化线程池</span></span><br><span class="line"><span class="comment"> * void</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  handleTaskExecutor = <span class="keyword">new</span> ThreadPoolTaskExecutor();</span><br><span class="line">  <span class="comment">// 线程池所使用的缓冲队列</span></span><br><span class="line"> handleTaskExecutor.setQueueCapacity(Integer.parseInt(p</span><br><span class="line">    .getProperty(<span class="string">&quot;handleTaskQueueCapacity&quot;</span>)));</span><br><span class="line">  <span class="comment">// 线程池维护线程的最少数量</span></span><br><span class="line">  handleTaskExecutor.setCorePoolSize(Integer.parseInt(p</span><br><span class="line">    .getProperty(<span class="string">&quot;handleTaskCorePoolSize&quot;</span>)));</span><br><span class="line">  <span class="comment">// 线程池维护线程的最大数量</span></span><br><span class="line">  handleTaskExecutor.setMaxPoolSize(Integer.parseInt(p</span><br><span class="line">    .getProperty(<span class="string">&quot;handleTaskMaxPoolSize&quot;</span>)));</span><br><span class="line">  <span class="comment">// 线程池维护线程所允许的空闲时间</span></span><br><span class="line">  handleTaskExecutor.setKeepAliveSeconds(Integer.parseInt(p</span><br><span class="line">    .getProperty(<span class="string">&quot;handleTaskKeepAliveSeconds&quot;</span>)));</span><br><span class="line">  handleTaskExecutor.initialize();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpServer <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (inst == <span class="keyword">null</span>) &#123;</span><br><span class="line">   inst = <span class="keyword">new</span> HttpServer();</span><br><span class="line">   inst.initData();</span><br><span class="line">   inst.initThreadPool();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> inst;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   p = readProperties();</span><br><span class="line">   port = Integer.parseInt(p.getProperty(<span class="string">&quot;port&quot;</span>));</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">   log.error(<span class="string">&quot;socket配置文件读取错误&quot;</span>);</span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ServerBootstrap bootstrap = <span class="keyword">new</span> ServerBootstrap();</span><br><span class="line">  bootstrap.group(bossGroup, workGroup);</span><br><span class="line">  bootstrap.channel(NioServerSocketChannel.class);</span><br><span class="line">  bootstrap.childHandler(<span class="keyword">new</span> ChannelInitializer&lt;SocketChannel&gt;() &#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel ch)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    ChannelPipeline pipeline = ch.pipeline();</span><br><span class="line">    pipeline.addLast(<span class="string">&quot;decoder&quot;</span>, <span class="keyword">new</span> HttpRequestDecoder());</span><br><span class="line">    pipeline.addLast(<span class="string">&quot;aggregator&quot;</span>, <span class="keyword">new</span> HttpObjectAggregator(<span class="number">65536</span>));</span><br><span class="line">    pipeline.addLast(<span class="string">&quot;encoder&quot;</span>, <span class="keyword">new</span> HttpResponseEncoder());</span><br><span class="line">    pipeline.addLast(<span class="string">&quot;http-chunked&quot;</span>, <span class="keyword">new</span> ChunkedWriteHandler());</span><br><span class="line">    pipeline.addLast(<span class="string">&quot;handler&quot;</span>, <span class="keyword">new</span> HttpServerHandler());</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  log.info(<span class="string">&quot;端口&#123;&#125;已绑定&quot;</span>, port);</span><br><span class="line">  bootstrap.bind(port);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shut</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  workGroup.shutdownGracefully();</span><br><span class="line">  workGroup.shutdownGracefully();</span><br><span class="line">  log.info(<span class="string">&quot;端口&#123;&#125;已解绑&quot;</span>, port);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 读配置socket文件</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> Properties <span class="title">readProperties</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  Properties p = <span class="keyword">new</span> Properties();</span><br><span class="line">  InputStream in = HttpServer.class</span><br><span class="line">    .getResourceAsStream(<span class="string">&quot;/net.properties&quot;</span>);</span><br><span class="line">  Reader r = <span class="keyword">new</span> InputStreamReader(in, Charset.forName(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">  p.load(r);</span><br><span class="line">  in.close();</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>网络层，除了网络通信，还有就是数据传输协议了，服务器跟客户端怎么通信，传什么，怎么传。跟前端商议最终还是穿json格式的数据，前面说到了netty的编解码工具的使用，下面贴出消息处理类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpServerHandlerImp</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> Logger log = LoggerFactory</span><br><span class="line">   .getLogger(HttpServerHandlerImp.class);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> String DATA = <span class="string">&quot;data&quot;</span>;<span class="comment">// 游戏数据接口</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> String PAY = <span class="string">&quot;pay&quot;</span>;<span class="comment">// 支付接口</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> String TIME = <span class="string">&quot;time&quot;</span>;<span class="comment">// 时间验证接口</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> String AWARD = <span class="string">&quot;award&quot;</span>;<span class="comment">// 奖励补偿接口</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> ENCRIPT_DECRIPT = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(<span class="keyword">final</span> ChannelHandlerContext ctx, <span class="keyword">final</span> Object msg)</span></span></span><br><span class="line"><span class="function">   <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  HttpServer.handleTaskExecutor.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!GameServer.shutdown) &#123;<span class="comment">// 服务器开启的情况下</span></span><br><span class="line">     DefaultFullHttpRequest req = (DefaultFullHttpRequest) msg;</span><br><span class="line">     <span class="keyword">if</span> (req.getMethod() == HttpMethod.GET) &#123; <span class="comment">// 处理get请求</span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span> (req.getMethod() == HttpMethod.POST) &#123; <span class="comment">// 处理POST请求</span></span><br><span class="line">      HttpPostRequestDecoder decoder = <span class="keyword">new</span> HttpPostRequestDecoder(</span><br><span class="line">        <span class="keyword">new</span> DefaultHttpDataFactory(<span class="keyword">false</span>), req);</span><br><span class="line">      InterfaceHttpData postGameData = decoder</span><br><span class="line">        .getBodyHttpData(DATA);</span><br><span class="line">      InterfaceHttpData postPayData = decoder</span><br><span class="line">        .getBodyHttpData(PAY);</span><br><span class="line">      InterfaceHttpData postTimeData = decoder</span><br><span class="line">        .getBodyHttpData(TIME);</span><br><span class="line">      InterfaceHttpData postAwardData = decoder</span><br><span class="line">        .getBodyHttpData(AWARD);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (postGameData != <span class="keyword">null</span>) &#123;<span class="comment">// 存档回档</span></span><br><span class="line">        String val = ((Attribute) postGameData)</span><br><span class="line">          .getValue();</span><br><span class="line">        val = postMsgFilter(val);</span><br><span class="line">        Router.getInstance().route(val, ctx);</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (postPayData != <span class="keyword">null</span>) &#123;<span class="comment">// 支付</span></span><br><span class="line">        String val = ((Attribute) postPayData)</span><br><span class="line">          .getValue();</span><br><span class="line">        val = postMsgFilter(val);</span><br><span class="line">        Router.getInstance().queryPay(val, ctx);</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (postTimeData != <span class="keyword">null</span>) &#123;<span class="comment">// 时间</span></span><br><span class="line">        String val = ((Attribute) postTimeData)</span><br><span class="line">          .getValue();</span><br><span class="line">        val = postMsgFilter(val);</span><br><span class="line">        Router.getInstance().queryTime(val, ctx);</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (postAwardData != <span class="keyword">null</span>) &#123;<span class="comment">// 补偿</span></span><br><span class="line">        String val = ((Attribute) postAwardData)</span><br><span class="line">          .getValue();</span><br><span class="line">        val = postMsgFilter(val);</span><br><span class="line">        Router.getInstance().awardOperate(val, ctx);</span><br><span class="line">       &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">       e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">// 服务器已关闭</span></span><br><span class="line">     JSONObject jsonObject = <span class="keyword">new</span> JSONObject();</span><br><span class="line">     jsonObject.put(<span class="string">&quot;errMsg&quot;</span>, <span class="string">&quot;server closed&quot;</span>);</span><br><span class="line">     writeJSON(ctx, jsonObject);</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> String <span class="title">postMsgFilter</span><span class="params">(String val)</span></span></span><br><span class="line"><span class="function">   <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">  val = val.contains(<span class="string">&quot;%&quot;</span>) ? URLDecoder.decode(val, <span class="string">&quot;UTF-8&quot;</span>) : val;</span><br><span class="line">  String valTmp = val;</span><br><span class="line">  val = ENCRIPT_DECRIPT ? XXTeaCoder.decryptBase64StringToString(val,</span><br><span class="line">    XXTeaCoder.key) : val;</span><br><span class="line">  <span class="keyword">if</span> (Constants.MSG_LOG_DEBUG) &#123;</span><br><span class="line">   <span class="keyword">if</span> (val == <span class="keyword">null</span>) &#123;</span><br><span class="line">    val = valTmp;</span><br><span class="line">   &#125;</span><br><span class="line">   log.info(<span class="string">&quot;server received : &#123;&#125;&quot;</span>, val);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> val;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeJSON</span><span class="params">(ChannelHandlerContext ctx,</span></span></span><br><span class="line"><span class="function"><span class="params">   HttpResponseStatus status, Object msg)</span> </span>&#123;</span><br><span class="line">  String sentMsg = JsonUtils.objectToJson(msg);</span><br><span class="line">  <span class="keyword">if</span> (Constants.MSG_LOG_DEBUG) &#123;</span><br><span class="line">   log.info(<span class="string">&quot;server sent : &#123;&#125;&quot;</span>, sentMsg);</span><br><span class="line">  &#125;</span><br><span class="line">  sentMsg = ENCRIPT_DECRIPT ? XXTeaCoder.encryptToBase64String(sentMsg,</span><br><span class="line">    XXTeaCoder.key) : sentMsg;</span><br><span class="line">  writeJSON(ctx, status,</span><br><span class="line">    Unpooled.copiedBuffer(sentMsg, CharsetUtil.UTF_8));</span><br><span class="line">  ctx.flush();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeJSON</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> </span>&#123;</span><br><span class="line">  String sentMsg = JsonUtils.objectToJson(msg);</span><br><span class="line">  <span class="keyword">if</span> (Constants.MSG_LOG_DEBUG) &#123;</span><br><span class="line">   log.info(<span class="string">&quot;server sent : &#123;&#125;&quot;</span>, sentMsg);</span><br><span class="line">  &#125;</span><br><span class="line">  sentMsg = ENCRIPT_DECRIPT ? XXTeaCoder.encryptToBase64String(sentMsg,</span><br><span class="line">    XXTeaCoder.key) : sentMsg;</span><br><span class="line">  writeJSON(ctx, HttpResponseStatus.OK,</span><br><span class="line">    Unpooled.copiedBuffer(sentMsg, CharsetUtil.UTF_8));</span><br><span class="line">  ctx.flush();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeJSON</span><span class="params">(ChannelHandlerContext ctx,</span></span></span><br><span class="line"><span class="function"><span class="params">   HttpResponseStatus status, ByteBuf content<span class="comment">/* , boolean isKeepAlive */</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.channel().isWritable()) &#123;</span><br><span class="line">   FullHttpResponse msg = <span class="keyword">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (content != <span class="keyword">null</span>) &#123;</span><br><span class="line">    msg = <span class="keyword">new</span> DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status,</span><br><span class="line">      content);</span><br><span class="line">    msg.headers().set(HttpHeaders.Names.CONTENT_TYPE,</span><br><span class="line">      <span class="string">&quot;application/json; charset=utf-8&quot;</span>);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    msg = <span class="keyword">new</span> DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (msg.content() != <span class="keyword">null</span>) &#123;</span><br><span class="line">    msg.headers().set(HttpHeaders.Names.CONTENT_LENGTH,</span><br><span class="line">      msg.content().readableBytes());</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// not keep-alive</span></span><br><span class="line">   ctx.write(msg).addListener(ChannelFutureListener.CLOSE);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span></span></span><br><span class="line"><span class="function">   <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">messageReceived</span><span class="params">(ChannelHandlerContext ctx, FullHttpRequest msg)</span></span></span><br><span class="line"><span class="function">   <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码，由于最后商议所有接口都通过post实现，所以get请求部分代码全都注释掉了。解析json数据使用的是gson解析，因为gson是可以直接解析为JavaBean的，这一点是非常爽的。工具类中代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 将json转换成bean对象 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> fuyzh </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jsonStr </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">jsonToBean</span><span class="params">(String jsonStr, Class&lt;?&gt; cl)</span> </span>&#123;  </span><br><span class="line">        Object obj = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">if</span> (gson != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            obj = gson.fromJson(jsonStr, cl);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> obj;  </span><br><span class="line">    &#125;  </span><br><span class="line"> <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 将对象转换成json格式 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> fuyzh</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ts </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">objectToJson</span><span class="params">(Object ts)</span> </span>&#123;  </span><br><span class="line">        String jsonStr = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">if</span> (gson != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            jsonStr = gson.toJson(ts);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> jsonStr;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="逻辑处理"><a href="#逻辑处理" class="headerlink" title="逻辑处理"></a>逻辑处理</h3><p>在这款弱联网游戏中，一个是登录逻辑，游戏有一个管理服务器，管理其他的逻辑服务器（考虑到下版本开竞技场会有分服选服），登录和支付都是在管理服务器造成的，其他接口才会通过管理服务器上获得的逻辑服务器IP去完成其他交互，在逻辑服务器上基本上也不会有什么逻辑处理，基本上是接到数据就进行解析，然后就进行存储或缓存。唯一有一点逻辑处理的就是，例如金币钻石减少到负数了，就把数据置零。逻辑上，netty接收到请求之后，就进入我的一个核心处理类，Router，由Router再将消息分发到各个功能模块。Router代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@Title</span>: route</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@Description</span>: 路由分发</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> <span class="doctag">@param</span> msg</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> <span class="doctag">@param</span> ctx</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@throws</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">route</span><span class="params">(String msg, ChannelHandlerContext ctx)</span> </span>&#123;</span><br><span class="line">  GameData data = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   data = (GameData) JsonUtils.jsonToBean(msg, GameData.class);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">   logger.error(<span class="string">&quot;gameData的json格式错误,&#123;&#125;&quot;</span>, msg);</span><br><span class="line">   e.printStackTrace();</span><br><span class="line">   HttpServerHandler.writeJSON(ctx, HttpResponseStatus.NOT_ACCEPTABLE,</span><br><span class="line">     <span class="keyword">new</span> BaseResp(<span class="number">1</span>));</span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (data.getUserID() == <span class="keyword">null</span>) &#123;</span><br><span class="line">   logger.error(<span class="string">&quot;存放/回档错误，uid为空&quot;</span>);</span><br><span class="line">   HttpServerHandler.writeJSON(ctx, <span class="keyword">new</span> BaseResp(<span class="number">1</span>));</span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">long</span> junZhuId = data.getUserID() * <span class="number">1000</span> + GameInit.serverId;</span><br><span class="line">  <span class="comment">/** 回档 **/</span></span><br><span class="line">  <span class="keyword">if</span> (JSONObject.fromObject(msg).keySet().size() == <span class="number">1</span>) &#123;</span><br><span class="line">   GameData ret = junZhuMgr.getMainInfo(junZhuId);</span><br><span class="line">   ret.setTime(<span class="keyword">new</span> Date().getTime());</span><br><span class="line">   ret.setPay(getPaySum(data.getUserID()));</span><br><span class="line">   HttpServerHandler.writeJSON(ctx, ret);</span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/** 存档 **/</span></span><br><span class="line">  <span class="keyword">if</span> (data.getDiamond() != <span class="keyword">null</span>) &#123;<span class="comment">// 钻石</span></span><br><span class="line">   <span class="keyword">if</span> (!junZhuMgr.setDiamond(junZhuId, data)) &#123;</span><br><span class="line">    HttpServerHandler.writeJSON(ctx, <span class="keyword">new</span> BaseResp(<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 其他模块处理代码就省了</span></span><br><span class="line">  JunZhu junZhu = HibernateUtil.find(JunZhu.class, junZhuId);</span><br><span class="line">  HttpServerHandler.writeJSON(ctx, <span class="keyword">new</span> BaseResp(junZhu.coin,</span><br><span class="line">    junZhu.diamond, <span class="number">0</span>));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>GameData则是用于发送接收的消息Bean</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>在这样的游戏中，逻辑运算基本由客户端操作了，因此游戏数据的持久化才是服务器的重点，必须要保证游戏的数据的完整性。数据库上，我选择了Mysql，事实上，我认为MongoDB更适合这类数据的存储，因为本身数据库就可以完全按照json格式原样存储到数据库中，但由于项目预期紧，我也不敢去尝试我没尝试过的方式，然而选择mysql，也不是什么坏事，mysql在游戏数据的处理也是相当给力，mongo虽好，却没有关系型数据库的事务管理。根据策划的需求，我将游戏数据分析完了之后，就基本理清了数据库表结构，在项目中我使用了Hibernate4作为ORM框架，相对于前面的版本，Hibernate4有一个很爽的功能，就是在JavaBean中添加一些注解，就能在构建Hibernate的session的时候，自动在数据库创建表，这样使得开发效率快了好几倍，Hibernate本身就已经够爽了，我认为至今没有什么ORM框架能跟它比，以前也用过MyBatis，个人感觉MyBatis更适合那种需要手动写很复杂的sql才用的，每一个查询都要写sql，在Hibernate中，简简单单几行代码，就能完成一个查询，一下贴出Hibernate工具类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateUtil</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> showMCHitLog = <span class="keyword">false</span>;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> Logger log = LoggerFactory.getLogger(HibernateUtil.class);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Class&lt;?&gt;, String&gt; beanKeyMap = <span class="keyword">new</span> HashMap&lt;Class&lt;?&gt;, String&gt;();</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> SessionFactory sessionFactory;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  sessionFactory = buildSessionFactory();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SessionFactory <span class="title">getSessionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> sessionFactory;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Throwable <span class="title">insert</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  session.beginTransaction();</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   session.save(o);</span><br><span class="line">   session.getTransaction().commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">   log.error(<span class="string">&quot;0要insert的数据&#123;&#125;&quot;</span>, o == <span class="keyword">null</span> ? <span class="string">&quot;null&quot;</span> : JSONObject</span><br><span class="line">     .fromObject(o).toString());</span><br><span class="line">   log.error(<span class="string">&quot;0保存出错&quot;</span>, e);</span><br><span class="line">   session.getTransaction().rollback();</span><br><span class="line">   <span class="keyword">return</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * FIXME 不要这样返回异常，没人会关系返回的异常。</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> o</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Throwable <span class="title">save</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  Transaction t = session.beginTransaction();</span><br><span class="line">  <span class="keyword">boolean</span> mcOk = <span class="keyword">false</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (o <span class="keyword">instanceof</span> MCSupport) &#123;</span><br><span class="line">    MCSupport s = (MCSupport) o;<span class="comment">// 需要对控制了的对象在第一次存库时调用MC.add</span></span><br><span class="line">    MC.update(o, s.getIdentifier());<span class="comment">// MC中控制了哪些类存缓存。</span></span><br><span class="line">    mcOk = <span class="keyword">true</span>;</span><br><span class="line">    session.update(o);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    session.saveOrUpdate(o);</span><br><span class="line">   &#125;</span><br><span class="line">   t.commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">   log.error(<span class="string">&quot;1要save的数据&#123;&#125;,&#123;&#125;&quot;</span>, o, o == <span class="keyword">null</span> ? <span class="string">&quot;null&quot;</span> : JSONObject</span><br><span class="line">     .fromObject(o).toString());</span><br><span class="line">   <span class="keyword">if</span> (mcOk) &#123;</span><br><span class="line">    log.error(<span class="string">&quot;MC保存成功后报错，可能是数据库条目丢失。&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   log.error(<span class="string">&quot;1保存出错&quot;</span>, e);</span><br><span class="line">   t.rollback();</span><br><span class="line">   <span class="keyword">return</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Throwable <span class="title">update</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  Transaction t = session.beginTransaction();</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (o <span class="keyword">instanceof</span> MCSupport) &#123;</span><br><span class="line">    MCSupport s = (MCSupport) o;<span class="comment">// 需要对控制了的对象在第一次存库时调用MC.add</span></span><br><span class="line">    MC.update(o, s.getIdentifier());<span class="comment">// MC中控制了哪些类存缓存。</span></span><br><span class="line">    session.update(o);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    session.update(o);</span><br><span class="line">   &#125;</span><br><span class="line">   t.commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">   log.error(<span class="string">&quot;1要update的数据&#123;&#125;,&#123;&#125;&quot;</span>, o, o == <span class="keyword">null</span> ? <span class="string">&quot;null&quot;</span> : JSONObject</span><br><span class="line">     .fromObject(o).toString());</span><br><span class="line">   log.error(<span class="string">&quot;1保存出错&quot;</span>, e);</span><br><span class="line">   t.rollback();</span><br><span class="line">   <span class="keyword">return</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">find</span><span class="params">(Class&lt;T&gt; t, <span class="keyword">long</span> id)</span> </span>&#123;</span><br><span class="line">  String keyField = getKeyField(t);</span><br><span class="line">  <span class="keyword">if</span> (keyField == <span class="keyword">null</span>) &#123;</span><br><span class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;类型&quot;</span> + t + <span class="string">&quot;没有标注主键&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!MC.cachedClass.contains(t)) &#123;</span><br><span class="line">   <span class="keyword">return</span> find(t, <span class="string">&quot;where &quot;</span> + keyField + <span class="string">&quot;=&quot;</span> + id, <span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  T ret = MC.get(t, id);</span><br><span class="line">  <span class="keyword">if</span> (ret == <span class="keyword">null</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (showMCHitLog)</span><br><span class="line">    log.info(<span class="string">&quot;MC未命中&#123;&#125;#&#123;&#125;&quot;</span>, t.getSimpleName(), id);</span><br><span class="line">   ret = find(t, <span class="string">&quot;where &quot;</span> + keyField + <span class="string">&quot;=&quot;</span> + id, <span class="keyword">false</span>);</span><br><span class="line">   <span class="keyword">if</span> (ret != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (showMCHitLog)</span><br><span class="line">     log.info(<span class="string">&quot;DB命中&#123;&#125;#&#123;&#125;&quot;</span>, t.getSimpleName(), id);</span><br><span class="line">    MC.add(ret, id);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (showMCHitLog)</span><br><span class="line">     log.info(<span class="string">&quot;DB未命中&#123;&#125;#&#123;&#125;&quot;</span>, t.getSimpleName(), id);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (showMCHitLog)</span><br><span class="line">    log.info(<span class="string">&quot;MC命中&#123;&#125;#&#123;&#125;&quot;</span>, t.getSimpleName(), id);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">find</span><span class="params">(Class&lt;T&gt; t, String where)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> find(t, where, <span class="keyword">true</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">find</span><span class="params">(Class&lt;T&gt; t, String where, <span class="keyword">boolean</span> checkMCControl)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (checkMCControl &amp;&amp; MC.cachedClass.contains(t)) &#123;</span><br><span class="line">   <span class="comment">// 请使用static &lt;T&gt; T find(Class&lt;T&gt; t,long id)</span></span><br><span class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> BaseException(<span class="string">&quot;由MC控制的类不能直接查询DB:&quot;</span> + t);</span><br><span class="line">  &#125;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  Transaction tr = session.beginTransaction();</span><br><span class="line">  T ret = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="comment">// FIXME 使用 session的get方法代替。</span></span><br><span class="line">   String hql = <span class="string">&quot;from &quot;</span> + t.getSimpleName() + <span class="string">&quot; &quot;</span> + where;</span><br><span class="line">   Query query = session.createQuery(hql);</span><br><span class="line"></span><br><span class="line">   ret = (T) query.uniqueResult();</span><br><span class="line">   tr.commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">   tr.rollback();</span><br><span class="line">   log.error(<span class="string">&quot;list fail for &#123;&#125; &#123;&#125;&quot;</span>, t, where);</span><br><span class="line">   log.error(<span class="string">&quot;list fail&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 通过指定key值来查询对应的对象</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> where</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">findByName</span><span class="params">(Class&lt;? extends MCSupport&gt; t, String name,</span></span></span><br><span class="line"><span class="function"><span class="params">   String where)</span> </span>&#123;</span><br><span class="line">  Class&lt;? extends MCSupport&gt; targetClz = t;<span class="comment">// .getClass();</span></span><br><span class="line">  String key = targetClz.getSimpleName() + <span class="string">&quot;:&quot;</span> + name;</span><br><span class="line">  Object id = MC.getValue(key);</span><br><span class="line">  T ret = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (id != <span class="keyword">null</span>) &#123;</span><br><span class="line">   log.info(<span class="string">&quot;id find in cache&quot;</span>);</span><br><span class="line">   ret = (T) find(targetClz, Long.parseLong((String) id));</span><br><span class="line">   <span class="keyword">return</span> ret;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   ret = (T) find(targetClz, where, <span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (ret == <span class="keyword">null</span>) &#123;</span><br><span class="line">   log.info(<span class="string">&quot;no record &#123;&#125;, &#123;&#125;&quot;</span>, key, where);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   MCSupport mc = (MCSupport) ret;</span><br><span class="line">   <span class="keyword">long</span> mcId = mc.getIdentifier();</span><br><span class="line">   log.info(<span class="string">&quot;found id from DB &#123;&#125;#&#123;&#125;&quot;</span>, targetClz.getSimpleName(), mcId);</span><br><span class="line">   MC.add(key, mcId);</span><br><span class="line">   ret = (T) find(targetClz, mcId);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> where</span></span><br><span class="line"><span class="comment">  *            例子： where uid&gt;100</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">list</span><span class="params">(Class&lt;T&gt; t, String where)</span> </span>&#123;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  Transaction tr = session.beginTransaction();</span><br><span class="line">  List&lt;T&gt; list = Collections.EMPTY_LIST;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   String hql = <span class="string">&quot;from &quot;</span> + t.getSimpleName() + <span class="string">&quot; &quot;</span> + where;</span><br><span class="line">   Query query = session.createQuery(hql);</span><br><span class="line"></span><br><span class="line">   list = query.list();</span><br><span class="line">   tr.commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">   tr.rollback();</span><br><span class="line">   log.error(<span class="string">&quot;list fail for &#123;&#125; &#123;&#125;&quot;</span>, t, where);</span><br><span class="line">   log.error(<span class="string">&quot;list fail&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> list;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SessionFactory <span class="title">buildSessionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  log.info(<span class="string">&quot;开始构建hibernate&quot;</span>);</span><br><span class="line">  String path = <span class="string">&quot;classpath*:spring-conf/applicationContext.xml&quot;</span>;</span><br><span class="line">  ApplicationContext ac = <span class="keyword">new</span> FileSystemXmlApplicationContext(path);</span><br><span class="line">  sessionFactory = (SessionFactory) ac.getBean(<span class="string">&quot;sessionFactory&quot;</span>);</span><br><span class="line">  log.info(<span class="string">&quot;结束构建hibernate&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> sessionFactory;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Throwable <span class="title">delete</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Session session = sessionFactory.getCurrentSession();</span><br><span class="line">  session.beginTransaction();</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (o <span class="keyword">instanceof</span> MCSupport) &#123;</span><br><span class="line">    MCSupport s = (MCSupport) o;<span class="comment">// 需要对控制了的对象在第一次存库时调用MC.add</span></span><br><span class="line">    MC.delete(o.getClass(), s.getIdentifier());<span class="comment">// MC中控制了哪些类存缓存。</span></span><br><span class="line">   &#125;</span><br><span class="line">   session.delete(o);</span><br><span class="line">   session.getTransaction().commit();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">   log.error(<span class="string">&quot;要删除的数据&#123;&#125;&quot;</span>, o);</span><br><span class="line">   log.error(<span class="string">&quot;出错&quot;</span>, e);</span><br><span class="line">   session.getTransaction().rollback();</span><br><span class="line">   <span class="keyword">return</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>其中HibernateUtil中也用了SpyMemcached来做一些结果集的缓存，当然项目中也有其他地方用到了Memcache来做缓存。最开始的时候，我还纠结要不要把每个玩家的整个游戏数据（GameData）缓存起来，这样读起来会更快，但是我想了想，如果我把整个游戏数据缓存起来，那么每次存档，我都要把缓存中数据取出来，把要修改的那部分数据从数据库查询出来，再进行修改，再放回去，这样的话，每次存档就会多一次数据库操作，然而再想想，整个游戏中，读档只有进游戏的时候需要，而存档是随时都需要，权衡之下，还不如不做缓存，做了缓存反而需要更多数据库的操作。<br> 缓存部分代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对SpyMemcached Client的二次封装,提供常用的Get/GetBulk/Set/Delete/Incr/Decr函数的同步与异步操作封装.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 未提供封装的函数可直接调用getClient()取出Spy的原版MemcachedClient来使用.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 何金成</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MemcachedCRUD</span> <span class="keyword">implements</span> <span class="title">DisposableBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(MemcachedCRUD.class);</span><br><span class="line"> <span class="keyword">private</span> MemcachedClient memcachedClient;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">long</span> shutdownTimeout = <span class="number">2500</span>;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">long</span> updateTimeout = <span class="number">2500</span>;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> MemcachedCRUD inst;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MemcachedCRUD <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (inst == <span class="keyword">null</span>) &#123;</span><br><span class="line">   inst = <span class="keyword">new</span> MemcachedCRUD();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> inst;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Test Code</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  MemcachedCRUD.getInstance().set(<span class="string">&quot;test&quot;</span>, <span class="number">0</span>, <span class="string">&quot;testVal&quot;</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">   <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">      Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     String val = MemcachedCRUD.getInstance().get(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">     Long a = MemcachedCRUD.getInstance().&lt;Long&gt; get(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">     System.out.println(a);</span><br><span class="line">     System.out.println(val);</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;).start();</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="title">MemcachedCRUD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  String cacheServer = GameInit.cfg.get(<span class="string">&quot;cacheServer&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (cacheServer == <span class="keyword">null</span>) &#123;</span><br><span class="line">   cacheServer = <span class="string">&quot;localhost:11211&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// String cacheServer = &quot;123.57.211.130:11211&quot;;</span></span><br><span class="line">  String host = cacheServer.split(<span class="string">&quot;:&quot;</span>)[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">int</span> port = Integer.parseInt(cacheServer.split(<span class="string">&quot;:&quot;</span>)[<span class="number">1</span>]);</span><br><span class="line">  List&lt;InetSocketAddress&gt; addrs = <span class="keyword">new</span> ArrayList&lt;InetSocketAddress&gt;();</span><br><span class="line">  addrs.add(<span class="keyword">new</span> InetSocketAddress(host, port));</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   ConnectionFactoryBuilder builder = <span class="keyword">new</span> ConnectionFactoryBuilder();</span><br><span class="line">   builder.setProtocol(Protocol.BINARY);</span><br><span class="line">   builder.setOpTimeout(<span class="number">1000</span>);</span><br><span class="line">   builder.setDaemon(<span class="keyword">true</span>);</span><br><span class="line">   builder.setOpQueueMaxBlockTime(<span class="number">1000</span>);</span><br><span class="line">   builder.setMaxReconnectDelay(<span class="number">1000</span>);</span><br><span class="line">   builder.setTimeoutExceptionThreshold(<span class="number">1998</span>);</span><br><span class="line">   builder.setFailureMode(FailureMode.Retry);</span><br><span class="line">   builder.setHashAlg(DefaultHashAlgorithm.KETAMA_HASH);</span><br><span class="line">   builder.setLocatorType(Locator.CONSISTENT);</span><br><span class="line">   builder.setUseNagleAlgorithm(<span class="keyword">false</span>);</span><br><span class="line">   memcachedClient = <span class="keyword">new</span> MemcachedClient(builder.build(), addrs);</span><br><span class="line">   logger.info(<span class="string">&quot;Memcached at &#123;&#125;:&#123;&#125;&quot;</span>, host, port);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Get方法, 转换结果类型并屏蔽异常, 仅返回Null.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> (T) memcachedClient.get(key);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">   handleException(e, key);</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 异步Set方法, 不考虑执行结果.</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> expiredTime</span></span><br><span class="line"><span class="comment">  *            以秒过期时间，0表示没有延迟，如果exptime大于30天，Memcached将使用它作为UNIX时间戳过期</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, <span class="keyword">int</span> expiredTime, Object value)</span> </span>&#123;</span><br><span class="line">  memcachedClient.set(key, expiredTime, value);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 安全的Set方法, 保证在updateTimeout秒内返回执行结果, 否则返回false并取消操作.</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> expiredTime</span></span><br><span class="line"><span class="comment">  *            以秒过期时间，0表示没有延迟，如果exptime大于30天，Memcached将使用它作为UNIX时间戳过期</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">safeSet</span><span class="params">(String key, <span class="keyword">int</span> expiration, Object value)</span> </span>&#123;</span><br><span class="line">  Future&lt;Boolean&gt; future = memcachedClient.set(key, expiration, value);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> future.get(updateTimeout, TimeUnit.MILLISECONDS);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">   future.cancel(<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 异步 Delete方法, 不考虑执行结果.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">  memcachedClient.delete(key);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 安全的Delete方法, 保证在updateTimeout秒内返回执行结果, 否则返回false并取消操作.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">safeDelete</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">  Future&lt;Boolean&gt; future = memcachedClient.delete(key);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> future.get(updateTimeout, TimeUnit.MILLISECONDS);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">   future.cancel(<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="游戏安全"><a href="#游戏安全" class="headerlink" title="游戏安全"></a>游戏安全</h3><p>首先是数据传输的安全问题：当我们完成了接口对接之后，就会考虑一个问题，当别人进行抓包之后，就能很轻松的知道服务器和客户端传输的数据格式，这样的话，不说服务器攻击，至少会有人利用这些接口做出一大批外挂，本身我们加上弱联网就是为了杜绝作弊现象，于是，我们对传输消息做了加密，先做XXTea加密，再做Base64加密，用约定好的秘钥，进行加密解密，进行消息收发。再一个就是支付验证的安全问题，现在有人能破解内购，就是利用支付之后断网，然后模拟返回结果为true，破解内购。我们做了支付验证，在完成支付之后，必须到后台查询订单状态，状态为完成才能获得购买的物品，支付我之前也是没有做过，一点点摸索的。代码就不贴了，涉及到业务。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文章只为了记录这款弱联网游戏的后台开发历程，可能之后还会遇到很多的问题，问题都是在摸索中解决的，我还需要了解更多关于netty性能方面知识。以上代码只是项目中的部分代码，并不涉及业务部分。分享出来也是给大家一个思路，或是直接拿去用，都是可以的，因为自己踩过一些坑，所以希望将这些记录下来，下次不能踩同样的坑。到目前为止，这款游戏也经过了大概半个多月的时间，到此作为记录，作为经验分享，欢迎交流探讨。我要参与的下一款游戏是长连接的SLG，到时候我应该还会面临更多的挑战，加油！</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/wechat_pay.jpg" alt="Henry He 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://www.hjcenry.com/res/img/alipay.jpg" alt="Henry He 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.hjcenry.com/res/img/wx.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 游戏服务器</a>
+              <a href="/tags/%E5%BC%B1%E8%81%94%E7%BD%91/" rel="tag"># 弱联网</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/17/Java%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%84%9F%E6%82%9F%E7%AF%87/" rel="prev" title="Java游戏服务器成长之路——感悟篇">
+      <i class="fa fa-chevron-left"></i> Java游戏服务器成长之路——感悟篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/17/%E6%88%91%E7%9A%84Linux%E7%97%85%E6%AF%92%E8%BF%BD%E8%B8%AA%E8%AE%B0%E5%BD%95/" rel="next" title="我的Linux病毒追踪记录">
+      我的Linux病毒追踪记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS" sid=""></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E6%8B%AC"><span class="nav-number">2.</span> <span class="nav-text">概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">逻辑处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">4.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8"><span class="nav-number">5.</span> <span class="nav-text">游戏安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Henry He"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Henry He</p>
+  <div class="site-description" itemprop="description">我们不生产代码，我们只是API的搬运工</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hjcenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hjcenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC9EM174qUGvIm8uQHILXE3Q" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC9EM174qUGvIm8uQHILXE3Q" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hejincheng1209@163.com" title="E-Mail → mailto:hejincheng1209@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/15286724" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;15286724" rel="noopener" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/2996874513/profile?topnav=1&wvr=6&is_all=1" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;2996874513&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43495590" title="https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_43495590" rel="noopener" target="_blank">周piaopiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baitanwa.com/" title="https:&#x2F;&#x2F;www.baitanwa.com" rel="noopener" target="_blank">泽北大佬</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备2020034953号 </a>
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" rel="noopener" target="_blank">1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry He</span>
+
+
+  <div style="float:right;display:inline-block;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 20px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="float:right;display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;">
+      <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p>
+    </a>
+  </div>
+
+  <!-- 网站域名公安备案 -->
+  <!--
+  <div style="width:600px;margin:0 auto; padding:20px 0;">
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502042351" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+      <img src="https://www.hjcenry.com/res/img/beianicon.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502042351号</p></a><p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京ICP备2020034953号</p>
+  </div>
+  -->
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz","app_key":"77GsyoUfVcOoIueBsMYv2PoP","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+
+      <script src="/js/live2d/autoload.js"></script>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6vdofc43qnpkj50mghb80jws0rjhfjwb.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyv4Jfx7D';
+    var conf = '09034f3bb4af424e1d479cd8cfc7de8a';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>
