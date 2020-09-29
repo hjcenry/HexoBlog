@@ -35,8 +35,10 @@ hexo.extend.filter.register('theme_inject', injects => {
       </a>
     {% else %}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
-        <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>
-<!--        <span id = "{{ page.title }}" class = "cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>-->
+<!--        <span id="sourceId::{{ post.title }}" class="cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentCount"></span>-->
+      <span id = "sourceId::{{ post.title }}" class = "cy_cmt_count" ></span>
+  <script id="cy_cmt_num" src="https://cy-cdn.kuaizhan.com/upload/plugins/plugins.list.count.js?clientId=cyv4Jfx7D">
+  </script>
       </a>
     {% endif %}
 <!--    <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">-->

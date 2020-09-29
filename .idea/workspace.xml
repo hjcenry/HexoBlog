@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="" />
+    <list default="true" id="d97a8090-311d-4f1f-90c8-6e8086e02d20" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" beforeDir="false" afterPath="$PROJECT_DIR$/themes/next-reload/scripts/filters/comment/changyan.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +39,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
-      <workItem from="1601353010092" duration="2989000" />
+      <workItem from="1601353010092" duration="3272000" />
     </task>
     <servers />
   </component>
