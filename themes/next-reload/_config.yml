@@ -701,6 +701,7 @@ leancloud_visitors:
   app_id: DQrsykJ4iGseNRFW3YLghDqk-gzGzoHsz
   app_key: 77GsyoUfVcOoIueBsMYv2PoP
   # Required for apps from CN region
+#  busuanzi_value_page_pv
   server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
