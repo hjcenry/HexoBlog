@@ -50,7 +50,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
-      <workItem from="1601353010092" duration="8206000" />
+      <workItem from="1601353010092" duration="9269000" />
+      <workItem from="1601372274072" duration="449000" />
     </task>
     <servers />
   </component>
@@ -72,7 +73,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -103,9 +106,9 @@
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
     <state x="-1739" y="134" key="Vcs.Push.Dialog.v2/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601367960859" />
-    <state x="-1284" y="258" width="827" height="534" key="find.popup" timestamp="1601370850989">
+    <state x="-1284" y="258" width="827" height="534" key="find.popup" timestamp="1601372794302">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
-    <state x="-1284" y="258" width="827" height="534" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601370850989" />
+    <state x="-1284" y="258" width="827" height="534" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601372794302" />
   </component>
 </project>
