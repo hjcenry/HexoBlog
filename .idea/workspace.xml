@@ -108,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601353008780</updated>
       <workItem from="1601353010092" duration="9269000" />
-      <workItem from="1601372274072" duration="1308000" />
+      <workItem from="1601372274072" duration="2053000" />
     </task>
     <servers />
   </component>
@@ -139,10 +139,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1828" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1601366811438">
+    <state x="-1828" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1601374101637">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
-    <state x="-1828" y="92" width="1736" height="866" key="DiffContextDialog/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601366811438" />
+    <state x="-1828" y="92" width="1736" height="866" key="DiffContextDialog/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601374101637" />
     <state width="1899" height="285" key="GridCell.Tab.0.bottom" timestamp="1601364976800">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
@@ -163,9 +163,9 @@
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
     <state x="-1739" y="134" key="Vcs.Push.Dialog.v2/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601367960859" />
-    <state x="-1284" y="66" width="1187" height="726" key="find.popup" timestamp="1601373563618">
+    <state x="-1284" y="66" width="1187" height="726" key="find.popup" timestamp="1601374269465">
       <screen x="-1920" y="0" width="1920" height="1050" />
     </state>
-    <state x="-1284" y="66" width="1187" height="726" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601373563618" />
+    <state x="-1284" y="66" width="1187" height="726" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1601374269465" />
   </component>
 </project>
